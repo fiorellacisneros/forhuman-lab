@@ -544,6 +544,7 @@ const FLOWMCP_SECTIONS = [
   { id: "flowmcp-inicio", label: "Inicio" },
   { id: "flowmcp-problema", label: "Problema" },
   { id: "flowmcp-como-funciona", label: "Cómo funciona" },
+  { id: "flowmcp-hablar-agente", label: "Hablarle a tu agente" },
   { id: "flowmcp-seguridad", label: "Seguridad" },
   { id: "flowmcp-agencias", label: "Agencias" },
 ];
@@ -1634,10 +1635,19 @@ const TERMINAL_ACCENT: Record<string, string> = {
 
 function TerminalLine({ line }: { line: string }) {
   const tokens = line.split(/(\s+)/);
+  let inComment = false;
   return (
     <>
       {tokens.map((token, i) => {
         if (/^\s+$/.test(token)) return <span key={i}>{token}</span>;
+        if (inComment || token.startsWith("//")) {
+          inComment = true;
+          return (
+            <span key={i} style={{ color: "rgba(247,247,247,0.35)", fontStyle: "italic" }}>
+              {token}
+            </span>
+          );
+        }
         const isFirst = tokens.slice(0, i).every((t) => /^\s+$/.test(t));
         let color = "rgba(247,247,247,0.88)";
         let fontWeight = 400;
@@ -1715,8 +1725,8 @@ function TerminalSnippet({ lines, style }: { lines: string[]; style?: CSSPropert
 
 const FLOWMCP_INSTALL_LINES = [
   "npm install -g @forhuman/flowmcp",
-  "flowmcp connect <tu-org>",
-  "flowmcp install <tu-org> claude-code",
+  "flowmcp connect acme  // cambia acme por el nombre de tu proyecto",
+  "flowmcp install acme claude-code  // o claude-desktop, cursor, chatgpt, codex",
 ];
 
 const FLOWMCP_MICRO_FEATURES = ["JSON-first para agentes", "Diagnóstico incluido", "Bilingüe (ES/EN)", "Open source · MIT"];
@@ -1728,7 +1738,7 @@ function FlowmcpBody() {
     <>
       <section id="flowmcp-inicio" style={{ padding: "clamp(32px, 8vw, 64px) 64px clamp(24px, 6vw, 56px) 64px", display: "flex", flexDirection: "column", gap: 24 }}>
         <Reveal>
-          <Tag>CLI de código abierto · MIT License</Tag>
+          <Tag>CLI de código abierto</Tag>
         </Reveal>
         <Reveal delay={0.06}>
           <h1 style={{ font: "400 clamp(34px, 9vw, 56px)/1.05 'Manrope',sans-serif", letterSpacing: "-0.03em", color: "var(--black)", margin: 0, maxWidth: 820 }}>
@@ -1865,6 +1875,36 @@ function FlowmcpBody() {
           </div>
         </Reveal>
       </section>
+      <section id="flowmcp-hablar-agente" style={{ background: "var(--gray-100)", padding: "clamp(32px, 8vw, 64px) 64px", display: "flex", flexDirection: "column", gap: 32 }}>
+        <Reveal>
+          <Header
+            kicker="Cómo hablarle a tu agente"
+            title="Cada sitio queda con su propio nombre de conector"
+            subtitle="Al conectar un org, flowmcp lo registra como webflow-<org>. Si tienes varios sitios conectados, díselo a tu agente explícitamente para que no haya ambigüedad sobre a cuál se está conectando."
+            align="left"
+          />
+        </Reveal>
+        <Reveal delay={0.1}>
+          <div
+            style={{
+              background: "var(--black)",
+              borderRadius: "var(--radius-md)",
+              padding: 28,
+              maxWidth: 620,
+              borderLeft: "3px solid var(--yellow)",
+            }}
+          >
+            <p style={{ font: "italic 300 18px/1.5 'Work Sans',sans-serif", color: "var(--white)", margin: 0 }}>
+              "Usa el conector webflow-acme y dame la lista de páginas."
+            </p>
+          </div>
+        </Reveal>
+        <Reveal delay={0.16}>
+          <p style={{ font: "300 15px/1.6 'Work Sans',sans-serif", color: "var(--gray-500)", maxWidth: 560, margin: 0 }}>
+            Así nunca hay riesgo de mezclar clientes, aunque tengas varios sitios de Webflow conectados al mismo agente.
+          </p>
+        </Reveal>
+      </section>
       <section id="flowmcp-seguridad" style={{ background: "var(--black)", padding: "clamp(32px, 8vw, 64px) 64px", display: "flex", flexDirection: "column", gap: 20 }}>
         <Reveal>
           <Header
@@ -1887,7 +1927,19 @@ function FlowmcpBody() {
           />
         </Reveal>
       </section>
-      <section id="flowmcp-cta" style={{ background: "var(--black)", padding: "clamp(32px, 8vw, 64px) 64px", display: "flex", flexDirection: "column", alignItems: "center", gap: 24 }}>
+      <section
+        id="flowmcp-cta"
+        style={{
+          background: "var(--black)",
+          borderRadius: "var(--radius-md)",
+          margin: "0 clamp(20px, 6vw, 64px) clamp(40px, 8vw, 80px)",
+          padding: "clamp(32px, 8vw, 64px) 40px",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: 24,
+        }}
+      >
         <Reveal style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8, textAlign: "center" }}>
           <h2 style={{ font: "400 clamp(26px, 6.5vw, 40px)/1.15 'Manrope',sans-serif", letterSpacing: "-0.03em", color: "var(--white)", margin: 0 }}>
             Instala flowmcp
@@ -1904,14 +1956,6 @@ function FlowmcpBody() {
             >
               Ver en GitHub
             </PrincipalButton>
-            <TextButton
-              href="https://www.forhuman.studio/"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{ color: "var(--yellow)" }}
-            >
-              Built by forhuman
-            </TextButton>
           </div>
         </Reveal>
       </section>
@@ -2654,7 +2698,7 @@ export function MacDesktopExperience() {
   const windowTitles: Record<Exclude<AppId, null>, string> = {
     figma: "superHuman — Figma Camp",
     webflow: "superHuman — Webflow Camp",
-    flowmcp: "flowmcp — Webflow para tu agente de IA",
+    flowmcp: "flowmcp — Conecta múltiples sitios de Webflow a tu agente de IA",
     finder: "Finder — forHuman",
     photos: "Fotos",
     notas: "Manifiesto.txt",
