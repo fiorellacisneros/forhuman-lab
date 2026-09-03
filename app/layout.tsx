@@ -1,0 +1,54 @@
+import type { Metadata } from "next";
+import { Manrope, Work_Sans, Inconsolata, Reenie_Beanie } from "next/font/google";
+import "./globals.css";
+import { AgentationProvider } from "@/components/AgentationProvider";
+
+const manrope = Manrope({
+  subsets: ["latin"],
+  variable: "--font-display",
+  display: "swap",
+});
+
+const workSans = Work_Sans({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600"],
+  variable: "--font-body",
+  display: "swap",
+});
+
+const inconsolata = Inconsolata({
+  subsets: ["latin"],
+  variable: "--font-mono",
+  display: "swap",
+});
+
+const reenieBeanie = Reenie_Beanie({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-accent",
+  display: "swap",
+});
+
+export const metadata: Metadata = {
+  title: "superHuman School",
+  description:
+    "La escuela de forHuman Studio. Webflow Camp y Figma Camp — construye sitios web profesionales sin código.",
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html
+      lang="es"
+      className={`${manrope.variable} ${workSans.variable} ${inconsolata.variable} ${reenieBeanie.variable}`}
+    >
+      <body className="font-[family-name:var(--font-body)] antialiased">
+        {children}
+        <AgentationProvider />
+      </body>
+    </html>
+  );
+}

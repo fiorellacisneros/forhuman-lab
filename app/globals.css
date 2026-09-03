@@ -1,0 +1,215 @@
+@import "tailwindcss";
+
+:root {
+  /* SuperHuman School brand palette */
+  --black: #0d0d0d;
+  --white: #f7f7f7;
+  --yellow: #ffbe00;
+  --blue: #012edc;
+  --blue-light: #dee3fb;
+  --blue-hover: #5b69d1;
+  --gray-800: #262626;
+  --gray-600: #595959;
+  --gray-500: #919191;
+  --gray-300: #cccccc;
+  --gray-100: #f4f4f4;
+  --pure-white: #ffffff;
+  --pure-black: #000000;
+  --border-subtle: rgba(13, 13, 13, 0.12);
+  --border-dark: rgba(255, 255, 255, 0.2);
+
+  --radius-sm: 4px;
+  --radius-md: 16px;
+  --radius-full: 999px;
+
+  --background: var(--white);
+  --foreground: var(--black);
+  --muted: var(--gray-500);
+  --accent: var(--blue);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --font-sans: var(--font-body);
+  --font-display: var(--font-display);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+@keyframes shs-materialize {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0);
+  }
+}
+
+.shs-app-window {
+  animation: shs-materialize 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes shs-dematerialize {
+  from {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.96);
+    filter: blur(6px);
+  }
+}
+
+.shs-app-window-closing {
+  animation: shs-dematerialize 0.22s cubic-bezier(0.4, 0, 1, 1) forwards;
+  pointer-events: none;
+}
+
+.shs-dock-icon {
+  transform-origin: bottom center;
+  will-change: transform;
+}
+
+.pin-spacer {
+  background: var(--black);
+}
+
+.shs-scroll::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+.shs-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.shs-scroll::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.25);
+  background-clip: padding-box;
+  border: 2px solid transparent;
+  border-radius: 8px;
+}
+.shs-scroll-dark::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.55);
+}
+
+@keyframes shs-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes shs-shimmer {
+  from {
+    background-position: 150% 0;
+  }
+  to {
+    background-position: -50% 0;
+  }
+}
+
+.shs-ios-select {
+  color: inherit;
+  isolation: isolate;
+  background: rgba(255, 190, 0, 0.18);
+  margin: 0 0.2em;
+  padding: 0.04em 0.18em;
+  display: inline;
+  position: relative;
+  box-shadow: inset 2px 0 var(--yellow), inset -2px 0 var(--yellow);
+}
+
+.shs-ios-select-blue {
+  color: inherit;
+  isolation: isolate;
+  background: rgba(1, 46, 220, 0.1);
+  margin: 0 0.2em;
+  padding: 0.04em 0.18em;
+  display: inline;
+  position: relative;
+  box-shadow: inset 2px 0 var(--blue), inset -2px 0 var(--blue);
+}
+
+
+.shs-scroll {
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+@media (max-width: 859px) {
+  .shs-scroll > section,
+  .shs-scroll > footer,
+  .shs-scroll > div {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  .shs-inner-pad {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+  .shs-scroll h1,
+  .shs-scroll h2,
+  .shs-scroll p,
+  .shs-scroll span {
+    max-width: 100% !important;
+    overflow-wrap: break-word !important;
+    word-break: break-word !important;
+  }
+  .shs-motivos-row {
+    flex-direction: column !important;
+  }
+  .shs-mentores-row {
+    flex-direction: column !important;
+  }
+  .shs-mentores-row > div {
+    width: 100% !important;
+    flex-wrap: wrap !important;
+  }
+  .shs-mentores-row > div:first-child {
+    flex: none !important;
+  }
+  .shs-mentores-row > div:nth-child(2) > div {
+    width: 100% !important;
+  }
+  .shs-mentores-row > div:nth-child(2) > div > div {
+    width: 100% !important;
+  }
+  #cifras {
+    gap: 32px !important;
+  }
+  .shs-desktop-only {
+    display: none !important;
+  }
+  .shs-principal-btn,
+  .shs-text-btn,
+  .shs-perk-btn {
+    font-size: 16px !important;
+  }
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+  .shs-app-window {
+    animation: none;
+  }
+  .shs-app-window,
+  .shs-dock-icon {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
