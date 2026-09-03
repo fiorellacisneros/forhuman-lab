@@ -234,10 +234,11 @@ En pantallas de celular, todo el mismo contenido se muestra dentro de un marco d
 - 2026-09-02: Se rediseñó el **footer** (pie de página) que aparece al final de Figma Camp, Webflow Camp, Finder y flowmcp: pasó de fondo blanco a **fondo negro**, con el logo grande de **forHuman** (nuevo, en blanco) en vez del logo de superHuman School, y se ajustaron los colores de los links, el formulario de suscripción y el botón "Enviar" (ahora amarillo) para que se vean bien sobre el fondo oscuro. El logo nuevo está en `public/superhuman/logo-forhuman-footer.svg`.
 - 2026-09-02: Se le dio más vida al bloque de terminal (donde se muestran los comandos para instalar flowmcp): ahora tiene una barra superior con los 3 puntitos de colores de una ventana de Mac (rojo, amarillo, verde) y el texto "zsh — flowmcp", y los comandos tienen colores tipo editor de código (el comando principal en color, las banderas como `-g` en verde, los valores entre `<>` en celeste).
 - 2026-09-02: Se corrigió el botón de texto con flecha (usado en "Ver npm", "Ver beneficios", etc. en todo el sitio): antes, al pasar el mouse, la línea de subrayado se extendía debajo de todo el botón incluyendo el ícono de flecha; ahora la línea solo cubre la palabra de texto.
+- 2026-09-02: La carpeta de imágenes del proyecto se renombró de `public/superhuman/` a `public/forhuman-lab/`, para que coincida con el nuevo nombre del sitio ("forHuman Lab"). Todas las imágenes son las mismas, solo cambió la carpeta donde viven — no afecta nada visualmente.
 
 ## How to Customize
 
 - **Cambiar precios o beneficios de los cursos:** en `components/MacDesktopExperience.tsx`, busca `FigmaBody` o `WebflowBody` y edita los valores de `price`, `oldPrice` o las listas de beneficios.
 - **Cambiar textos generales:** están directamente en `components/MacDesktopExperience.tsx`, organizados por sección (igual que se ven en pantalla).
 - **Cambiar colores de marca:** en `app/globals.css`, en la sección de tokens (`--black`, `--white`, `--yellow`, `--blue`, etc.).
-- **Agregar fotos reales:** reemplaza los archivos en `public/superhuman/` o dime qué fotos quieres usar y las agrego por ti.
+- **Agregar fotos reales:** reemplaza los archivos en `public/forhuman-lab/` o dime qué fotos quieres usar y las agrego por ti.

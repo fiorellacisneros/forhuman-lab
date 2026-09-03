@@ -4,7 +4,7 @@ export function Loader({ size = 28, style }: { size?: number; style?: CSSPropert
   return (
     // eslint-disable-next-line @next/next/no-img-element
     <img
-      src="/superhuman/beachball.svg"
+      src="/forhuman-lab/beachball.svg"
       width={size}
       height={size}
       alt="Cargando"

@@ -18,8 +18,8 @@ type HoverId = "figma" | "webflow" | "flowmcp" | "photos" | "finder" | "notas" |
 type WhatsAppContact = { name: string; firstName: string; phone: string; photo: string };
 
 const WHATSAPP_CONTACTS: WhatsAppContact[] = [
-  { name: "Fio Cisneros", firstName: "Fio", phone: "51936098806", photo: "/superhuman/fio-cisneros.jpg" },
-  { name: "Dani Rosas", firstName: "Dani", phone: "51937845233", photo: "/superhuman/mentor-1.jpg" },
+  { name: "Fio Cisneros", firstName: "Fio", phone: "51936098806", photo: "/forhuman-lab/fio-cisneros.jpg" },
+  { name: "Dani Rosas", firstName: "Dani", phone: "51937845233", photo: "/forhuman-lab/mentor-1.jpg" },
 ];
 
 function beginDrag(
@@ -248,9 +248,9 @@ const WEBFLOW_MOTIVOS: { title: string; body: string; icon: MotivoIconKind }[] =
 ];
 
 const FIGMA_PERKS = [
-  { variant: "blue" as const, heading: "Comunidad forHuman", note: "*Acceso de por vida", body: "Únete a la comunidad privada de estudiantes y egresados de forHuman Studio, para compartir proyectos y resolver dudas.", icon: "/superhuman/icon-figma.svg", iconKind: "color" as const },
-  { variant: "light" as const, heading: "Relume Pro — 2 meses gratis", note: "*Durante el curso", body: "Acceso completo a la librería de componentes profesionales. Webflow + Figma integrados. Construye 10x más rápido con componentes pre-diseñados y workflows optimizados.", icon: "/superhuman/icon-relume.png", iconKind: "color" as const },
-  { variant: "yellow" as const, heading: "Merch oficial", note: "*Válido para Perú", body: "Participa de las actividades que tendremos presenciales y llévate merch oficial de superHuman School.", icon: "/superhuman/logo-superhuman.svg", iconKind: "mask" as const },
+  { variant: "blue" as const, heading: "Comunidad forHuman", note: "*Acceso de por vida", body: "Únete a la comunidad privada de estudiantes y egresados de forHuman Studio, para compartir proyectos y resolver dudas.", icon: "/forhuman-lab/icon-figma.svg", iconKind: "color" as const },
+  { variant: "light" as const, heading: "Relume Pro — 2 meses gratis", note: "*Durante el curso", body: "Acceso completo a la librería de componentes profesionales. Webflow + Figma integrados. Construye 10x más rápido con componentes pre-diseñados y workflows optimizados.", icon: "/forhuman-lab/icon-relume.png", iconKind: "color" as const },
+  { variant: "yellow" as const, heading: "Merch oficial", note: "*Válido para Perú", body: "Participa de las actividades que tendremos presenciales y llévate merch oficial de superHuman School.", icon: "/forhuman-lab/logo-superhuman.svg", iconKind: "mask" as const },
 ];
 
 const FIGMA_FAQ = [
@@ -276,9 +276,9 @@ const FIGMA_FAQ = [
 ];
 
 const WEBFLOW_PERKS = [
-  { variant: "blue" as const, heading: "Figma Educator", note: "*Solo proyectos personales", body: "Accede gratis al plan Professional de Figma como participante del camp.", icon: "/superhuman/icon-figma.svg", iconKind: "color" as const },
-  { variant: "light" as const, heading: "Relume Pro — 2 meses gratis", note: "*Durante el curso", body: "Acceso completo a la librería de componentes profesionales. Webflow + Figma integrados. Construye 10x más rápido con componentes pre-diseñados y workflows optimizados.", icon: "/superhuman/icon-relume.png", iconKind: "color" as const },
-  { variant: "yellow" as const, heading: "Merch oficial", note: "*Válido para Perú", body: "Participa de las actividades que tendremos presenciales y llévate merch oficial.", icon: "/superhuman/icon-webflow-mark.svg", iconKind: "mask" as const },
+  { variant: "blue" as const, heading: "Figma Educator", note: "*Solo proyectos personales", body: "Accede gratis al plan Professional de Figma como participante del camp.", icon: "/forhuman-lab/icon-figma.svg", iconKind: "color" as const },
+  { variant: "light" as const, heading: "Relume Pro — 2 meses gratis", note: "*Durante el curso", body: "Acceso completo a la librería de componentes profesionales. Webflow + Figma integrados. Construye 10x más rápido con componentes pre-diseñados y workflows optimizados.", icon: "/forhuman-lab/icon-relume.png", iconKind: "color" as const },
+  { variant: "yellow" as const, heading: "Merch oficial", note: "*Válido para Perú", body: "Participa de las actividades que tendremos presenciales y llévate merch oficial.", icon: "/forhuman-lab/icon-webflow-mark.svg", iconKind: "mask" as const },
 ];
 
 const WEBFLOW_FAQ = [
@@ -303,7 +303,7 @@ const WEBFLOW_FAQ = [
   },
 ];
 
-const REAL_PHOTOS = ["/superhuman/mentor-1.jpg", "/superhuman/mentor-2.jpg", "/superhuman/fio-cisneros.jpg"];
+const REAL_PHOTOS = ["/forhuman-lab/mentor-1.jpg", "/forhuman-lab/mentor-2.jpg", "/forhuman-lab/fio-cisneros.jpg"];
 
 function PhotoSlot({ index }: { index: number }) {
   const src = REAL_PHOTOS[index % REAL_PHOTOS.length];
@@ -338,9 +338,9 @@ function TrafficLights({ onClose, hovered, onHoverChange }: { onClose: () => voi
   );
   return (
     <div style={{ display: "flex", gap: 8 }} onMouseEnter={() => onHoverChange(true)} onMouseLeave={() => onHoverChange(false)}>
-      {dot("#FF5C60", <div style={{ width: 11, height: 11, background: "url(/superhuman/icon-traffic-close.svg) center / contain no-repeat" }} />, onClose)}
-      {dot("#FAC800", <div style={{ width: 11, height: 2, background: "url(/superhuman/icon-traffic-minimize.svg) center / contain no-repeat" }} />)}
-      {dot("#35C759", <div style={{ width: 11, height: 11, background: "url(/superhuman/icon-traffic-maximize.svg) center / contain no-repeat" }} />)}
+      {dot("#FF5C60", <div style={{ width: 11, height: 11, background: "url(/forhuman-lab/icon-traffic-close.svg) center / contain no-repeat" }} />, onClose)}
+      {dot("#FAC800", <div style={{ width: 11, height: 2, background: "url(/forhuman-lab/icon-traffic-minimize.svg) center / contain no-repeat" }} />)}
+      {dot("#35C759", <div style={{ width: 11, height: 11, background: "url(/forhuman-lab/icon-traffic-maximize.svg) center / contain no-repeat" }} />)}
     </div>
   );
 }
@@ -436,8 +436,8 @@ function WindowChrome({
                   width: 19,
                   height: 15,
                   backgroundColor: titleColor,
-                  WebkitMaskImage: "url(/superhuman/icon-sidebar-toggle.svg)",
-                  maskImage: "url(/superhuman/icon-sidebar-toggle.svg)",
+                  WebkitMaskImage: "url(/forhuman-lab/icon-sidebar-toggle.svg)",
+                  maskImage: "url(/forhuman-lab/icon-sidebar-toggle.svg)",
                   WebkitMaskSize: "contain",
                   maskSize: "contain",
                   WebkitMaskRepeat: "no-repeat",
@@ -578,9 +578,9 @@ const WEBFLOW_TESTIMONIALS = [
 ];
 
 const FOTOS_SECTIONS = [
-  { id: "favoritos", label: "Favoritos", icon: "/superhuman/icon-favoritos.svg" },
-  { id: "mascotas", label: "Mascotas", icon: "/superhuman/icon-mascotas.svg" },
-  { id: "recientes", label: "Reciente", icon: "/superhuman/icon-reciente.svg" },
+  { id: "favoritos", label: "Favoritos", icon: "/forhuman-lab/icon-favoritos.svg" },
+  { id: "mascotas", label: "Mascotas", icon: "/forhuman-lab/icon-mascotas.svg" },
+  { id: "recientes", label: "Reciente", icon: "/forhuman-lab/icon-reciente.svg" },
 ];
 
 function AppSidebar({
@@ -637,8 +637,8 @@ function AppSidebar({
                     height: 14,
                     flexShrink: 0,
                     backgroundColor: "#0078F0",
-                    WebkitMaskImage: `url(${s.icon ?? "/superhuman/icon-doc.svg"})`,
-                    maskImage: `url(${s.icon ?? "/superhuman/icon-doc.svg"})`,
+                    WebkitMaskImage: `url(${s.icon ?? "/forhuman-lab/icon-doc.svg"})`,
+                    maskImage: `url(${s.icon ?? "/forhuman-lab/icon-doc.svg"})`,
                     WebkitMaskSize: "contain",
                     maskSize: "contain",
                     WebkitMaskRepeat: "no-repeat",
@@ -1280,7 +1280,7 @@ function SiteFooter() {
         </div>
         <div style={{ marginTop: "auto", paddingTop: "clamp(32px, 9vw, 120px)" }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/superhuman/logo-forhuman-footer.svg" alt="forHuman" style={{ width: "100%", display: "block" }} />
+          <img src="/forhuman-lab/logo-forhuman-footer.svg" alt="forHuman" style={{ width: "100%", display: "block" }} />
         </div>
       </motion.div>
     </footer>
@@ -1404,7 +1404,7 @@ function FigmaBody() {
         <RevealGroup style={{ display: "flex", gap: 24, flexWrap: "nowrap", flexShrink: 0, minWidth: 0 }}>
           <MomentumCard style={{ width: 260, borderRadius: "var(--radius-md)", overflow: "hidden", position: "relative" }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/superhuman/fio-cisneros.jpg" alt="Fiorella Cisneros" style={{ width: "100%", aspectRatio: "4 / 5", objectFit: "cover", display: "block" }} />
+            <img src="/forhuman-lab/fio-cisneros.jpg" alt="Fiorella Cisneros" style={{ width: "100%", aspectRatio: "4 / 5", objectFit: "cover", display: "block" }} />
             <div style={{ position: "absolute", left: 0, right: 0, bottom: 0, padding: "24px 20px", background: "linear-gradient(0deg, rgba(0,0,0,0.75), transparent)" }}>
               <div style={{ font: "500 20px/1 'Manrope',sans-serif", color: "var(--white)" }}>Fiorella Cisneros</div>
               <div style={{ font: "300 13px/1 'Work Sans',sans-serif", color: "rgba(255,255,255,0.8)" }}>Figma Educator</div>
@@ -1412,7 +1412,7 @@ function FigmaBody() {
           </MomentumCard>
           <MomentumCard style={{ width: 260, borderRadius: "var(--radius-md)", overflow: "hidden", position: "relative" }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/superhuman/mentor-1.jpg" alt="Danitza Rosas" style={{ width: "100%", aspectRatio: "4 / 5", objectFit: "cover", display: "block" }} />
+            <img src="/forhuman-lab/mentor-1.jpg" alt="Danitza Rosas" style={{ width: "100%", aspectRatio: "4 / 5", objectFit: "cover", display: "block" }} />
             <div style={{ position: "absolute", left: 0, right: 0, bottom: 0, padding: "24px 20px", background: "linear-gradient(0deg, rgba(0,0,0,0.75), transparent)" }}>
               <div style={{ font: "500 20px/1 'Manrope',sans-serif", color: "var(--white)" }}>Danitza Rosas</div>
               <div style={{ font: "300 13px/1 'Work Sans',sans-serif", color: "rgba(255,255,255,0.8)" }}>Product Designer</div>
@@ -1587,7 +1587,7 @@ function WebflowBody() {
         <RevealGroup style={{ display: "flex", gap: 24, flexWrap: "nowrap", flexShrink: 0, minWidth: 0 }}>
           <MomentumCard style={{ width: 260, borderRadius: "var(--radius-md)", overflow: "hidden", position: "relative" }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/superhuman/fio-cisneros.jpg" alt="Fiorella Cisneros" style={{ width: "100%", aspectRatio: "4 / 5", objectFit: "cover", display: "block" }} />
+            <img src="/forhuman-lab/fio-cisneros.jpg" alt="Fiorella Cisneros" style={{ width: "100%", aspectRatio: "4 / 5", objectFit: "cover", display: "block" }} />
             <div style={{ position: "absolute", left: 0, right: 0, bottom: 0, padding: "24px 20px", background: "linear-gradient(0deg, rgba(0,0,0,0.75), transparent)" }}>
               <div style={{ font: "500 20px/1 'Manrope',sans-serif", color: "var(--white)" }}>Fiorella Cisneros</div>
               <div style={{ font: "300 13px/1 'Work Sans',sans-serif", color: "rgba(255,255,255,0.8)" }}>Webflow Educator</div>
@@ -1595,7 +1595,7 @@ function WebflowBody() {
           </MomentumCard>
           <MomentumCard style={{ width: 260, borderRadius: "var(--radius-md)", overflow: "hidden", position: "relative" }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/superhuman/mentor-1.jpg" alt="Danitza Rosas" style={{ width: "100%", aspectRatio: "4 / 5", objectFit: "cover", display: "block" }} />
+            <img src="/forhuman-lab/mentor-1.jpg" alt="Danitza Rosas" style={{ width: "100%", aspectRatio: "4 / 5", objectFit: "cover", display: "block" }} />
             <div style={{ position: "absolute", left: 0, right: 0, bottom: 0, padding: "24px 20px", background: "linear-gradient(0deg, rgba(0,0,0,0.75), transparent)" }}>
               <div style={{ font: "500 20px/1 'Manrope',sans-serif", color: "var(--white)" }}>Danitza Rosas</div>
               <div style={{ font: "300 13px/1 'Work Sans',sans-serif", color: "rgba(255,255,255,0.8)" }}>Webflow Designer</div>
@@ -2055,7 +2055,7 @@ function FinderBody() {
         <RevealGroup style={{ display: "flex", gap: 24, flexWrap: "nowrap", flexShrink: 0, minWidth: 0 }}>
           <MomentumCard style={{ width: 260, borderRadius: "var(--radius-md)", overflow: "hidden", position: "relative" }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/superhuman/fio-cisneros.jpg" alt="Fiorella Cisneros" style={{ width: "100%", aspectRatio: "4 / 5", objectFit: "cover", display: "block" }} />
+            <img src="/forhuman-lab/fio-cisneros.jpg" alt="Fiorella Cisneros" style={{ width: "100%", aspectRatio: "4 / 5", objectFit: "cover", display: "block" }} />
             <div style={{ position: "absolute", left: 0, right: 0, bottom: 0, padding: "24px 20px", background: "linear-gradient(0deg, rgba(0,0,0,0.75), transparent)" }}>
               <div style={{ font: "500 20px/1 'Manrope',sans-serif", color: "var(--white)" }}>Fiorella Cisneros</div>
               <div style={{ font: "300 13px/1 'Work Sans',sans-serif", color: "rgba(255,255,255,0.8)" }}>Webflow Educator</div>
@@ -2063,7 +2063,7 @@ function FinderBody() {
           </MomentumCard>
           <MomentumCard style={{ width: 260, borderRadius: "var(--radius-md)", overflow: "hidden", position: "relative" }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/superhuman/mentor-1.jpg" alt="Danitza Rosas" style={{ width: "100%", aspectRatio: "4 / 5", objectFit: "cover", display: "block" }} />
+            <img src="/forhuman-lab/mentor-1.jpg" alt="Danitza Rosas" style={{ width: "100%", aspectRatio: "4 / 5", objectFit: "cover", display: "block" }} />
             <div style={{ position: "absolute", left: 0, right: 0, bottom: 0, padding: "24px 20px", background: "linear-gradient(0deg, rgba(0,0,0,0.75), transparent)" }}>
               <div style={{ font: "500 20px/1 'Manrope',sans-serif", color: "var(--white)" }}>Danitza Rosas</div>
               <div style={{ font: "300 13px/1 'Work Sans',sans-serif", color: "rgba(255,255,255,0.8)" }}>Webflow Designer</div>
@@ -2312,7 +2312,7 @@ function HeroPunchBlock({ kicker, headline }: { kicker: ReactNode; headline: Rea
       <HeroKicker>{kicker}</HeroKicker>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        src="/superhuman/hero-ai-detection.png"
+        src="/forhuman-lab/hero-ai-detection.png"
         alt="Detección de personas con IA, superpuesta sobre una foto de un cruce peatonal"
         style={{ width: "100%", height: "clamp(200px, 55vw, 480px)", objectFit: "cover", objectPosition: "top", borderRadius: "var(--radius-md)" }}
       />
@@ -2374,7 +2374,7 @@ function ContactIcon({ contact, size = 64 }: { contact: WhatsAppContact; size?: 
             width: badge,
             height: badge,
             borderRadius: Math.round(badge * 0.3),
-            background: "url(/superhuman/icon-whatsapp.svg) center / cover no-repeat",
+            background: "url(/forhuman-lab/icon-whatsapp.svg) center / cover no-repeat",
             boxShadow: "0 2px 6px rgba(0,0,0,0.4)",
           }}
         />
@@ -2691,7 +2691,7 @@ export function MacDesktopExperience() {
             }}
           >
             <div style={{ display: "flex", alignItems: "center", gap: 18 }}>
-              <div style={{ width: 14, height: 14, background: "url(/superhuman/logo-superhuman.svg) center / contain no-repeat" }} />
+              <div style={{ width: 14, height: 14, background: "url(/forhuman-lab/logo-superhuman.svg) center / contain no-repeat" }} />
               <span style={{ fontWeight: 700 }}>forHuman Lab</span>
               <span>Archivo</span>
               <span>Edición</span>
@@ -2829,7 +2829,7 @@ export function MacDesktopExperience() {
             style={{ position: "absolute", left: folderPos.x, top: folderPos.y, display: "flex", flexDirection: "column", alignItems: "center", gap: 6, cursor: "grab", width: 84, zIndex: 20, userSelect: "none" }}
             onMouseDown={(e) => beginDrag(e, folderPos, setFolderPos, () => openWindow("finder"))}
           >
-            <div style={{ width: 64, height: 59, background: "url(/superhuman/icon-folder.svg) center / contain no-repeat" }} />
+            <div style={{ width: 64, height: 59, background: "url(/forhuman-lab/icon-folder.svg) center / contain no-repeat" }} />
             <span style={{ font: "400 12px/1.2 'Work Sans',sans-serif", color: "#F7F7F7", textShadow: "0 1px 3px rgba(0,0,0,0.6)" }}>forHuman</span>
           </div>
 
@@ -2854,25 +2854,25 @@ export function MacDesktopExperience() {
             }}
           >
             <DockIcon label="Finder" hoverId="finder" hovered={hoveredApp} onHover={setHoveredApp} onClick={() => openWindow("finder")} open={openApp === "finder"} mouseX={dockMouseX}>
-              <div style={{ width: 56, height: 56, borderRadius: 14, background: "url(/superhuman/icon-finder-app.svg) center / cover no-repeat" }} />
+              <div style={{ width: 56, height: 56, borderRadius: 14, background: "url(/forhuman-lab/icon-finder-app.svg) center / cover no-repeat" }} />
             </DockIcon>
             <DockIcon label="Figma Camp" hoverId="figma" hovered={hoveredApp} onHover={setHoveredApp} onClick={() => openWindow("figma")} open={openApp === "figma"} mouseX={dockMouseX}>
-              <div style={{ width: 56, height: 56, borderRadius: 14, background: "url(/superhuman/icon-figma.svg) center / cover no-repeat" }} />
+              <div style={{ width: 56, height: 56, borderRadius: 14, background: "url(/forhuman-lab/icon-figma.svg) center / cover no-repeat" }} />
             </DockIcon>
             <DockIcon label="Webflow Camp" hoverId="webflow" hovered={hoveredApp} onHover={setHoveredApp} onClick={() => openWindow("webflow")} open={openApp === "webflow"} mouseX={dockMouseX}>
-              <div style={{ width: 56, height: 56, borderRadius: 14, background: "url(/superhuman/icon-webflow.svg) center / cover no-repeat" }} />
+              <div style={{ width: 56, height: 56, borderRadius: 14, background: "url(/forhuman-lab/icon-webflow.svg) center / cover no-repeat" }} />
             </DockIcon>
             <DockIcon label="flowmcp" hoverId="flowmcp" hovered={hoveredApp} onHover={setHoveredApp} onClick={() => openWindow("flowmcp")} open={openApp === "flowmcp"} mouseX={dockMouseX}>
-              <div style={{ width: 56, height: 56, borderRadius: 14, background: "url(/superhuman/icon-flowmcp.svg) center / cover no-repeat" }} />
+              <div style={{ width: 56, height: 56, borderRadius: 14, background: "url(/forhuman-lab/icon-flowmcp.svg) center / cover no-repeat" }} />
             </DockIcon>
             <DockIcon label="Fotos" hoverId="photos" hovered={hoveredApp} onHover={setHoveredApp} onClick={() => openWindow("photos")} open={openApp === "photos" || loadingApp === "photos"} mouseX={dockMouseX}>
-              <div style={{ width: 56, height: 56, borderRadius: 14, background: "url(/superhuman/icon-fotos.svg) center / cover no-repeat" }} />
+              <div style={{ width: 56, height: 56, borderRadius: 14, background: "url(/forhuman-lab/icon-fotos.svg) center / cover no-repeat" }} />
             </DockIcon>
             <DockIcon label="Notas" hoverId="notas" hovered={hoveredApp} onHover={setHoveredApp} onClick={() => openWindow("notas")} open={openApp === "notas"} mouseX={dockMouseX}>
-              <div style={{ width: 56, height: 56, borderRadius: 14, background: "url(/superhuman/icon-notas.svg) center / cover no-repeat" }} />
+              <div style={{ width: 56, height: 56, borderRadius: 14, background: "url(/forhuman-lab/icon-notas.svg) center / cover no-repeat" }} />
             </DockIcon>
             <DockIcon label="Spotify" hoverId="spotify" hovered={hoveredApp} onHover={setHoveredApp} onClick={() => openWindow("spotify")} open={openApp === "spotify"} mouseX={dockMouseX}>
-              <div style={{ width: 56, height: 56, borderRadius: 14, background: "url(/superhuman/icon-spotify.svg) center / cover no-repeat" }} />
+              <div style={{ width: 56, height: 56, borderRadius: 14, background: "url(/forhuman-lab/icon-spotify.svg) center / cover no-repeat" }} />
             </DockIcon>
           </div>
 
@@ -3023,7 +3023,7 @@ export function MacDesktopExperience() {
                 }}
               >
                 <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                  <div style={{ width: 13, height: 13, background: "url(/superhuman/logo-superhuman.svg) center / contain no-repeat" }} />
+                  <div style={{ width: 13, height: 13, background: "url(/forhuman-lab/logo-superhuman.svg) center / contain no-repeat" }} />
                   <span style={{ font: "700 12px/1 'Work Sans',sans-serif" }}>forHuman Lab</span>
                 </div>
                 <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
@@ -3074,11 +3074,11 @@ export function MacDesktopExperience() {
                 </div>
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 16, marginTop: 8 }}>
                   <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 6 }} onClick={() => openWindow("photos")}>
-                    <div style={{ width: 56, height: 56, borderRadius: 14, background: "url(/superhuman/icon-fotos.svg) center / cover no-repeat", cursor: "pointer" }} />
+                    <div style={{ width: 56, height: 56, borderRadius: 14, background: "url(/forhuman-lab/icon-fotos.svg) center / cover no-repeat", cursor: "pointer" }} />
                     <span style={{ font: "400 11px/1 'Work Sans',sans-serif", color: "#F7F7F7", textShadow: "0 1px 3px rgba(0,0,0,0.6)" }}>Fotos</span>
                   </div>
                   <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 6 }} onClick={() => openWindow("spotify")}>
-                    <div style={{ width: 56, height: 56, borderRadius: 14, background: "url(/superhuman/icon-spotify.svg) center / cover no-repeat", cursor: "pointer" }} />
+                    <div style={{ width: 56, height: 56, borderRadius: 14, background: "url(/forhuman-lab/icon-spotify.svg) center / cover no-repeat", cursor: "pointer" }} />
                     <span style={{ font: "400 11px/1 'Work Sans',sans-serif", color: "#F7F7F7", textShadow: "0 1px 3px rgba(0,0,0,0.6)" }}>Spotify</span>
                   </div>
                   {WHATSAPP_CONTACTS.map((contact) => (
@@ -3096,19 +3096,19 @@ export function MacDesktopExperience() {
               <div style={{ marginTop: "auto", padding: "10px 14px calc(env(safe-area-inset-bottom,0px) + 16px)", display: "flex", justifyContent: "center" }}>
                 <div style={{ display: "flex", justifyContent: "space-around", alignItems: "center", width: "100%", background: "rgba(247,247,247,0.22)", backdropFilter: "blur(24px)", borderRadius: 26, padding: "12px 14px", boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.3)" }}>
                   <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }} onClick={() => openWindow("finder")}>
-                    <div style={{ width: 56, height: 56, borderRadius: 14, background: "url(/superhuman/icon-finder-app.svg) center / cover no-repeat", cursor: "pointer" }} />
+                    <div style={{ width: 56, height: 56, borderRadius: 14, background: "url(/forhuman-lab/icon-finder-app.svg) center / cover no-repeat", cursor: "pointer" }} />
                   </div>
                   <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }} onClick={() => openWindow("figma")}>
-                    <div style={{ width: 56, height: 56, borderRadius: 14, background: "url(/superhuman/icon-figma.svg) center / cover no-repeat", cursor: "pointer" }} />
+                    <div style={{ width: 56, height: 56, borderRadius: 14, background: "url(/forhuman-lab/icon-figma.svg) center / cover no-repeat", cursor: "pointer" }} />
                   </div>
                   <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }} onClick={() => openWindow("webflow")}>
-                    <div style={{ width: 56, height: 56, borderRadius: 14, background: "url(/superhuman/icon-webflow.svg) center / cover no-repeat", cursor: "pointer" }} />
+                    <div style={{ width: 56, height: 56, borderRadius: 14, background: "url(/forhuman-lab/icon-webflow.svg) center / cover no-repeat", cursor: "pointer" }} />
                   </div>
                   <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }} onClick={() => openWindow("flowmcp")}>
-                    <div style={{ width: 56, height: 56, borderRadius: 14, background: "url(/superhuman/icon-flowmcp.svg) center / cover no-repeat", cursor: "pointer" }} />
+                    <div style={{ width: 56, height: 56, borderRadius: 14, background: "url(/forhuman-lab/icon-flowmcp.svg) center / cover no-repeat", cursor: "pointer" }} />
                   </div>
                   <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }} onClick={() => openWindow("notas")}>
-                    <div style={{ width: 56, height: 56, borderRadius: 14, background: "url(/superhuman/icon-notas.svg) center / cover no-repeat", cursor: "pointer" }} />
+                    <div style={{ width: 56, height: 56, borderRadius: 14, background: "url(/forhuman-lab/icon-notas.svg) center / cover no-repeat", cursor: "pointer" }} />
                   </div>
                 </div>
               </div>
