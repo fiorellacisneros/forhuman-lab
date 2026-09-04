@@ -30,9 +30,9 @@ const reenieBeanie = Reenie_Beanie({
 });
 
 export const metadata: Metadata = {
-  title: "superHuman School",
+  title: "forHuman Lab",
   description:
-    "La escuela de forHuman Studio. Webflow Camp y Figma Camp — construye sitios web profesionales sin código.",
+    "El laboratorio de forHuman Studio. Desde superHuman School (Webflow Camp y Figma Camp) hasta flowmcp, herramientas open source para construir con IA.",
 };
 
 export default function RootLayout({
