@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Manrope, Work_Sans, Inconsolata, Reenie_Beanie } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import { AgentationProvider } from "@/components/AgentationProvider";
 
@@ -62,6 +63,7 @@ export default function RootLayout({
       <body className="font-[family-name:var(--font-body)] antialiased">
         {children}
         <AgentationProvider />
+        <Analytics />
       </body>
     </html>
   );
