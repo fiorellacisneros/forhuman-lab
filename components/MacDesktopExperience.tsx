@@ -2440,7 +2440,7 @@ function FlowmcpBody() {
               href="https://buymeacoffee.com/fiocisneros"
               target="_blank"
               rel="noopener noreferrer"
-              style={{ color: "var(--yellow)" }}
+              style={{ color: "var(--white)" }}
             >
               Buy me a coffee ☕
             </TextButton>
