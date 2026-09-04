@@ -3029,7 +3029,7 @@ function formatMenuBarDateTime(date: Date) {
 
 export function MacDesktopExperience() {
   const [isMobile, setIsMobile] = useState(false);
-  const [openApp, setOpenApp] = useState<AppId>(null);
+  const [openApp, setOpenApp] = useState<AppId>("flowmcp");
   const [loadingApp, setLoadingApp] = useState<AppId>(null);
   const [closingApp, setClosingApp] = useState<AppId>(null);
   const [hoveredApp, setHoveredApp] = useState<HoverId>(null);
@@ -3062,7 +3062,6 @@ export function MacDesktopExperience() {
       setFinderSidebarOpen(true);
       setFigmaSidebarOpen(true);
       setWebflowSidebarOpen(true);
-      setFlowmcpSidebarOpen(true);
       setFotosSidebarOpen(true);
     };
     openDesktopSidebars();
