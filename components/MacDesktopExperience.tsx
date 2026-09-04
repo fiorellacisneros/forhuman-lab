@@ -304,9 +304,33 @@ const WEBFLOW_FAQ = [
 ];
 
 const REAL_PHOTOS = ["/forhuman-lab/mentor-1.jpg", "/forhuman-lab/mentor-2.jpg", "/forhuman-lab/fio-cisneros.jpg"];
+const MASCOTAS_PHOTOS = [
+  "/forhuman-lab/pet-1.jpg",
+  "/forhuman-lab/pet-2.jpg",
+  "/forhuman-lab/pet-3.jpg",
+  "/forhuman-lab/pet-4.jpg",
+  "/forhuman-lab/pet-5.jpg",
+  "/forhuman-lab/pet-6.jpg",
+];
+const FAVORITOS_PHOTOS = [
+  "/forhuman-lab/team-12.jpg",
+  "/forhuman-lab/team-11.jpg",
+  "/forhuman-lab/team-9.jpg",
+  "/forhuman-lab/team-13.jpg",
+  "/forhuman-lab/team-7.jpg",
+  "/forhuman-lab/team-14.jpg",
+];
+const RECIENTES_PHOTOS = [
+  "/forhuman-lab/team-8.jpg",
+  "/forhuman-lab/team-2.jpg",
+  "/forhuman-lab/team-4.jpg",
+  "/forhuman-lab/team-6.jpg",
+  "/forhuman-lab/team-10.jpg",
+  "/forhuman-lab/team-15.jpg",
+];
 
-function PhotoSlot({ index }: { index: number }) {
-  const src = REAL_PHOTOS[index % REAL_PHOTOS.length];
+function PhotoSlot({ index, photos = REAL_PHOTOS }: { index: number; photos?: string[] }) {
+  const src = photos[index % photos.length];
   return (
     // eslint-disable-next-line @next/next/no-img-element
     <img
@@ -551,13 +575,11 @@ const FLOWMCP_SECTIONS = [
 
 const WEBFLOW_TESTIMONIALS = [
   {
-    quote:
-      "Disfruté mucho las energías de quienes nos dictaron las clases, y los invitados que estuvieron ahí para apoyarnos. También aprecio mucho que nos dieran espacios 1:1 para resolver dudas de nuestros proyectos.",
+    quote: "Disfruté mucho las energías de quienes dictaron las clases, y los espacios 1:1 para resolver dudas de nuestros proyectos.",
     date: "28 may 2026",
   },
   {
-    quote:
-      "Un programa muy bueno para cualquier nivel de experiencia en Webflow. Dani y Fio son muy agradables, accesibles, sobretodo orientadas a las buenas prácticas dentro de Webflow. Fue un excelente curso para partir de una buena base.",
+    quote: "Un programa muy bueno para cualquier nivel de experiencia en Webflow. Dani y Fio son accesibles y orientadas a las buenas prácticas.",
     date: "29 may 2026",
   },
   {
@@ -1099,17 +1121,18 @@ function TestimonialsSection({ items }: { items: { quote: string; date: string }
             <div
               key={i}
               style={{
-                width: "clamp(220px, 60vw, 340px)",
-                height: "clamp(220px, 60vw, 340px)",
+                width: "clamp(240px, 42vw, 340px)",
+                height: "clamp(220px, 34vw, 280px)",
                 flexShrink: 0,
                 borderRadius: 16,
                 border: "1px solid rgba(255,255,255,0.14)",
-                padding: "clamp(24px, 5vw, 40px)",
+                padding: "clamp(20px, 4vw, 28px)",
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "space-between",
-                gap: 24,
+                gap: 16,
                 boxSizing: "border-box",
+                overflow: "hidden",
               }}
             >
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
@@ -1119,7 +1142,17 @@ function TestimonialsSection({ items }: { items: { quote: string; date: string }
                 </span>
                 <span style={{ font: "400 14px/1 'Work Sans',sans-serif", color: "rgba(255,255,255,0.4)" }}>{t.date}</span>
               </div>
-              <p style={{ font: "300 clamp(16px, 4vw, 22px)/1.5 'Work Sans',sans-serif", color: "rgba(255,255,255,0.9)", margin: 0 }}>
+              <p
+                style={{
+                  font: "300 clamp(15px, 2.8vw, 18px)/1.5 'Work Sans',sans-serif",
+                  color: "rgba(255,255,255,0.9)",
+                  margin: 0,
+                  display: "-webkit-box",
+                  WebkitLineClamp: 6,
+                  WebkitBoxOrient: "vertical",
+                  overflow: "hidden",
+                }}
+              >
                 &ldquo;{t.quote}&rdquo;
               </p>
             </div>
@@ -2515,12 +2548,12 @@ function FinderBody() {
   );
 }
 
-function FotosSection({ id, title, count }: { id: string; title: string; count: number }) {
+function FotosSection({ id, title, count, photos = REAL_PHOTOS }: { id: string; title: string; count: number; photos?: string[] }) {
   return (
     <div id={id} style={{ padding: "16px 20px 28px" }}>
       <div style={{ position: "relative", borderRadius: 16, overflow: "hidden", marginBottom: 14, aspectRatio: "16 / 8" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={REAL_PHOTOS[0]} alt={title} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+        <img src={photos[0]} alt={title} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
         <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(0,0,0,0.6), transparent 60%)" }} />
         <div style={{ position: "absolute", left: 16, bottom: 12, color: "#F7F7F7" }}>
           <div style={{ font: "700 22px/1 'Manrope',sans-serif" }}>{title}</div>
@@ -2529,7 +2562,7 @@ function FotosSection({ id, title, count }: { id: string; title: string; count: 
       </div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 8 }}>
         {Array.from({ length: count }).map((_, i) => (
-          <PhotoSlot key={i} index={i} />
+          <PhotoSlot key={i} index={i} photos={photos} />
         ))}
       </div>
     </div>
@@ -2538,10 +2571,10 @@ function FotosSection({ id, title, count }: { id: string; title: string; count: 
 
 function FotosBody() {
   return (
-    <div className="shs-scroll" style={{ overflowY: "auto", flex: 1, background: "var(--white)", paddingBottom: 24 }}>
-      <FotosSection id="favoritos" title="Favoritos" count={6} />
-      <FotosSection id="mascotas" title="Mascotas" count={6} />
-      <FotosSection id="recientes" title="Reciente" count={6} />
+    <div style={{ paddingBottom: 24 }}>
+      <FotosSection id="favoritos" title="Favoritos" count={6} photos={FAVORITOS_PHOTOS} />
+      <FotosSection id="mascotas" title="Mascotas" count={6} photos={MASCOTAS_PHOTOS} />
+      <FotosSection id="recientes" title="Reciente" count={6} photos={RECIENTES_PHOTOS} />
     </div>
   );
 }
@@ -2901,6 +2934,17 @@ function DockIcon({
   const ref = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(1);
 
+  const handleTap = () => {
+    if (onClick) {
+      onClick();
+      return;
+    }
+    // No onClick means this is a "coming soon" icon: tap/click shows the
+    // tooltip briefly so mobile (no hover) still gets the message.
+    onHover(hoverId);
+    window.setTimeout(() => onHover(null), 1600);
+  };
+
   useEffect(() => {
     if (mouseX === null || !ref.current) {
       setScale(1);
@@ -2920,7 +2964,7 @@ function DockIcon({
       <motion.div
         ref={ref}
         className="shs-dock-icon"
-        onClick={onClick}
+        onClick={handleTap}
         animate={{ scale, y: -(scale - 1) * DOCK_MAGNIFY_LIFT }}
         whileTap={{ scale: scale * 0.9 }}
         transition={{ type: "spring", stiffness: 320, damping: 20, mass: 0.6 }}
@@ -3093,7 +3137,7 @@ export function MacDesktopExperience() {
   const windowTitles: Record<Exclude<AppId, null>, string> = {
     figma: "superHuman — Figma Camp",
     webflow: "superHuman — Webflow Camp",
-    flowmcp: "flowmcp — Conecta múltiples sitios de Webflow a tu agente de IA",
+    flowmcp: "flowmcp",
     finder: "Finder — forHuman",
     photos: "Fotos",
     notas: "Manifiesto.txt",
@@ -3537,10 +3581,24 @@ export function MacDesktopExperience() {
                   <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }} onClick={() => openWindow("finder")}>
                     <div style={{ width: 56, height: 56, borderRadius: 14, background: "url(/forhuman-lab/icon-finder-app.svg) center / cover no-repeat", cursor: "pointer" }} />
                   </div>
-                  <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
+                  <div
+                    style={{ position: "relative", display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}
+                    onClick={() => {
+                      setHoveredApp("figma");
+                      window.setTimeout(() => setHoveredApp(null), 1600);
+                    }}
+                  >
+                    {hoveredApp === "figma" && <DockTooltip label="Figma Camp — Coming soon" />}
                     <div style={{ width: 56, height: 56, borderRadius: 14, background: "url(/forhuman-lab/icon-figma.svg) center / cover no-repeat" }} />
                   </div>
-                  <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
+                  <div
+                    style={{ position: "relative", display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}
+                    onClick={() => {
+                      setHoveredApp("webflow");
+                      window.setTimeout(() => setHoveredApp(null), 1600);
+                    }}
+                  >
+                    {hoveredApp === "webflow" && <DockTooltip label="Webflow Camp — Coming soon" />}
                     <div style={{ width: 56, height: 56, borderRadius: 14, background: "url(/forhuman-lab/icon-webflow.svg) center / cover no-repeat" }} />
                   </div>
                   <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }} onClick={() => openWindow("flowmcp")}>
