@@ -29,10 +29,25 @@ const reenieBeanie = Reenie_Beanie({
   display: "swap",
 });
 
+const siteTitle = "forHuman Lab";
+const siteDescription =
+  "El laboratorio de forHuman Studio. Desde superHuman School (Webflow Camp y Figma Camp) hasta flowmcp, herramientas open source para construir con IA.";
+
 export const metadata: Metadata = {
-  title: "forHuman Lab",
-  description:
-    "El laboratorio de forHuman Studio. Desde superHuman School (Webflow Camp y Figma Camp) hasta flowmcp, herramientas open source para construir con IA.",
+  title: siteTitle,
+  description: siteDescription,
+  openGraph: {
+    title: siteTitle,
+    description: siteDescription,
+    siteName: siteTitle,
+    locale: "es",
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: siteTitle,
+    description: siteDescription,
+  },
 };
 
 export default function RootLayout({
