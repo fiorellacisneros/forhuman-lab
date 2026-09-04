@@ -396,14 +396,16 @@ function WindowChrome({
   const fitHeight = !inset.bottom;
   const [trafficHover, setTrafficHover] = useState(false);
   const [contentFade, setContentFade] = useState(1);
-  const prevSidebarOpen = useRef(sidebarOpen);
-  useEffect(() => {
-    if (prevSidebarOpen.current === sidebarOpen) return;
-    prevSidebarOpen.current = sidebarOpen;
+  const [prevSidebarOpen, setPrevSidebarOpen] = useState(sidebarOpen);
+  if (sidebarOpen !== prevSidebarOpen) {
+    setPrevSidebarOpen(sidebarOpen);
     setContentFade(0.4);
+  }
+  useEffect(() => {
+    if (contentFade === 1) return;
     const t = setTimeout(() => setContentFade(1), 20);
     return () => clearTimeout(t);
-  }, [sidebarOpen]);
+  }, [contentFade]);
   const appWindow = (
     <div
       className={`shs-app-window${closing ? " shs-app-window-closing" : ""}`}
@@ -1802,13 +1804,12 @@ const TERMINAL_ACCENT: Record<string, string> = {
 
 function TerminalLine({ line }: { line: string }) {
   const tokens = line.split(/(\s+)/);
-  let inComment = false;
+  const commentStart = tokens.findIndex((t) => t.startsWith("//"));
   return (
     <>
       {tokens.map((token, i) => {
         if (/^\s+$/.test(token)) return <span key={i}>{token}</span>;
-        if (inComment || token.startsWith("//")) {
-          inComment = true;
+        if (commentStart !== -1 && i >= commentStart) {
           return (
             <span key={i} style={{ color: "rgba(247,247,247,0.35)", fontStyle: "italic" }}>
               {token}
@@ -1945,14 +1946,6 @@ function CursorLogo({ size = 16 }: { size?: number }) {
     </svg>
   );
 }
-
-const FLOWMCP_AGENT_ICONS: Record<string, (props: { size?: number }) => ReactElement> = {
-  "Claude Code": ClaudeLogo,
-  "Claude Desktop": ClaudeLogo,
-  Cursor: CursorLogo,
-  ChatGPT: ChatGptLogo,
-  Codex: ChatGptLogo,
-};
 
 const FLOWMCP_AGENT_GROUPS: { icon: (props: { size?: number }) => ReactElement; tools: string[] }[] = [
   { icon: ClaudeLogo, tools: ["Claude Code", "Claude Desktop"] },
@@ -2339,6 +2332,7 @@ function FlowmcpBody() {
       </section>
       <section style={{ padding: "0 64px clamp(24px, 6vw, 40px) 64px" }}>
         <Reveal>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/forhuman-lab/flowmcp-shipstudio-prompt.png"
             alt="Un agente de IA construyendo un componente de pricing en Ship Studio"
@@ -2626,7 +2620,8 @@ function SelectHighlight({
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
+    const markMounted = () => setMounted(true);
+    markMounted();
   }, []);
 
   useEffect(() => {
@@ -2946,16 +2941,19 @@ function DockIcon({
   };
 
   useEffect(() => {
-    if (mouseX === null || !ref.current) {
-      setScale(1);
-      return;
-    }
-    const rect = ref.current.getBoundingClientRect();
-    const center = rect.left + rect.width / 2;
-    const distance = Math.abs(mouseX - center);
-    const linear = Math.max(0, 1 - distance / DOCK_MAGNIFY_RADIUS);
-    const falloff = linear * linear;
-    setScale(1 + falloff * (DOCK_MAGNIFY_MAX_SCALE - 1));
+    const updateScale = () => {
+      if (mouseX === null || !ref.current) {
+        setScale(1);
+        return;
+      }
+      const rect = ref.current.getBoundingClientRect();
+      const center = rect.left + rect.width / 2;
+      const distance = Math.abs(mouseX - center);
+      const linear = Math.max(0, 1 - distance / DOCK_MAGNIFY_RADIUS);
+      const falloff = linear * linear;
+      setScale(1 + falloff * (DOCK_MAGNIFY_MAX_SCALE - 1));
+    };
+    updateScale();
   }, [mouseX]);
 
   return (
@@ -3012,9 +3010,8 @@ export function MacDesktopExperience() {
   const [dockMouseX, setDockMouseX] = useState<number | null>(null);
   const [now, setNow] = useState<Date | null>(null);
   const [weather, setWeather] = useState<WeatherInfo | null>(null);
-  const [deviceScale, setDeviceScale] = useState(1);
   const [folderPos, setFolderPos] = useState({ x: 0, y: 52 });
-  const [contactPositions, setContactPositions] = useState(
+  const [, setContactPositions] = useState(
     WHATSAPP_CONTACTS.map((_, i) => ({ x: 0, y: 168 + i * 116 }))
   );
   const [finderSidebarOpen, setFinderSidebarOpen] = useState(false);
@@ -3034,13 +3031,15 @@ export function MacDesktopExperience() {
   };
 
   useEffect(() => {
-    if (window.innerWidth >= 860) {
+    const openDesktopSidebars = () => {
+      if (window.innerWidth < 860) return;
       setFinderSidebarOpen(true);
       setFigmaSidebarOpen(true);
       setWebflowSidebarOpen(true);
       setFlowmcpSidebarOpen(true);
       setFotosSidebarOpen(true);
-    }
+    };
+    openDesktopSidebars();
   }, []);
 
   useEffect(() => {
@@ -3065,14 +3064,16 @@ export function MacDesktopExperience() {
   }, []);
 
   useEffect(() => {
-    setNow(new Date());
-    const tick = setInterval(() => setNow(new Date()), 1000 * 30);
+    const tickNow = () => setNow(new Date());
+    tickNow();
+    const tick = setInterval(tickNow, 1000 * 30);
     return () => clearInterval(tick);
   }, []);
 
   useEffect(() => {
     if (!navigator.geolocation) {
-      setWeather(FALLBACK_WEATHER);
+      const applyFallbackWeather = () => setWeather(FALLBACK_WEATHER);
+      applyFallbackWeather();
       return;
     }
     navigator.geolocation.getCurrentPosition(
