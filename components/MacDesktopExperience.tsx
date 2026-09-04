@@ -2358,9 +2358,8 @@ function FlowmcpBody() {
             loading="lazy"
             style={{
               width: "100%",
-              height: "clamp(180px, 40vw, 480px)",
+              aspectRatio: "1904 / 760",
               objectFit: "cover",
-              objectPosition: "center 35%",
               borderRadius: "var(--radius-md)",
               display: "block",
               boxShadow: "0 20px 50px rgba(0,0,0,0.15)",
