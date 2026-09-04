@@ -1972,22 +1972,56 @@ const FLOWMCP_AGENT_GROUPS: { icon: (props: { size?: number }) => ReactElement; 
   { icon: ChatGptLogo, tools: ["ChatGPT", "Codex"] },
 ];
 
-function AgentIconTooltip({ icon: Icon }: { icon: (props: { size?: number }) => ReactElement; tools: string[] }) {
+function AgentIconTooltip({ icon: Icon, tools }: { icon: (props: { size?: number }) => ReactElement; tools: string[] }) {
+  const [show, setShow] = useState(false);
+  const label = tools.join(" - ");
+  const toggleForTouch = () => {
+    setShow(true);
+    window.setTimeout(() => setShow(false), 1600);
+  };
   return (
     <span
-      style={{
-        width: 32,
-        height: 32,
-        borderRadius: "50%",
-        background: "var(--white)",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        border: "1px solid rgba(0,0,0,0.1)",
-        boxShadow: "0 2px 6px rgba(0,0,0,0.15)",
-      }}
+      onMouseEnter={() => setShow(true)}
+      onMouseLeave={() => setShow(false)}
+      onClick={toggleForTouch}
+      style={{ position: "relative", display: "inline-flex" }}
     >
-      <Icon size={16} />
+      <span
+        style={{
+          width: 32,
+          height: 32,
+          borderRadius: "50%",
+          background: "var(--white)",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          border: "1px solid rgba(0,0,0,0.1)",
+          boxShadow: "0 2px 6px rgba(0,0,0,0.15)",
+          cursor: "default",
+        }}
+      >
+        <Icon size={16} />
+      </span>
+      {show && (
+        <span
+          style={{
+            position: "absolute",
+            bottom: "calc(100% + 8px)",
+            left: "50%",
+            transform: "translateX(-50%)",
+            background: "var(--black)",
+            color: "var(--white)",
+            font: "500 11px/1.4 'Inconsolata',monospace",
+            padding: "6px 10px",
+            borderRadius: 6,
+            whiteSpace: "nowrap",
+            zIndex: 10,
+            boxShadow: "0 8px 20px rgba(0,0,0,0.25)",
+          }}
+        >
+          {label}
+        </span>
+      )}
     </span>
   );
 }
@@ -2049,7 +2083,7 @@ function FlowmcpBody() {
             align="left"
           />
         </Reveal>
-        <GsapCardsReveal style={{ display: "flex", gap: 20, flexWrap: "wrap", alignItems: "stretch" }}>
+        <GsapCardsReveal style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: 20, alignItems: "stretch" }}>
           <motion.div
             className="gsap-card"
             whileHover={{ scale: 1.02 }}
@@ -2063,26 +2097,29 @@ function FlowmcpBody() {
               padding: 28,
               display: "flex",
               flexDirection: "column",
+              justifyContent: "space-between",
               gap: 16,
               boxSizing: "border-box",
             }}
           >
-            <span
-              style={{
-                width: 44,
-                height: 44,
-                borderRadius: 12,
-                background: "var(--gray-100)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <XCircleIcon size={22} color="var(--gray-500)" />
-            </span>
-            <span style={{ font: "400 22px/1.2 'Manrope',sans-serif", letterSpacing: "-0.02em", color: "var(--black)" }}>
-              Sin flowmcp
-            </span>
+            <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+              <span
+                style={{
+                  width: 44,
+                  height: 44,
+                  borderRadius: 12,
+                  background: "var(--gray-100)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <XCircleIcon size={22} color="var(--gray-500)" />
+              </span>
+              <span style={{ font: "400 22px/1.2 'Manrope',sans-serif", letterSpacing: "-0.02em", color: "var(--black)" }}>
+                Sin flowmcp
+              </span>
+            </div>
             <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 8, font: "300 15px/1.5 'Work Sans',sans-serif", color: "var(--gray-500)" }}>
               <span>Desconectar</span>
               <span>→</span>
@@ -2106,26 +2143,29 @@ function FlowmcpBody() {
               padding: 28,
               display: "flex",
               flexDirection: "column",
+              justifyContent: "space-between",
               gap: 16,
               boxSizing: "border-box",
             }}
           >
-            <span
-              style={{
-                width: 44,
-                height: 44,
-                borderRadius: 12,
-                background: "rgba(255, 190, 0, 0.15)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <EmailValidIcon size={22} color="var(--yellow)" />
-            </span>
-            <span style={{ font: "400 22px/1.2 'Manrope',sans-serif", letterSpacing: "-0.02em", color: "var(--white)" }}>
-              Con flowmcp
-            </span>
+            <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+              <span
+                style={{
+                  width: 44,
+                  height: 44,
+                  borderRadius: 12,
+                  background: "rgba(255, 190, 0, 0.15)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <EmailValidIcon size={22} color="var(--yellow)" />
+              </span>
+              <span style={{ font: "400 22px/1.2 'Manrope',sans-serif", letterSpacing: "-0.02em", color: "var(--white)" }}>
+                Con flowmcp
+              </span>
+            </div>
             <div style={{ font: "300 15px/1.5 'Work Sans',sans-serif", color: "rgba(247,247,247,0.65)" }}>
               Un comando por cliente, una sola vez. Cada proyecto queda conectado y aislado — cambias entre ellos sin desconectar nada.
             </div>
@@ -3200,7 +3240,7 @@ export function MacDesktopExperience() {
             }}
           >
             <div style={{ display: "flex", alignItems: "center", gap: 18 }}>
-              <div style={{ width: 14, height: 14, background: "url(/forhuman-lab/logo-superhuman.svg) center / contain no-repeat" }} />
+              <div style={{ width: 14, height: 14, background: "url(/forhuman-lab/logo-forhuman-mark.svg) center / contain no-repeat" }} />
               <span style={{ fontWeight: 700 }}>forHuman Lab</span>
               <span>Archivo</span>
               <span>Edición</span>
@@ -3532,7 +3572,7 @@ export function MacDesktopExperience() {
                 }}
               >
                 <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                  <div style={{ width: 13, height: 13, background: "url(/forhuman-lab/logo-superhuman.svg) center / contain no-repeat" }} />
+                  <div style={{ width: 13, height: 13, background: "url(/forhuman-lab/logo-forhuman-mark.svg) center / contain no-repeat" }} />
                   <span style={{ font: "700 12px/1 'Work Sans',sans-serif" }}>forHuman Lab</span>
                 </div>
                 <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
