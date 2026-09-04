@@ -2604,13 +2604,13 @@ const SPOTIFY_PLAYLIST_URL = "https://open.spotify.com/embed/playlist/1B4v3p7vMe
 
 function SpotifyBody() {
   return (
-    <div style={{ flex: 1, background: "#0D0D0D", padding: 24, boxSizing: "border-box", overflowY: "auto" }}>
+    <div style={{ height: "100%", display: "flex", background: "#0D0D0D", padding: 24, boxSizing: "border-box", overflowY: "auto" }}>
       <iframe
         title="Playlist de Spotify"
-        style={{ borderRadius: 12, border: 0 }}
+        style={{ borderRadius: 12, border: 0, flex: 1, minHeight: 352 }}
         src={SPOTIFY_PLAYLIST_URL}
         width="100%"
-        height="352"
+        height="100%"
         allowFullScreen
         allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
         loading="lazy"
