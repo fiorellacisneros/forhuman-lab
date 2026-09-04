@@ -2436,6 +2436,14 @@ function FlowmcpBody() {
             >
               Ver en GitHub
             </PrincipalButton>
+            <TextButton
+              href="https://buymeacoffee.com/fiocisneros"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ color: "var(--yellow)" }}
+            >
+              Buy me a coffee ☕
+            </TextButton>
           </div>
         </Reveal>
       </section>
