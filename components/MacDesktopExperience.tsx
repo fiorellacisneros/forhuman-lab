@@ -341,6 +341,7 @@ function PhotoSlot({ index, photos = REAL_PHOTOS }: { index: number; photos?: st
     <img
       src={src}
       alt="Foto"
+      loading="lazy"
       style={{ width: "100%", aspectRatio: "1 / 1", borderRadius: 10, objectFit: "cover", display: "block" }}
     />
   );
@@ -1457,7 +1458,7 @@ function SiteFooter() {
         </div>
         <div style={{ marginTop: "auto", paddingTop: "clamp(32px, 9vw, 120px)" }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/forhuman-lab/logo-forhuman-footer.svg" alt="forHuman" style={{ width: "100%", display: "block" }} />
+          <img src="/forhuman-lab/logo-forhuman-footer.svg" alt="forHuman" loading="lazy" style={{ width: "100%", display: "block" }} />
         </div>
       </motion.div>
     </footer>
@@ -1584,7 +1585,7 @@ function FigmaBody() {
             onClick={() => openMentorWhatsApp("936098806", "Fio")}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/forhuman-lab/fio-cisneros.jpg" alt="Fiorella Cisneros" style={{ width: "100%", aspectRatio: "4 / 5", objectFit: "cover", display: "block" }} />
+            <img src="/forhuman-lab/fio-cisneros.jpg" alt="Fiorella Cisneros" loading="lazy" style={{ width: "100%", aspectRatio: "4 / 5", objectFit: "cover", display: "block" }} />
             <div style={{ position: "absolute", left: 0, right: 0, bottom: 0, padding: "24px 20px", background: "linear-gradient(0deg, rgba(0,0,0,0.75), transparent)" }}>
               <div style={{ font: "500 20px/1 'Manrope',sans-serif", color: "var(--white)" }}>Fiorella Cisneros</div>
               <div style={{ font: "300 13px/1 'Work Sans',sans-serif", color: "rgba(255,255,255,0.8)" }}>Figma Educator</div>
@@ -1595,7 +1596,7 @@ function FigmaBody() {
             onClick={() => openMentorWhatsApp("937845233", "Dani")}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/forhuman-lab/mentor-1.jpg" alt="Danitza Rosas" style={{ width: "100%", aspectRatio: "4 / 5", objectFit: "cover", display: "block" }} />
+            <img src="/forhuman-lab/mentor-1.jpg" alt="Danitza Rosas" loading="lazy" style={{ width: "100%", aspectRatio: "4 / 5", objectFit: "cover", display: "block" }} />
             <div style={{ position: "absolute", left: 0, right: 0, bottom: 0, padding: "24px 20px", background: "linear-gradient(0deg, rgba(0,0,0,0.75), transparent)" }}>
               <div style={{ font: "500 20px/1 'Manrope',sans-serif", color: "var(--white)" }}>Danitza Rosas</div>
               <div style={{ font: "300 13px/1 'Work Sans',sans-serif", color: "rgba(255,255,255,0.8)" }}>Product Designer</div>
@@ -1772,7 +1773,7 @@ function WebflowBody() {
             onClick={() => openMentorWhatsApp("936098806", "Fio")}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/forhuman-lab/fio-cisneros.jpg" alt="Fiorella Cisneros" style={{ width: "100%", aspectRatio: "4 / 5", objectFit: "cover", display: "block" }} />
+            <img src="/forhuman-lab/fio-cisneros.jpg" alt="Fiorella Cisneros" loading="lazy" style={{ width: "100%", aspectRatio: "4 / 5", objectFit: "cover", display: "block" }} />
             <div style={{ position: "absolute", left: 0, right: 0, bottom: 0, padding: "24px 20px", background: "linear-gradient(0deg, rgba(0,0,0,0.75), transparent)" }}>
               <div style={{ font: "500 20px/1 'Manrope',sans-serif", color: "var(--white)" }}>Fiorella Cisneros</div>
               <div style={{ font: "300 13px/1 'Work Sans',sans-serif", color: "rgba(255,255,255,0.8)" }}>Webflow Educator</div>
@@ -1783,7 +1784,7 @@ function WebflowBody() {
             onClick={() => openMentorWhatsApp("937845233", "Dani")}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/forhuman-lab/mentor-1.jpg" alt="Danitza Rosas" style={{ width: "100%", aspectRatio: "4 / 5", objectFit: "cover", display: "block" }} />
+            <img src="/forhuman-lab/mentor-1.jpg" alt="Danitza Rosas" loading="lazy" style={{ width: "100%", aspectRatio: "4 / 5", objectFit: "cover", display: "block" }} />
             <div style={{ position: "absolute", left: 0, right: 0, bottom: 0, padding: "24px 20px", background: "linear-gradient(0deg, rgba(0,0,0,0.75), transparent)" }}>
               <div style={{ font: "500 20px/1 'Manrope',sans-serif", color: "var(--white)" }}>Danitza Rosas</div>
               <div style={{ font: "300 13px/1 'Work Sans',sans-serif", color: "rgba(255,255,255,0.8)" }}>Webflow Designer</div>
@@ -2354,6 +2355,7 @@ function FlowmcpBody() {
           <img
             src="/forhuman-lab/flowmcp-shipstudio-prompt.png"
             alt="Un agente de IA construyendo un componente de pricing en Ship Studio"
+            loading="lazy"
             style={{
               width: "100%",
               height: "clamp(180px, 40vw, 480px)",
@@ -2542,7 +2544,7 @@ function FinderBody() {
             onClick={() => openMentorWhatsApp("936098806", "Fio")}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/forhuman-lab/fio-cisneros.jpg" alt="Fiorella Cisneros" style={{ width: "100%", aspectRatio: "4 / 5", objectFit: "cover", display: "block" }} />
+            <img src="/forhuman-lab/fio-cisneros.jpg" alt="Fiorella Cisneros" loading="lazy" style={{ width: "100%", aspectRatio: "4 / 5", objectFit: "cover", display: "block" }} />
             <div style={{ position: "absolute", left: 0, right: 0, bottom: 0, padding: "24px 20px", background: "linear-gradient(0deg, rgba(0,0,0,0.75), transparent)" }}>
               <div style={{ font: "500 20px/1 'Manrope',sans-serif", color: "var(--white)" }}>Fiorella Cisneros</div>
               <div style={{ font: "300 13px/1 'Work Sans',sans-serif", color: "rgba(255,255,255,0.8)" }}>Webflow Educator</div>
@@ -2553,7 +2555,7 @@ function FinderBody() {
             onClick={() => openMentorWhatsApp("937845233", "Dani")}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/forhuman-lab/mentor-1.jpg" alt="Danitza Rosas" style={{ width: "100%", aspectRatio: "4 / 5", objectFit: "cover", display: "block" }} />
+            <img src="/forhuman-lab/mentor-1.jpg" alt="Danitza Rosas" loading="lazy" style={{ width: "100%", aspectRatio: "4 / 5", objectFit: "cover", display: "block" }} />
             <div style={{ position: "absolute", left: 0, right: 0, bottom: 0, padding: "24px 20px", background: "linear-gradient(0deg, rgba(0,0,0,0.75), transparent)" }}>
               <div style={{ font: "500 20px/1 'Manrope',sans-serif", color: "var(--white)" }}>Danitza Rosas</div>
               <div style={{ font: "300 13px/1 'Work Sans',sans-serif", color: "rgba(255,255,255,0.8)" }}>Webflow Designer</div>
@@ -2571,7 +2573,7 @@ function FotosSection({ id, title, count, photos = REAL_PHOTOS }: { id: string; 
     <div id={id} style={{ padding: "16px 20px 28px" }}>
       <div style={{ position: "relative", borderRadius: 16, overflow: "hidden", marginBottom: 14, aspectRatio: "16 / 8" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={photos[0]} alt={title} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+        <img src={photos[0]} alt={title} loading="lazy" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
         <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(0,0,0,0.6), transparent 60%)" }} />
         <div style={{ position: "absolute", left: 16, bottom: 12, color: "#F7F7F7" }}>
           <div style={{ font: "700 22px/1 'Manrope',sans-serif" }}>{title}</div>
@@ -2856,7 +2858,7 @@ function ContactIcon({ contact, size = 64 }: { contact: WhatsAppContact; size?: 
     <>
       <div style={{ position: "relative", width: size, height: size }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={contact.photo} style={{ width: size, height: size, borderRadius: "50%", objectFit: "cover" }} alt={contact.name} />
+        <img src={contact.photo} style={{ width: size, height: size, borderRadius: "50%", objectFit: "cover" }} alt={contact.name} loading="lazy" />
         <div
           style={{
             position: "absolute",
