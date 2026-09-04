@@ -1,6 +1,6 @@
 "use client";
 
-import { CSSProperties, FormEvent, ReactNode, useEffect, useRef, useState } from "react";
+import { CSSProperties, FormEvent, ReactElement, ReactNode, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence, useInView, useScroll, useTransform } from "framer-motion";
 import { Tag } from "@/components/design-system/Tag";
@@ -1946,7 +1946,7 @@ function CursorLogo({ size = 16 }: { size?: number }) {
   );
 }
 
-const FLOWMCP_AGENT_ICONS: Record<string, (props: { size?: number }) => JSX.Element> = {
+const FLOWMCP_AGENT_ICONS: Record<string, (props: { size?: number }) => ReactElement> = {
   "Claude Code": ClaudeLogo,
   "Claude Desktop": ClaudeLogo,
   Cursor: CursorLogo,
@@ -1954,13 +1954,13 @@ const FLOWMCP_AGENT_ICONS: Record<string, (props: { size?: number }) => JSX.Elem
   Codex: ChatGptLogo,
 };
 
-const FLOWMCP_AGENT_GROUPS: { icon: (props: { size?: number }) => JSX.Element; tools: string[] }[] = [
+const FLOWMCP_AGENT_GROUPS: { icon: (props: { size?: number }) => ReactElement; tools: string[] }[] = [
   { icon: ClaudeLogo, tools: ["Claude Code", "Claude Desktop"] },
   { icon: CursorLogo, tools: ["Cursor"] },
   { icon: ChatGptLogo, tools: ["ChatGPT", "Codex"] },
 ];
 
-function AgentIconTooltip({ icon: Icon }: { icon: (props: { size?: number }) => JSX.Element; tools: string[] }) {
+function AgentIconTooltip({ icon: Icon }: { icon: (props: { size?: number }) => ReactElement; tools: string[] }) {
   return (
     <span
       style={{
