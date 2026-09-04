@@ -2591,11 +2591,12 @@ function FotosSection({ id, title, count, photos = REAL_PHOTOS }: { id: string; 
 
 function FotosBody() {
   return (
-    <div style={{ paddingBottom: 24 }}>
+    <>
       <FotosSection id="favoritos" title="Favoritos" count={6} photos={FAVORITOS_PHOTOS} />
       <FotosSection id="mascotas" title="Mascotas" count={6} photos={MASCOTAS_PHOTOS} />
       <FotosSection id="recientes" title="Reciente" count={6} photos={RECIENTES_PHOTOS} />
-    </div>
+      <div style={{ height: 24 }} />
+    </>
   );
 }
 
