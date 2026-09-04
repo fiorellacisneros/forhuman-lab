@@ -8,6 +8,8 @@ export function Header({
   kicker,
   kickerColor,
   style,
+  subtitleStyle,
+  titleStyle,
 }: {
   title?: string;
   subtitle?: string;
@@ -16,6 +18,8 @@ export function Header({
   kicker?: string;
   kickerColor?: string;
   style?: CSSProperties;
+  subtitleStyle?: CSSProperties;
+  titleStyle?: CSSProperties;
 }) {
   return (
     <div
@@ -40,10 +44,10 @@ export function Header({
           {kicker}
         </span>
       )}
-      <span style={{ font: "400 clamp(32px, 7.5vw, 64px)/1.1 'Manrope',sans-serif", letterSpacing: "-0.03em", color }}>
+      <span style={{ font: "400 clamp(32px, 7.5vw, 64px)/1.1 'Manrope',sans-serif", letterSpacing: "-0.03em", color, ...titleStyle }}>
         {title}
       </span>
-      <span style={{ font: "300 clamp(16px, 4vw, 24px)/1.3 'Work Sans',sans-serif", color }}>{subtitle}</span>
+      <span style={{ font: "300 clamp(16px, 4vw, 24px)/1.3 'Work Sans',sans-serif", color, ...subtitleStyle }}>{subtitle}</span>
     </div>
   );
 }

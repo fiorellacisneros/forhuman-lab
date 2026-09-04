@@ -14,4 +14,4 @@ Construido con Next.js + Tailwind. Es una simulación de escritorio (macOS/iPhon
 
 ## Apóyanos
 
-Si algo de esto te fue útil, puedes invitarnos un café para sobrevivir al vibecode nocturno ☕ → [Buy Me a Coffee](#)
+Si algo de esto te fue útil, puedes invitarnos un café para sobrevivir al vibecode nocturno ☕ → [Buy Me a Coffee](https://buymeacoffee.com/fiocisneros)

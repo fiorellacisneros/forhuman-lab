@@ -544,7 +544,7 @@ const FLOWMCP_SECTIONS = [
   { id: "flowmcp-inicio", label: "Inicio" },
   { id: "flowmcp-problema", label: "Problema" },
   { id: "flowmcp-como-funciona", label: "Cómo funciona" },
-  { id: "flowmcp-hablar-agente", label: "Hablarle a tu agente" },
+  { id: "flowmcp-hablar-agente", label: "Conectores" },
   { id: "flowmcp-seguridad", label: "Seguridad" },
   { id: "flowmcp-agencias", label: "Agencias" },
 ];
@@ -835,6 +835,65 @@ function RevealGroup({
   );
 }
 
+function GsapCardsReveal({
+  children,
+  style,
+  className,
+  selector = ".gsap-card",
+}: {
+  children: ReactNode;
+  style?: CSSProperties;
+  className?: string;
+  selector?: string;
+}) {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    let ctx: { revert: () => void } | undefined;
+    let cancelled = false;
+
+    import("gsap").then(({ gsap }) => {
+      import("gsap/ScrollTrigger").then(({ ScrollTrigger }) => {
+        if (cancelled || !containerRef.current) return;
+        gsap.registerPlugin(ScrollTrigger);
+        const scroller = containerRef.current.closest(".shs-scroll") as HTMLElement | null;
+
+        ctx = gsap.context(() => {
+          const items = gsap.utils.toArray(selector, containerRef.current) as HTMLElement[];
+          if (!items.length) return;
+          // Only animates opacity (not transform/y) so it doesn't fight with
+          // framer-motion's whileHover scale on the same elements.
+          gsap.set(items, { opacity: 0 });
+          gsap.to(items, {
+            opacity: 1,
+            duration: 0.5,
+            ease: "power2.out",
+            stagger: 0.1,
+            scrollTrigger: {
+              trigger: containerRef.current!,
+              scroller: scroller ?? undefined,
+              start: "top 85%",
+              toggleActions: "play none none none",
+            },
+          });
+        }, containerRef);
+        ScrollTrigger.refresh();
+      });
+    });
+
+    return () => {
+      cancelled = true;
+      ctx?.revert();
+    };
+  }, [selector]);
+
+  return (
+    <div ref={containerRef} style={style} className={className}>
+      {children}
+    </div>
+  );
+}
+
 function MomentumCard({ children, style }: { children: ReactNode; style?: CSSProperties }) {
   const [hover, setHover] = useState(false);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
@@ -1020,16 +1079,16 @@ function TestimonialsSection({ items }: { items: { quote: string; date: string }
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
-          gap: "clamp(32px, 7vw, 56px)",
-          paddingTop: "clamp(40px, 8vw, 64px)",
-          paddingBottom: "clamp(40px, 8vw, 64px)",
+          gap: "clamp(28px, 5vw, 48px)",
+          paddingTop: "clamp(28px, 6vw, 48px)",
+          paddingBottom: "clamp(28px, 6vw, 48px)",
           boxSizing: "border-box",
           minHeight,
         }}
       >
         <div className="shs-inner-pad" style={{ padding: "0 64px" }}>
           <Reveal>
-            <h2 style={{ font: "400 clamp(28px, 6.5vw, 52px)/1.25 'Manrope',sans-serif", letterSpacing: "-0.02em", margin: 0, maxWidth: 960 }}>
+            <h2 style={{ font: "400 clamp(24px, 5.5vw, 42px)/1.25 'Manrope',sans-serif", letterSpacing: "-0.02em", margin: 0, maxWidth: 900 }}>
               <span style={{ color: "var(--white)" }}>¿Qué opinan de Webflow Camp? Ya son más de 150 alumnos formados. </span>
               <span style={{ color: "rgba(255,255,255,0.45)" }}>No te quedes solo con nuestra palabra — escúchalo directo de nuestra comunidad.</span>
             </h2>
@@ -1040,8 +1099,8 @@ function TestimonialsSection({ items }: { items: { quote: string; date: string }
             <div
               key={i}
               style={{
-                width: "clamp(240px, 78vw, 420px)",
-                height: "clamp(240px, 78vw, 420px)",
+                width: "clamp(220px, 60vw, 340px)",
+                height: "clamp(220px, 60vw, 340px)",
                 flexShrink: 0,
                 borderRadius: 16,
                 border: "1px solid rgba(255,255,255,0.14)",
@@ -1117,7 +1176,7 @@ function SumateCTA({ courseName, weeks, targetId }: { courseName: string; weeks:
   );
 }
 
-function FooterLink({ href, children }: { href: string; children: ReactNode }) {
+function FooterLink({ href, children, nowrap }: { href: string; children: ReactNode; nowrap?: boolean }) {
   const [hover, setHover] = useState(false);
   return (
     <a
@@ -1134,6 +1193,7 @@ function FooterLink({ href, children }: { href: string; children: ReactNode }) {
         font: "400 22px/1.1 'Manrope',sans-serif",
         textDecoration: "none",
         cursor: "pointer",
+        whiteSpace: nowrap ? "nowrap" : undefined,
       }}
     >
       {children}
@@ -1145,7 +1205,7 @@ function FooterLink({ href, children }: { href: string; children: ReactNode }) {
           transform: "translateY(-50%)",
           height: 2,
           width: hover ? "100%" : "0%",
-          background: "var(--yellow)",
+          background: "var(--white)",
           transition: "width 0.25s cubic-bezier(0.4, 0, 0.2, 1)",
           pointerEvents: "none",
         }}
@@ -1154,14 +1214,73 @@ function FooterLink({ href, children }: { href: string; children: ReactNode }) {
   );
 }
 
-function FooterLinkCol({ eyebrow, children }: { eyebrow: string; children: ReactNode }) {
+function FooterLinkCol({ eyebrow, children, width = 180 }: { eyebrow: string; children: ReactNode; width?: number }) {
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "clamp(14px, 4vw, 24px)", width: 180 }}>
+    <div style={{ display: "flex", flexDirection: "column", gap: "clamp(14px, 4vw, 24px)", width }}>
       <span style={{ font: "400 15px/1 'Manrope',sans-serif", color: "rgba(247,247,247,0.5)" }}>{eyebrow}</span>
       <div style={{ display: "flex", flexDirection: "column", gap: 12, alignItems: "flex-start" }}>{children}</div>
     </div>
   );
 }
+
+function XCircleIcon({ size = 22, color = "currentColor" }: { size?: number; color?: string }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M9 9L15 15" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M15 9L9 15" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path
+        d="M3 12C3 16.9706 7.02943 21 12 21C16.9706 21 21 16.9706 21 12C21 7.02943 16.9706 3 12 3C7.02943 3 3 7.02943 3 12Z"
+        stroke={color}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+function EmailValidIcon({ size = 18, color = "currentColor" }: { size?: number; color?: string }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M11.25 14.25L9 12" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M15 10.5L11.25 14.25" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path
+        d="M3 12C3 16.9706 7.02943 21 12 21C16.9706 21 21 16.9706 21 12C21 7.02943 16.9706 3 12 3C7.02943 3 3 7.02943 3 12Z"
+        stroke={color}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+function EmailInvalidIcon({ size = 18, color = "currentColor" }: { size?: number; color?: string }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        opacity="0.1"
+        d="M12 3C16.971 3 21 7.029 21 12C21 16.971 16.971 21 12 21C7.029 21 3 16.971 3 12C3 7.029 7.029 3 12 3Z"
+        fill={color}
+        stroke={color}
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M12 3C16.971 3 21 7.029 21 12C21 16.971 16.971 21 12 21C7.029 21 3 16.971 3 12C3 7.029 7.029 3 12 3Z"
+        stroke={color}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path d="M12 12.5V7.5" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path
+        d="M11.996 14.5C11.444 14.5 10.996 14.948 11 15.5C11 16.052 11.448 16.5 12 16.5C12.552 16.5 13 16.052 13 15.5C13 14.948 12.552 14.5 11.996 14.5Z"
+        fill={color}
+      />
+    </svg>
+  );
+}
+
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 function SiteFooter() {
   const [email, setEmail] = useState("");
@@ -1206,27 +1325,26 @@ function SiteFooter() {
   return (
     <footer ref={footerRef} style={{ position: "relative", background: "var(--black)", paddingTop: "clamp(32px, 8vw, 64px)", overflow: "hidden" }}>
       <motion.div style={{ y: innerY, display: "flex", flexDirection: "column", minHeight: spacerHeight ? spacerHeight + 260 : undefined }}>
-        <div className="shs-inner-pad" style={{ padding: "0 64px", display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: "clamp(24px, 6vw, 40px)" }}>
+        <div className="shs-inner-pad" style={{ padding: "0 64px", display: "flex", flexDirection: "column", gap: "clamp(32px, 7vw, 56px)" }}>
           <div style={{ display: "flex", gap: "clamp(24px, 6vw, 48px)", flexWrap: "wrap" }}>
-            <FooterLinkCol eyebrow="Páginas">
+            <FooterLinkCol eyebrow="Proyectos">
               <FooterLink href="https://www.forhuman.studio/">forHuman</FooterLink>
-              <FooterLink href="#">Webflow Camp</FooterLink>
-              <FooterLink href="#">Aviso legal</FooterLink>
+              <FooterLink href="https://superhuman-school.webflow.io" nowrap>superHuman School</FooterLink>
             </FooterLinkCol>
             <FooterLinkCol eyebrow="Social">
               <FooterLink href="https://www.linkedin.com/company/forhuman-studio/">LinkedIn</FooterLink>
               <FooterLink href="https://www.instagram.com/superhuman.school/">Instagram</FooterLink>
             </FooterLinkCol>
-            <FooterLinkCol eyebrow="Contacto">
+            <FooterLinkCol eyebrow="Contacto" width={300}>
               <FooterLink href="mailto:hola@forhuman.studio">hola@forhuman.studio</FooterLink>
               <FooterLink href="https://api.whatsapp.com/send/?phone=%2B51936098806&text=Hola%2C+quisiera+informaci%C3%B3n+sobre...&type=phone_number&app_absent=0">
                 +51 936 098 806
               </FooterLink>
             </FooterLinkCol>
           </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: 12, width: 260 }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 12, width: "100%", maxWidth: 340 }}>
             <span style={{ font: "400 13px/1.4 'Work Sans',sans-serif", color: "rgba(247,247,247,0.6)" }}>
-              Recibe novedades de próximos experimentos de forHuman.
+              Recibe novedades de nuestros próximos cursos, eventos, etc.
             </span>
             {status === "done" ? (
               <span style={{ font: "500 14px/1 'Work Sans',sans-serif", color: "var(--white)" }}>
@@ -1234,26 +1352,43 @@ function SiteFooter() {
               </span>
             ) : (
               <form onSubmit={submit} style={{ display: "flex", gap: 8, width: "100%" }}>
-                <input
-                  id="footer-email"
-                  type="email"
-                  required
-                  placeholder="peter@parker.com"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  style={{
-                    padding: "12px 14px",
-                    borderRadius: 5,
-                    border: "1px solid rgba(247,247,247,0.15)",
-                    background: "rgba(247,247,247,0.08)",
-                    color: "var(--white)",
-                    font: "400 14px/1 'Work Sans',sans-serif",
-                    width: "100%",
-                    minWidth: 0,
-                    outline: "none",
-                    boxSizing: "border-box",
-                  }}
-                />
+                <div style={{ position: "relative", flex: 1, minWidth: 0 }}>
+                  <input
+                    id="footer-email"
+                    type="email"
+                    required
+                    placeholder="peter@parker.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    style={{
+                      padding: email ? "12px 38px 12px 14px" : "12px 14px",
+                      borderRadius: "0.328125em",
+                      border: "1px solid #efeeec",
+                      background: "#efeeec",
+                      color: "#131313",
+                      font: "400 14px/1 'Work Sans',sans-serif",
+                      width: "100%",
+                      minWidth: 0,
+                      outline: "none",
+                      boxSizing: "border-box",
+                    }}
+                  />
+                  {email && (
+                    <span
+                      style={{
+                        position: "absolute",
+                        right: 10,
+                        top: "50%",
+                        transform: "translateY(-50%)",
+                        display: "flex",
+                        color: EMAIL_RE.test(email) ? "#1a7f37" : "#c1121f",
+                        pointerEvents: "none",
+                      }}
+                    >
+                      {EMAIL_RE.test(email) ? <EmailValidIcon size={18} /> : <EmailInvalidIcon size={18} />}
+                    </span>
+                  )}
+                </div>
                 <button
                   type="submit"
                   disabled={status === "loading"}
@@ -1534,7 +1669,6 @@ function WebflowBody() {
           <StackedPerks items={WEBFLOW_PERKS} />
         </Reveal>
       </section>
-      <TestimonialsSection items={WEBFLOW_TESTIMONIALS} />
       <section id="webflow-precios" style={{ padding: "clamp(40px, 9vw, 80px) 64px", display: "flex", flexDirection: "column", gap: 20, alignItems: "center" }}>
         <Reveal>
           <Header kicker="Precios" title="Inscríbete y potencia tus habilidades" subtitle="Transforma tus habilidades en oportunidades internacionales, tu propia agencia o proyectos independientes." />
@@ -1725,13 +1859,93 @@ function TerminalSnippet({ lines, style }: { lines: string[]; style?: CSSPropert
 
 const FLOWMCP_INSTALL_LINES = [
   "npm install -g @forhuman/flowmcp",
-  "flowmcp connect acme  // cambia acme por el nombre de tu proyecto",
+  "flowmcp add acme  // cambia acme por el nombre de tu proyecto",
+  "flowmcp connect acme",
   "flowmcp install acme claude-code  // o claude-desktop, cursor, chatgpt, codex",
 ];
 
 const FLOWMCP_MICRO_FEATURES = ["JSON-first para agentes", "Diagnóstico incluido", "Bilingüe (ES/EN)", "Open source · MIT"];
 
 const FLOWMCP_AGENTS = ["Claude Code", "Claude Desktop", "Cursor", "ChatGPT", "Codex"];
+
+function ClaudeLogo({ size = 16 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M4.08649 13.802L8.18759 11.501L8.25656 11.3011L8.18759 11.1899H7.98775L7.30235 11.1477L4.95906 11.0844L2.92681 10.9999L0.95788 10.8944L0.462483 10.7888L-0.00195312 10.1766L0.0458984 9.87123L0.462483 9.59116L1.05921 9.64323L2.37793 9.73331L4.3567 9.86982L5.79223 9.95427L7.91879 10.1752H8.25656L8.30441 10.0387L8.189 9.95427L8.09893 9.86982L6.05119 8.48214L3.83457 7.01566L2.67348 6.17123L2.04579 5.74338L1.72913 5.34228L1.59261 4.46689L2.1626 3.8392L2.92821 3.89127L3.12384 3.94334L3.89931 4.54007L5.55579 5.8222L7.71894 7.41535L8.0356 7.67853L8.16226 7.58846L8.17774 7.52513L8.0356 7.28728L6.85903 5.16073L5.60364 2.99758L5.04491 2.10108L4.89714 1.56346C4.84507 1.3425 4.80707 1.15673 4.80707 0.930141L5.45587 0.049122L5.81475 -0.0662842L6.68029 0.049122L7.0448 0.365783L7.58242 1.59583L8.45359 3.53239L9.80467 6.1656L10.2001 6.94669L10.4113 7.67009L10.4901 7.89105H10.6266V7.76438L10.7378 6.281L10.9432 4.45985L11.1431 2.11656L11.2121 1.4565L11.5386 0.665553L12.1874 0.237711L12.694 0.47978L13.1106 1.07651L13.0529 1.46213L12.8052 3.07217L12.3197 5.5942L12.003 7.28306H12.1874L12.3985 7.07195L13.2528 5.9376L14.6883 4.14319L15.3216 3.43106L16.0605 2.64433L16.5348 2.26997H17.4313L18.0913 3.25091L17.7958 4.26423L16.8725 5.43517L16.1069 6.42737L15.0092 7.90512L14.3238 9.08732L14.3871 9.18161L14.5504 9.16613L17.0302 8.63836L18.37 8.39629L19.9688 8.12185L20.6922 8.45962L20.771 8.80303L20.4867 9.50531L18.7767 9.92753L16.7712 10.3286L13.7847 11.0351L13.7482 11.0619L13.7904 11.1139L15.1358 11.2406L15.7115 11.2716H17.1202L19.7436 11.4672L20.429 11.9204L20.8399 12.4749L20.771 12.8971L19.7154 13.4347L18.2912 13.0969L14.9669 12.306L13.827 12.0217H13.6693V12.116L14.6193 13.0449L16.3603 14.6169L18.5403 16.6435L18.6515 17.1446L18.3714 17.54L18.0759 17.4978L16.1604 16.0567L15.4215 15.4079L13.7482 13.9991H13.637V14.1468L14.0226 14.7112L16.0591 17.7723L16.1646 18.711L16.0169 19.0164L15.4891 19.2008L14.9092 19.0952L13.7172 17.4218L12.4871 15.5373L11.4949 13.8485L11.3739 13.9174L10.7884 20.2239L10.514 20.5462L9.88067 20.7883L9.3529 20.3872L9.07284 19.7384L9.3529 18.4563L9.69068 16.7829L9.96512 15.4529L10.2128 13.8006L10.3606 13.2518L10.3507 13.2152L10.2297 13.2306L8.98417 14.9406L7.08984 17.5006L5.59098 19.1051L5.2321 19.2472L4.61003 18.9249L4.66774 18.3493L5.01536 17.837L7.08984 15.1982L8.341 13.5628L9.14884 12.6184L9.14321 12.4819H9.09536L3.58546 16.0595L2.60452 16.1861L2.1823 15.7907L2.23437 15.1419L2.43422 14.9308L4.09071 13.7908L4.08508 13.7964L4.08649 13.802Z"
+        fill="#D97757"
+      />
+    </svg>
+  );
+}
+
+function ChatGptLogo({ size = 16 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M19.2346 8.47999C19.7047 7.06915 19.5428 5.52363 18.7911 4.24034C17.6606 2.27202 15.388 1.25937 13.1684 1.73591C12.181 0.623552 10.7624 -0.00902956 9.27518 3.50649e-05C7.00644 -0.00514472 4.99344 1.45555 4.29546 3.61423C2.838 3.91272 1.57996 4.82501 0.843783 6.11801C-0.295122 8.08115 -0.0354854 10.5558 1.48608 12.2392C1.01601 13.6501 1.17788 15.1956 1.9296 16.4789C3.06008 18.4472 5.33272 19.4598 7.55225 18.9833C8.539 20.0957 9.95827 20.7282 11.4455 20.7185C13.7156 20.7244 15.7292 19.2624 16.4272 17.1017C17.8846 16.8033 19.1427 15.891 19.8789 14.598C21.0165 12.6348 20.7562 10.1621 19.2353 8.4787L19.2346 8.47999ZM11.4468 19.3647C10.5384 19.366 9.65849 19.048 8.96116 18.466C8.99288 18.4491 9.04792 18.4187 9.08353 18.3967L13.2092 16.014C13.4203 15.8942 13.5498 15.6695 13.5485 15.4267V9.61048L15.2922 10.6173C15.3109 10.6264 15.3232 10.6445 15.3258 10.6652V15.4818C15.3232 17.6236 13.5886 19.3601 11.4468 19.3647ZM3.10476 15.8016C2.64959 15.0156 2.48578 14.0942 2.64182 13.2001C2.67225 13.2182 2.72599 13.2512 2.76419 13.2732L6.88989 15.6559C7.09902 15.7783 7.35801 15.7783 7.56779 15.6559L12.6045 12.7475V14.7611C12.6058 14.7818 12.5961 14.8019 12.5799 14.8149L8.40951 17.2228C6.55191 18.2924 4.17957 17.6566 3.10541 15.8016H3.10476ZM2.01895 6.79591C2.47218 6.00859 3.18764 5.40644 4.03971 5.09371C4.03971 5.12932 4.03777 5.19212 4.03777 5.23615V10.0022C4.03647 10.2444 4.16597 10.469 4.3764 10.5888L9.41309 13.4966L7.66945 14.5034C7.65197 14.5151 7.62995 14.517 7.61053 14.5086L3.4395 12.0987C1.58579 11.0252 0.949969 8.65351 2.0183 6.79656L2.01895 6.79591ZM16.3449 10.1298L11.3082 7.2213L13.0519 6.21513C13.0694 6.20348 13.0914 6.20153 13.1108 6.20995L17.2818 8.6179C19.1388 9.69077 19.7753 12.0663 18.7024 13.9233C18.2485 14.7093 17.5337 15.3115 16.6823 15.6249V10.7164C16.6842 10.4742 16.5554 10.2502 16.3456 10.1298H16.3449ZM18.0802 7.51785C18.0497 7.49907 17.996 7.4667 17.9578 7.44468L13.8321 5.06198C13.623 4.93961 13.364 4.93961 13.1542 5.06198L8.1175 7.97043V5.95679C8.1162 5.93607 8.12592 5.916 8.1421 5.90305L12.3125 3.49704C14.1701 2.42547 16.545 3.06323 17.6159 4.92148C18.0685 5.70622 18.2323 6.62498 18.0789 7.51785H18.0802ZM7.1696 11.1068L5.4253 10.1C5.40653 10.0909 5.39423 10.0728 5.39164 10.0521V5.2355C5.39293 3.09107 7.13269 1.35325 9.27712 1.35455C10.1842 1.35455 11.0622 1.67311 11.7595 2.25324C11.7278 2.27008 11.6734 2.30051 11.6372 2.32252L7.51146 4.70522C7.30039 4.82501 7.17089 5.04903 7.17219 5.29183L7.1696 11.1055V11.1068ZM8.11685 9.06466L10.3603 7.76907L12.6038 9.06401V11.6546L10.3603 12.9495L8.11685 11.6546V9.06466Z"
+        fill="black"
+      />
+    </svg>
+  );
+}
+
+function MicrophoneIcon({ size = 16, color = "currentColor" }: { size?: number; color?: string }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+      <path
+        fill={color}
+        d="M128 176a48.05 48.05 0 0 0 48-48V64a48 48 0 0 0-96 0v64a48.05 48.05 0 0 0 48 48M96 64a32 32 0 0 1 64 0v64a32 32 0 0 1-64 0Zm40 143.6V240a8 8 0 0 1-16 0v-32.4A80.11 80.11 0 0 1 48 128a8 8 0 0 1 16 0a64 64 0 0 0 128 0a8 8 0 0 1 16 0a80.11 80.11 0 0 1-72 79.6"
+      />
+    </svg>
+  );
+}
+
+function CursorLogo({ size = 16 }: { size?: number }) {
+  return (
+    <svg width={size} height={(size * 24) / 20} viewBox="0 0 20 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M9.70802 11.1404L19.3243 16.7046C19.2652 16.8072 19.1795 16.8947 19.0734 16.9559L10.0853 22.1565C9.85202 22.2916 9.56414 22.2916 9.33073 22.1565L0.342665 16.9559C0.236613 16.8947 0.150818 16.8072 0.0917969 16.7046L9.70802 11.1404Z" fill="#72716D" />
+      <path d="M9.70819 0.0286865V11.146L0.0919666 16.7102C0.0328292 16.6076 0 16.4891 0 16.3667V5.92543C0 5.67991 0.130615 5.45349 0.342835 5.33056L9.33043 0.129965C9.44731 0.0624455 9.57758 0.0286865 9.70773 0.0286865H9.70819Z" fill="#55544F" />
+      <path d="M19.3228 5.5819C19.2638 5.47934 19.178 5.3918 19.0719 5.33056L10.0839 0.129965C9.96745 0.0624455 9.83718 0.0286865 9.70703 0.0286865V11.146L19.3233 16.7102C19.3823 16.6076 19.4151 16.4891 19.4151 16.3667V5.92543C19.4151 5.8025 19.3827 5.68492 19.3233 5.5819H19.3228Z" fill="#43413C" />
+      <path d="M18.6519 5.96598C18.7064 6.06016 18.7139 6.18099 18.6519 6.28856L9.92293 21.4401C9.86438 21.5426 9.70839 21.5005 9.70839 21.3824V11.3982C9.70839 11.3186 9.68709 11.2419 9.64844 11.1748L18.6515 5.96552H18.6519V5.96598Z" fill="#D6D5D2" />
+      <path d="M18.6483 5.96964L9.6452 11.1788C9.60702 11.1121 9.55126 11.0555 9.48223 11.0155L0.854803 6.02342C0.752477 5.96463 0.794503 5.80829 0.912196 5.80829H18.3696C18.4936 5.80829 18.5943 5.87534 18.6483 5.96964Z" fill="white" />
+    </svg>
+  );
+}
+
+const FLOWMCP_AGENT_ICONS: Record<string, (props: { size?: number }) => JSX.Element> = {
+  "Claude Code": ClaudeLogo,
+  "Claude Desktop": ClaudeLogo,
+  Cursor: CursorLogo,
+  ChatGPT: ChatGptLogo,
+  Codex: ChatGptLogo,
+};
+
+const FLOWMCP_AGENT_GROUPS: { icon: (props: { size?: number }) => JSX.Element; tools: string[] }[] = [
+  { icon: ClaudeLogo, tools: ["Claude Code", "Claude Desktop"] },
+  { icon: CursorLogo, tools: ["Cursor"] },
+  { icon: ChatGptLogo, tools: ["ChatGPT", "Codex"] },
+];
+
+function AgentIconTooltip({ icon: Icon }: { icon: (props: { size?: number }) => JSX.Element; tools: string[] }) {
+  return (
+    <span
+      style={{
+        width: 32,
+        height: 32,
+        borderRadius: "50%",
+        background: "var(--white)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        border: "1px solid rgba(0,0,0,0.1)",
+        boxShadow: "0 2px 6px rgba(0,0,0,0.15)",
+      }}
+    >
+      <Icon size={16} />
+    </span>
+  );
+}
 
 function FlowmcpBody() {
   return (
@@ -1784,13 +1998,20 @@ function FlowmcpBody() {
           <Header
             kicker="El problema"
             title="Cambiar de cliente no debería ser desconectar y reconectar"
-            subtitle="Si manejas varios sitios de Webflow con tu agente de IA, ya conoces el ciclo: desconectas al cliente anterior, reinicias el agente, conectas al siguiente — o directamente pegas un token nuevo a mano cada vez. Con 5 clientes activos, eso son 5 reinicios por día, y un token pegado en un chat es un riesgo de seguridad."
+            titleStyle={{ maxWidth: "90%" }}
+            subtitle="Si manejas varios sitios de Webflow con tu agente de IA, ya conoces el ciclo: desconectas al cliente anterior, reinicias el agente, conectas al siguiente. Con 5 clientes activos, eso son 5 reinicios por día."
+            subtitleStyle={{ maxWidth: 760 }}
             align="left"
           />
         </Reveal>
-        <RevealGroup style={{ display: "flex", gap: 20, flexWrap: "wrap", alignItems: "stretch" }} itemStyle={{ flex: "1 1 320px", minWidth: 0 }}>
-          <div
+        <GsapCardsReveal style={{ display: "flex", gap: 20, flexWrap: "wrap", alignItems: "stretch" }}>
+          <motion.div
+            className="gsap-card"
+            whileHover={{ scale: 1.02 }}
+            transition={{ duration: 0.25, ease: "easeOut" }}
             style={{
+              flex: "1 1 320px",
+              minWidth: 0,
               height: "100%",
               background: "var(--pure-white)",
               borderRadius: "var(--radius-md)",
@@ -1801,21 +2022,39 @@ function FlowmcpBody() {
               boxSizing: "border-box",
             }}
           >
-            <span style={{ font: "600 13px/1 'Inconsolata',monospace", letterSpacing: "0.1em", color: "var(--gray-500)", textTransform: "uppercase" }}>
+            <span
+              style={{
+                width: 44,
+                height: 44,
+                borderRadius: 12,
+                background: "var(--gray-100)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <XCircleIcon size={22} color="var(--gray-500)" />
+            </span>
+            <span style={{ font: "400 22px/1.2 'Manrope',sans-serif", letterSpacing: "-0.02em", color: "var(--black)" }}>
               Sin flowmcp
             </span>
-            <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 10, font: "400 20px/1.3 'Manrope',sans-serif", letterSpacing: "-0.02em", color: "var(--black)" }}>
+            <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 8, font: "300 15px/1.5 'Work Sans',sans-serif", color: "var(--gray-500)" }}>
               <span>Desconectar</span>
-              <span style={{ color: "var(--gray-500)" }}>→</span>
+              <span>→</span>
               <span>Reiniciar</span>
-              <span style={{ color: "var(--gray-500)" }}>→</span>
+              <span>→</span>
               <span>Reconectar</span>
-              <span style={{ color: "var(--gray-500)" }}>→</span>
-              <span style={{ color: "var(--gray-500)" }}>repetir por cliente</span>
+              <span>→</span>
+              <span>repetir por cliente.</span>
             </div>
-          </div>
-          <div
+          </motion.div>
+          <motion.div
+            className="gsap-card"
+            whileHover={{ scale: 1.02 }}
+            transition={{ duration: 0.25, ease: "easeOut" }}
             style={{
+              flex: "1 1 320px",
+              minWidth: 0,
               height: "100%",
               background: "var(--black)",
               borderRadius: "var(--radius-md)",
@@ -1826,49 +2065,144 @@ function FlowmcpBody() {
               boxSizing: "border-box",
             }}
           >
-            <span style={{ font: "600 13px/1 'Inconsolata',monospace", letterSpacing: "0.1em", color: "var(--yellow)", textTransform: "uppercase" }}>
+            <span
+              style={{
+                width: 44,
+                height: 44,
+                borderRadius: 12,
+                background: "rgba(255, 190, 0, 0.15)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <EmailValidIcon size={22} color="var(--yellow)" />
+            </span>
+            <span style={{ font: "400 22px/1.2 'Manrope',sans-serif", letterSpacing: "-0.02em", color: "var(--white)" }}>
               Con flowmcp
             </span>
-            <div style={{ font: "400 20px/1.3 'Manrope',sans-serif", letterSpacing: "-0.02em", color: "var(--white)" }}>
-              Un comando por cliente, una sola vez. Cada org queda conectado y aislado — cambias entre ellos sin desconectar nada.
+            <div style={{ font: "300 15px/1.5 'Work Sans',sans-serif", color: "rgba(247,247,247,0.65)" }}>
+              Un comando por cliente, una sola vez. Cada proyecto queda conectado y aislado — cambias entre ellos sin desconectar nada.
             </div>
-          </div>
-        </RevealGroup>
+          </motion.div>
+        </GsapCardsReveal>
       </section>
-      <section id="flowmcp-como-funciona" style={{ padding: "clamp(32px, 8vw, 64px) 64px", display: "flex", flexDirection: "column", gap: 32 }}>
+      <section id="flowmcp-como-funciona" style={{ padding: "clamp(32px, 8vw, 64px) 64px", display: "flex", flexDirection: "column", gap: 40 }}>
         <Reveal>
-          <Header
-            kicker="3 pasos"
-            title="Cómo funciona"
-            subtitle="Conecta un org, instálalo en tu agente y verifica la conexión — con los comandos reales."
-            align="left"
-          />
+          <Header kicker="3 pasos" title="Cómo funciona" subtitle="Conecta tu proyecto, instálalo en tu agente y verifica la conexión — con los comandos reales." align="center" />
         </Reveal>
-        <RevealGroup style={{ display: "flex", gap: 20, flexWrap: "wrap" }} itemStyle={{ flex: "1 1 300px", minWidth: 0 }}>
-          <CardAprendizaje
-            number="01"
-            label="Comando"
-            title="Conecta tu org"
-            body="flowmcp connect <org> — guarda las credenciales en Keychain (macOS) o vía sesión OAuth aislada. Ningún comando acepta ni imprime un token."
-            style={{ width: "100%" }}
-          />
-          <CardAprendizaje
-            number="02"
-            label="Comando"
-            title="Instálalo en tu agente"
-            body="flowmcp install <org> <client> — conecta ese org a Claude Code, Claude Desktop, Cursor, ChatGPT o Codex con un solo comando."
-            style={{ width: "100%" }}
-          />
-          <CardAprendizaje
-            number="03"
-            label="Comando"
-            title="Verifica la conexión"
-            body="flowmcp debug <org> — diagnostica en segundos por qué una conexión no funciona."
-            style={{ width: "100%" }}
-          />
-        </RevealGroup>
-        <Reveal delay={0.1}>
-          <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+        <GsapCardsReveal style={{ display: "flex", gap: 16, flexWrap: "wrap", alignItems: "stretch" }}>
+            <motion.div
+              className="gsap-card"
+              whileHover={{ scale: 1.02 }}
+              transition={{ duration: 0.25, ease: "easeOut" }}
+              style={{
+                flex: "2.2 1 420px",
+                minWidth: 0,
+                minHeight: 460,
+                background: "var(--blue) url(/forhuman-lab/webflow-x-mcp-hexagon.png) center/cover no-repeat",
+                borderRadius: "var(--radius-md)",
+                padding: 20,
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-between",
+                boxSizing: "border-box",
+              }}
+            >
+              <span style={{ font: "700 13px/1 'Inconsolata',monospace", letterSpacing: "0.04em", color: "var(--white)" }}>
+                flowmcp
+              </span>
+              <div
+                style={{
+                  background: "var(--white)",
+                  borderRadius: 24,
+                  padding: 18,
+                  maxWidth: 320,
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 48,
+                }}
+              >
+                <span style={{ font: "400 clamp(36px, 7vw, 52px)/1 'Manrope',sans-serif", letterSpacing: "-0.02em", color: "var(--black)" }}>
+                  01
+                </span>
+                <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+                  <span style={{ font: "400 14px/1.4 'Work Sans',sans-serif", color: "var(--black)" }}>
+                    Agrega y conecta tu proyecto.
+                  </span>
+                  <span style={{ font: "400 11px/1.5 'Inconsolata',monospace", color: "var(--gray-500)", wordBreak: "break-all" }}>
+                    flowmcp add &lt;proyecto&gt;
+                    <br />
+                    flowmcp connect &lt;proyecto&gt;
+                  </span>
+                </div>
+              </div>
+            </motion.div>
+            <div style={{ flex: "1 1 260px", minWidth: 0, display: "flex", flexDirection: "column", gap: 16 }}>
+              <motion.div
+                className="gsap-card"
+                whileHover={{ scale: 1.02 }}
+                transition={{ duration: 0.25, ease: "easeOut" }}
+                style={{
+                  flex: 1,
+                  background: "var(--blue)",
+                  borderRadius: "var(--radius-md)",
+                  padding: 20,
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "flex-start",
+                  gap: 48,
+                  boxSizing: "border-box",
+                }}
+              >
+                <span style={{ font: "400 clamp(36px, 7vw, 52px)/1 'Manrope',sans-serif", letterSpacing: "-0.02em", color: "var(--white)" }}>
+                  02
+                </span>
+                <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+                  <div style={{ display: "flex", gap: 8 }}>
+                    {FLOWMCP_AGENT_GROUPS.map(({ icon, tools }) => (
+                      <AgentIconTooltip key={tools.join("+")} icon={icon} tools={tools} />
+                    ))}
+                  </div>
+                  <span style={{ font: "400 14px/1.4 'Work Sans',sans-serif", color: "var(--white)" }}>
+                    Instálalo en tu agente — 5 compatibles.
+                  </span>
+                </div>
+              </motion.div>
+              <motion.div
+                className="gsap-card"
+                whileHover={{ scale: 1.02 }}
+                transition={{ duration: 0.25, ease: "easeOut" }}
+                style={{
+                  flex: 1,
+                  background: "var(--gray-100)",
+                  border: "1px solid rgba(0,0,0,0.08)",
+                  boxShadow: "0 4px 16px rgba(0,0,0,0.05)",
+                  borderRadius: "var(--radius-md)",
+                  padding: 20,
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "flex-start",
+                  gap: 48,
+                  boxSizing: "border-box",
+                }}
+              >
+                <span style={{ font: "400 clamp(36px, 7vw, 52px)/1 'Manrope',sans-serif", letterSpacing: "-0.02em", color: "var(--black)" }}>
+                  03
+                </span>
+                <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+                  <span style={{ font: "400 14px/1.4 'Work Sans',sans-serif", color: "var(--black)" }}>
+                    Verifica — te dice qué falló al conectar.
+                  </span>
+                  <span style={{ font: "400 12px/1.5 'Inconsolata',monospace", color: "var(--gray-500)" }}>
+                    flowmcp debug &lt;proyecto&gt;
+                  </span>
+                </div>
+              </motion.div>
+            </div>
+        </GsapCardsReveal>
+        <Reveal delay={0.1} style={{ display: "flex", justifyContent: "center" }}>
+          <div style={{ display: "flex", gap: 10, flexWrap: "wrap", justifyContent: "center" }}>
             {FLOWMCP_MICRO_FEATURES.map((f) => (
               <Tag key={f}>{f}</Tag>
             ))}
@@ -1880,7 +2214,9 @@ function FlowmcpBody() {
           <Header
             kicker="Cómo hablarle a tu agente"
             title="Cada sitio queda con su propio nombre de conector"
-            subtitle="Al conectar un org, flowmcp lo registra como webflow-<org>. Si tienes varios sitios conectados, díselo a tu agente explícitamente para que no haya ambigüedad sobre a cuál se está conectando."
+            titleStyle={{ maxWidth: "90%" }}
+            subtitle="Al conectar un proyecto, flowmcp lo registra como webflow-<proyecto>. Si tienes varios sitios conectados, díselo a tu agente explícitamente para que no haya ambigüedad sobre a cuál se está conectando."
+            subtitleStyle={{ maxWidth: 760 }}
             align="left"
           />
         </Reveal>
@@ -1888,15 +2224,52 @@ function FlowmcpBody() {
           <div
             style={{
               background: "var(--black)",
-              borderRadius: "var(--radius-md)",
-              padding: 28,
+              borderRadius: 20,
+              padding: "20px 20px 16px",
               maxWidth: 620,
-              borderLeft: "3px solid var(--yellow)",
+              boxShadow: "0 20px 50px rgba(0,0,0,0.25)",
+              display: "flex",
+              flexDirection: "column",
+              gap: 18,
             }}
           >
-            <p style={{ font: "italic 300 18px/1.5 'Work Sans',sans-serif", color: "var(--white)", margin: 0 }}>
-              "Usa el conector webflow-acme y dame la lista de páginas."
+            <p style={{ font: "300 18px/1.5 'Work Sans',sans-serif", color: "var(--white)", margin: 0 }}>
+              Usa el conector webflow-acme y dame la lista de páginas.
             </p>
+            <div style={{ height: 40 }} />
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+              <span
+                style={{
+                  font: "400 18px/1 'Work Sans',sans-serif",
+                  color: "rgba(247,247,247,0.6)",
+                }}
+              >
+                +
+              </span>
+              <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+                <span style={{ font: "400 14px/1 'Work Sans',sans-serif", color: "rgba(247,247,247,0.55)", display: "flex", alignItems: "center", gap: 4 }}>
+                  Claude Code
+                  <span style={{ fontSize: 10 }}>⌄</span>
+                </span>
+                <MicrophoneIcon size={16} color="rgba(247,247,247,0.5)" />
+                <span
+                  style={{
+                    width: 30,
+                    height: 30,
+                    borderRadius: 10,
+                    background: "var(--yellow)",
+                    color: "var(--black)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    font: "700 14px/1 'Work Sans',sans-serif",
+                    flexShrink: 0,
+                  }}
+                >
+                  ↑
+                </span>
+              </div>
+            </div>
           </div>
         </Reveal>
         <Reveal delay={0.16}>
@@ -1911,7 +2284,9 @@ function FlowmcpBody() {
             kicker="Seguridad"
             kickerColor="var(--yellow)"
             title="El token nunca pasa por el agente"
+            titleStyle={{ maxWidth: "90%" }}
             subtitle="Ningún comando de flowmcp acepta o imprime un token de API. Se guarda cifrado en Keychain de macOS, o vive en una sesión OAuth aislada — tu agente de IA solo ve el resultado de cada comando, nunca la credencial."
+            subtitleStyle={{ maxWidth: 760 }}
             align="left"
             color="var(--white)"
           />
@@ -1922,8 +2297,27 @@ function FlowmcpBody() {
           <Header
             kicker="Para agencias y freelancers"
             title="Un cliente, una conexión aislada"
-            subtitle="Maneja tantos sitios de Webflow como necesites, de distintos clientes, sin mezclar credenciales entre ellos. flowmcp connect <org> por cada cliente — sin límite de cuántos manejas."
+            titleStyle={{ maxWidth: "90%" }}
+            subtitle="Maneja tantos sitios de Webflow como necesites, de distintos clientes, sin mezclar credenciales entre ellos. flowmcp connect <proyecto> por cada cliente — sin límite de cuántos manejas."
+            subtitleStyle={{ maxWidth: 760 }}
             align="left"
+          />
+        </Reveal>
+      </section>
+      <section style={{ padding: "0 64px clamp(24px, 6vw, 40px) 64px" }}>
+        <Reveal>
+          <img
+            src="/forhuman-lab/flowmcp-shipstudio-prompt.png"
+            alt="Un agente de IA construyendo un componente de pricing en Ship Studio"
+            style={{
+              width: "100%",
+              height: "clamp(180px, 40vw, 480px)",
+              objectFit: "cover",
+              objectPosition: "center 35%",
+              borderRadius: "var(--radius-md)",
+              display: "block",
+              boxShadow: "0 20px 50px rgba(0,0,0,0.15)",
+            }}
           />
         </Reveal>
       </section>
@@ -2035,7 +2429,7 @@ function StatCard({
       <span style={{ font: "700 clamp(48px, 10vw, 88px)/1 'Manrope',sans-serif", letterSpacing: "-0.04em", color: c.text, marginTop: 4 }}>
         {value}
       </span>
-      <span style={{ font: "500 16px/1.3 'Work Sans',sans-serif", color: c.text, maxWidth: 220 }}>{label}</span>
+      <span style={{ font: "400 16px/1.3 'Work Sans',sans-serif", color: c.text, maxWidth: 220 }}>{label}</span>
     </motion.div>
   );
 }
@@ -2048,13 +2442,13 @@ function FinderBody() {
           Nuestra historia
         </span>
         <h1 style={{ font: "400 clamp(32px, 8.5vw, 52px)/1.15 'Manrope',sans-serif", letterSpacing: "-0.03em", color: "var(--black)", margin: 0, maxWidth: 820 }}>
-          De agencia a escuela: <span style={{ fontStyle: "italic", color: "var(--blue)" }}>así nació superHuman.</span>
+          Construimos, enseñamos y ahora experimentamos: <span style={{ fontStyle: "italic", color: "var(--blue)" }}>así es forHuman Lab.</span>
         </h1>
         <p style={{ font: "300 clamp(16px, 4vw, 22px)/1.4 'Work Sans',sans-serif", color: "var(--black)", maxWidth: 720, margin: 0 }}>
-          forHuman Studio es la primera agencia en Perú certificada como Webflow Expert y Webflow Educator. Después de construir sitios para decenas de marcas, decidimos enseñar lo que sabemos — así nació superHuman School.
+          forHuman Studio es la primera agencia en Perú certificada como Webflow Expert y Webflow Educator. Construimos sitios para decenas de marcas — y de ahí nació superHuman School, nuestra forma de enseñar lo que sabíamos hacer.
         </p>
         <p style={{ font: "300 clamp(15px, 4vw, 20px)/1.4 'Work Sans',sans-serif", color: "var(--gray-500)", maxWidth: 720, margin: 0 }}>
-          Hoy formamos builders que lanzan su propia marca, sin depender de agencias ni de código. Webflow Camp y Figma Camp son el punto de partida.
+          forHuman Lab nace después, sin reemplazar nada de eso. En una industria donde la IA cambia cada mes, quedarnos con lo que ya sabemos no es una opción — hay que probar cosas antes de que alguien más lo haga. Ahí construimos herramientas y productos, como flowmcp, antes de llevarlos a nuestros clientes.
         </p>
       </section>
       <section
@@ -2082,9 +2476,10 @@ function FinderBody() {
         >
           <StatCard value="100%" label="Estudiantes practicando en vivo" variant="yellow" icon="live" rotate={-4} />
           <StatCard value="+200" label="Builders graduados en LATAM" variant="blue" icon="graduate" rotate={3} />
-          <StatCard value="2" label="Programas: Webflow Camp y Figma Camp" variant="light" icon="layers" rotate={-2} />
+          <StatCard value="+30" label="Charlas, workshops y talleres de no-code, diseño e IA" variant="light" icon="layers" rotate={-2} />
         </RevealGroup>
       </section>
+      <TestimonialsSection items={WEBFLOW_TESTIMONIALS} />
       <section id="mentores" className="shs-mentores-row" style={{ background: "var(--black)", padding: "clamp(40px, 9vw, 80px) 64px", display: "flex", gap: 48, flexWrap: "nowrap", alignItems: "center" }}>
         <Reveal style={{ flex: "1 1 320px", minWidth: 0 }}>
           <Header
@@ -2900,10 +3295,10 @@ export function MacDesktopExperience() {
             <DockIcon label="Finder" hoverId="finder" hovered={hoveredApp} onHover={setHoveredApp} onClick={() => openWindow("finder")} open={openApp === "finder"} mouseX={dockMouseX}>
               <div style={{ width: 56, height: 56, borderRadius: 14, background: "url(/forhuman-lab/icon-finder-app.svg) center / cover no-repeat" }} />
             </DockIcon>
-            <DockIcon label="Figma Camp" hoverId="figma" hovered={hoveredApp} onHover={setHoveredApp} onClick={() => openWindow("figma")} open={openApp === "figma"} mouseX={dockMouseX}>
+            <DockIcon label="Figma Camp — Coming soon" hoverId="figma" hovered={hoveredApp} onHover={setHoveredApp} open={false} mouseX={dockMouseX}>
               <div style={{ width: 56, height: 56, borderRadius: 14, background: "url(/forhuman-lab/icon-figma.svg) center / cover no-repeat" }} />
             </DockIcon>
-            <DockIcon label="Webflow Camp" hoverId="webflow" hovered={hoveredApp} onHover={setHoveredApp} onClick={() => openWindow("webflow")} open={openApp === "webflow"} mouseX={dockMouseX}>
+            <DockIcon label="Webflow Camp — Coming soon" hoverId="webflow" hovered={hoveredApp} onHover={setHoveredApp} open={false} mouseX={dockMouseX}>
               <div style={{ width: 56, height: 56, borderRadius: 14, background: "url(/forhuman-lab/icon-webflow.svg) center / cover no-repeat" }} />
             </DockIcon>
             <DockIcon label="flowmcp" hoverId="flowmcp" hovered={hoveredApp} onHover={setHoveredApp} onClick={() => openWindow("flowmcp")} open={openApp === "flowmcp"} mouseX={dockMouseX}>
@@ -3142,11 +3537,11 @@ export function MacDesktopExperience() {
                   <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }} onClick={() => openWindow("finder")}>
                     <div style={{ width: 56, height: 56, borderRadius: 14, background: "url(/forhuman-lab/icon-finder-app.svg) center / cover no-repeat", cursor: "pointer" }} />
                   </div>
-                  <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }} onClick={() => openWindow("figma")}>
-                    <div style={{ width: 56, height: 56, borderRadius: 14, background: "url(/forhuman-lab/icon-figma.svg) center / cover no-repeat", cursor: "pointer" }} />
+                  <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
+                    <div style={{ width: 56, height: 56, borderRadius: 14, background: "url(/forhuman-lab/icon-figma.svg) center / cover no-repeat" }} />
                   </div>
-                  <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }} onClick={() => openWindow("webflow")}>
-                    <div style={{ width: 56, height: 56, borderRadius: 14, background: "url(/forhuman-lab/icon-webflow.svg) center / cover no-repeat", cursor: "pointer" }} />
+                  <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
+                    <div style={{ width: 56, height: 56, borderRadius: 14, background: "url(/forhuman-lab/icon-webflow.svg) center / cover no-repeat" }} />
                   </div>
                   <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }} onClick={() => openWindow("flowmcp")}>
                     <div style={{ width: 56, height: 56, borderRadius: 14, background: "url(/forhuman-lab/icon-flowmcp.svg) center / cover no-repeat", cursor: "pointer" }} />
