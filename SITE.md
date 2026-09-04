@@ -314,6 +314,7 @@ En pantallas de celular, todo el mismo contenido se muestra dentro de un marco d
 - 2026-09-02: Se corrigió el botón de texto con flecha (usado en "Ver npm", "Ver beneficios", etc. en todo el sitio): antes, al pasar el mouse, la línea de subrayado se extendía debajo de todo el botón incluyendo el ícono de flecha; ahora la línea solo cubre la palabra de texto.
 - 2026-09-02: La carpeta de imágenes del proyecto se renombró de `public/superhuman/` a `public/forhuman-lab/`, para que coincida con el nuevo nombre del sitio ("forHuman Lab"). Todas las imágenes son las mismas, solo cambió la carpeta donde viven — no afecta nada visualmente.
 - 2026-09-04: Se instaló y conectó **Vercel Analytics**, para poder ver cuántas personas visitan el sitio una vez publicado. No cambia nada visualmente — solo empieza a contar visitas cuando el sitio esté desplegado en Vercel (los datos aparecen en el dashboard de Vercel, pestaña "Analytics").
+- 2026-09-04: Se instaló y conectó **Vercel Speed Insights**, para poder ver qué tan rápido carga el sitio para los visitantes reales una vez publicado. No cambia nada visualmente — los datos aparecen en el dashboard de Vercel, pestaña "Speed Insights", después del deploy.
 
 ## How to Customize
 

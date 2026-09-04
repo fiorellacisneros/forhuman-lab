@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Manrope, Work_Sans, Inconsolata, Reenie_Beanie } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 import { AgentationProvider } from "@/components/AgentationProvider";
 
@@ -64,6 +65,7 @@ export default function RootLayout({
         {children}
         <AgentationProvider />
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
