@@ -138,6 +138,11 @@ function easeInOutQuad(t: number) {
   return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
 }
 
+function openMentorWhatsApp(phone: string, firstName: string) {
+  const text = encodeURIComponent(`Hola ${firstName}, quiero información sobre los cursos`);
+  window.open(`https://api.whatsapp.com/send/?phone=%2B51${phone}&text=${text}&type=phone_number&app_absent=0`, "_blank", "noopener,noreferrer");
+}
+
 function smoothScrollToId(id: string, duration = 500) {
   const target = document.getElementById(id);
   if (!target) return;
@@ -918,12 +923,12 @@ function GsapCardsReveal({
   );
 }
 
-function MomentumCard({ children, style }: { children: ReactNode; style?: CSSProperties }) {
+function MomentumCard({ children, style, onClick }: { children: ReactNode; style?: CSSProperties; onClick?: () => void }) {
   const [hover, setHover] = useState(false);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
   return (
     <motion.div
-      style={{ cursor: "default", ...style }}
+      style={{ cursor: onClick ? "pointer" : "default", ...style }}
       onMouseEnter={() => setHover(true)}
       onMouseMove={(e) => {
         const rect = e.currentTarget.getBoundingClientRect();
@@ -935,6 +940,7 @@ function MomentumCard({ children, style }: { children: ReactNode; style?: CSSPro
         setHover(false);
         setOffset({ x: 0, y: 0 });
       }}
+      onClick={onClick}
       animate={{ x: offset.x, y: offset.y - (hover ? 6 : 0) }}
       transition={{ type: "spring", stiffness: 200, damping: 18 }}
     >
@@ -1573,7 +1579,10 @@ function FigmaBody() {
           />
         </Reveal>
         <RevealGroup style={{ display: "flex", gap: 24, flexWrap: "nowrap", flexShrink: 0, minWidth: 0 }}>
-          <MomentumCard style={{ width: 260, borderRadius: "var(--radius-md)", overflow: "hidden", position: "relative" }}>
+          <MomentumCard
+            style={{ width: 260, borderRadius: "var(--radius-md)", overflow: "hidden", position: "relative" }}
+            onClick={() => openMentorWhatsApp("936098806", "Fio")}
+          >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/forhuman-lab/fio-cisneros.jpg" alt="Fiorella Cisneros" style={{ width: "100%", aspectRatio: "4 / 5", objectFit: "cover", display: "block" }} />
             <div style={{ position: "absolute", left: 0, right: 0, bottom: 0, padding: "24px 20px", background: "linear-gradient(0deg, rgba(0,0,0,0.75), transparent)" }}>
@@ -1581,7 +1590,10 @@ function FigmaBody() {
               <div style={{ font: "300 13px/1 'Work Sans',sans-serif", color: "rgba(255,255,255,0.8)" }}>Figma Educator</div>
             </div>
           </MomentumCard>
-          <MomentumCard style={{ width: 260, borderRadius: "var(--radius-md)", overflow: "hidden", position: "relative" }}>
+          <MomentumCard
+            style={{ width: 260, borderRadius: "var(--radius-md)", overflow: "hidden", position: "relative" }}
+            onClick={() => openMentorWhatsApp("937845233", "Dani")}
+          >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/forhuman-lab/mentor-1.jpg" alt="Danitza Rosas" style={{ width: "100%", aspectRatio: "4 / 5", objectFit: "cover", display: "block" }} />
             <div style={{ position: "absolute", left: 0, right: 0, bottom: 0, padding: "24px 20px", background: "linear-gradient(0deg, rgba(0,0,0,0.75), transparent)" }}>
@@ -1755,7 +1767,10 @@ function WebflowBody() {
           />
         </Reveal>
         <RevealGroup style={{ display: "flex", gap: 24, flexWrap: "nowrap", flexShrink: 0, minWidth: 0 }}>
-          <MomentumCard style={{ width: 260, borderRadius: "var(--radius-md)", overflow: "hidden", position: "relative" }}>
+          <MomentumCard
+            style={{ width: 260, borderRadius: "var(--radius-md)", overflow: "hidden", position: "relative" }}
+            onClick={() => openMentorWhatsApp("936098806", "Fio")}
+          >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/forhuman-lab/fio-cisneros.jpg" alt="Fiorella Cisneros" style={{ width: "100%", aspectRatio: "4 / 5", objectFit: "cover", display: "block" }} />
             <div style={{ position: "absolute", left: 0, right: 0, bottom: 0, padding: "24px 20px", background: "linear-gradient(0deg, rgba(0,0,0,0.75), transparent)" }}>
@@ -1763,7 +1778,10 @@ function WebflowBody() {
               <div style={{ font: "300 13px/1 'Work Sans',sans-serif", color: "rgba(255,255,255,0.8)" }}>Webflow Educator</div>
             </div>
           </MomentumCard>
-          <MomentumCard style={{ width: 260, borderRadius: "var(--radius-md)", overflow: "hidden", position: "relative" }}>
+          <MomentumCard
+            style={{ width: 260, borderRadius: "var(--radius-md)", overflow: "hidden", position: "relative" }}
+            onClick={() => openMentorWhatsApp("937845233", "Dani")}
+          >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/forhuman-lab/mentor-1.jpg" alt="Danitza Rosas" style={{ width: "100%", aspectRatio: "4 / 5", objectFit: "cover", display: "block" }} />
             <div style={{ position: "absolute", left: 0, right: 0, bottom: 0, padding: "24px 20px", background: "linear-gradient(0deg, rgba(0,0,0,0.75), transparent)" }}>
@@ -2519,7 +2537,10 @@ function FinderBody() {
           />
         </Reveal>
         <RevealGroup style={{ display: "flex", gap: 24, flexWrap: "nowrap", flexShrink: 0, minWidth: 0 }}>
-          <MomentumCard style={{ width: 260, borderRadius: "var(--radius-md)", overflow: "hidden", position: "relative" }}>
+          <MomentumCard
+            style={{ width: 260, borderRadius: "var(--radius-md)", overflow: "hidden", position: "relative" }}
+            onClick={() => openMentorWhatsApp("936098806", "Fio")}
+          >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/forhuman-lab/fio-cisneros.jpg" alt="Fiorella Cisneros" style={{ width: "100%", aspectRatio: "4 / 5", objectFit: "cover", display: "block" }} />
             <div style={{ position: "absolute", left: 0, right: 0, bottom: 0, padding: "24px 20px", background: "linear-gradient(0deg, rgba(0,0,0,0.75), transparent)" }}>
@@ -2527,7 +2548,10 @@ function FinderBody() {
               <div style={{ font: "300 13px/1 'Work Sans',sans-serif", color: "rgba(255,255,255,0.8)" }}>Webflow Educator</div>
             </div>
           </MomentumCard>
-          <MomentumCard style={{ width: 260, borderRadius: "var(--radius-md)", overflow: "hidden", position: "relative" }}>
+          <MomentumCard
+            style={{ width: 260, borderRadius: "var(--radius-md)", overflow: "hidden", position: "relative" }}
+            onClick={() => openMentorWhatsApp("937845233", "Dani")}
+          >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/forhuman-lab/mentor-1.jpg" alt="Danitza Rosas" style={{ width: "100%", aspectRatio: "4 / 5", objectFit: "cover", display: "block" }} />
             <div style={{ position: "absolute", left: 0, right: 0, bottom: 0, padding: "24px 20px", background: "linear-gradient(0deg, rgba(0,0,0,0.75), transparent)" }}>
