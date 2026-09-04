@@ -30,8 +30,7 @@ const reenieBeanie = Reenie_Beanie({
 });
 
 const siteTitle = "forHuman Lab";
-const siteDescription =
-  "El laboratorio de forHuman Studio. Desde superHuman School (Webflow Camp y Figma Camp) hasta flowmcp, herramientas open source para construir con IA.";
+const siteDescription = "Experimentación de productos con IA.";
 
 export const metadata: Metadata = {
   title: siteTitle,
