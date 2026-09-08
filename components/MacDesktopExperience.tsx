@@ -2084,21 +2084,6 @@ function FlowmcpBody() {
             </div>
           </div>
         </Reveal>
-        <Reveal delay={0.16}>
-          <div style={{ display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
-            <span style={{ font: "600 12px/1 'Inconsolata',monospace", letterSpacing: "0.08em", color: "var(--gray-500)", textTransform: "uppercase" }}>
-              Disponible para
-            </span>
-            <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
-              <span style={{ display: "flex", alignItems: "center", gap: 6, color: "var(--black)", font: "500 13px/1 'Work Sans',sans-serif" }}>
-                <AppleIcon size={15} /> macOS
-              </span>
-              <span style={{ display: "flex", alignItems: "center", gap: 6, color: "var(--black)", font: "500 13px/1 'Work Sans',sans-serif" }}>
-                <LinuxIcon size={15} /> Linux
-              </span>
-            </div>
-          </div>
-        </Reveal>
         <Reveal delay={0.18}>
           <TerminalSnippet lines={FLOWMCP_INSTALL_LINES} />
         </Reveal>
