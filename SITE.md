@@ -315,6 +315,7 @@ En pantallas de celular, todo el mismo contenido se muestra dentro de un marco d
 - 2026-09-02: La carpeta de imágenes del proyecto se renombró de `public/superhuman/` a `public/forhuman-lab/`, para que coincida con el nuevo nombre del sitio ("forHuman Lab"). Todas las imágenes son las mismas, solo cambió la carpeta donde viven — no afecta nada visualmente.
 - 2026-09-04: Se instaló y conectó **Vercel Analytics**, para poder ver cuántas personas visitan el sitio una vez publicado. No cambia nada visualmente — solo empieza a contar visitas cuando el sitio esté desplegado en Vercel (los datos aparecen en el dashboard de Vercel, pestaña "Analytics").
 - 2026-09-04: Se instaló y conectó **Vercel Speed Insights**, para poder ver qué tan rápido carga el sitio para los visitantes reales una vez publicado. No cambia nada visualmente — los datos aparecen en el dashboard de Vercel, pestaña "Speed Insights", después del deploy.
+- 2026-09-08: Se agregó un aviso de compatibilidad en la página de **flowmcp**: como la herramienta solo funciona en macOS y Linux (no en Windows), ahora se muestran los íconos de 🍎 macOS y 🐧 Linux con el texto "Disponible para", tanto en la sección de inicio (debajo de "Funciona con") como en el banner final de instalación.
 
 ## How to Customize
 

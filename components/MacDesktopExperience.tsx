@@ -1921,6 +1921,35 @@ const FLOWMCP_MICRO_FEATURES = ["JSON-first para agentes", "Diagnóstico incluid
 
 const FLOWMCP_AGENTS = ["Claude Code", "Claude Desktop", "Cursor", "ChatGPT", "Codex"];
 
+function AppleIcon({ size = 16 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 17 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M14.15 10.62c-.02-2.06 1.68-3.05 1.76-3.1-.96-1.4-2.45-1.6-2.98-1.62-1.27-.13-2.48.75-3.12.75-.64 0-1.63-.73-2.68-.71-1.38.02-2.65.8-3.36 2.04-1.43 2.48-.37 6.14 1.03 8.15.68.98 1.5 2.09 2.57 2.05 1.03-.04 1.42-.66 2.67-.66 1.24 0 1.6.66 2.68.64 1.11-.02 1.81-1 2.49-1.99.78-1.14 1.1-2.24 1.12-2.29-.02-.01-2.14-.82-2.16-3.26Z"
+        fill="currentColor"
+      />
+      <path
+        d="M12.04 4.4c.57-.69.95-1.65.85-2.6-.82.03-1.81.55-2.4 1.23-.53.61-.99 1.59-.87 2.52.9.07 1.83-.46 2.42-1.15Z"
+        fill="currentColor"
+      />
+    </svg>
+  );
+}
+
+function LinuxIcon({ size = 16 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="10" cy="15.5" rx="6" ry="3" fill="currentColor" opacity="0.15" />
+      <path
+        d="M10 1.5c-1.66 0-3 1.7-3 4v2.3c0 .7-.28 1.14-.86 1.85l-1.4 1.7c-.5.6-.74 1.1-.74 1.7 0 1.2 1.2 1.9 2.6 1.55.2.9 1.5 1.9 3.4 1.9s3.2-1 3.4-1.9c1.4.35 2.6-.35 2.6-1.55 0-.6-.24-1.1-.74-1.7l-1.4-1.7c-.58-.71-.86-1.15-.86-1.85V5.5c0-2.3-1.34-4-3-4Z"
+        fill="currentColor"
+      />
+      <circle cx="8.1" cy="6.3" r="0.9" fill="var(--white)" />
+      <circle cx="11.9" cy="6.3" r="0.9" fill="var(--white)" />
+    </svg>
+  );
+}
+
 function ClaudeLogo({ size = 16 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -2052,6 +2081,21 @@ function FlowmcpBody() {
               {FLOWMCP_AGENTS.map((a) => (
                 <Tag key={a}>{a}</Tag>
               ))}
+            </div>
+          </div>
+        </Reveal>
+        <Reveal delay={0.16}>
+          <div style={{ display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
+            <span style={{ font: "600 12px/1 'Inconsolata',monospace", letterSpacing: "0.08em", color: "var(--gray-500)", textTransform: "uppercase" }}>
+              Disponible para
+            </span>
+            <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
+              <span style={{ display: "flex", alignItems: "center", gap: 6, color: "var(--black)", font: "500 13px/1 'Work Sans',sans-serif" }}>
+                <AppleIcon size={15} /> macOS
+              </span>
+              <span style={{ display: "flex", alignItems: "center", gap: 6, color: "var(--black)", font: "500 13px/1 'Work Sans',sans-serif" }}>
+                <LinuxIcon size={15} /> Linux
+              </span>
             </div>
           </div>
         </Reveal>
@@ -2427,6 +2471,16 @@ function FlowmcpBody() {
           <p style={{ font: "300 16px/1.4 'Work Sans',sans-serif", color: "rgba(255,255,255,0.75)", margin: 0, maxWidth: 480 }}>
             npm install -g @forhuman/flowmcp
           </p>
+        </Reveal>
+        <Reveal delay={0.04}>
+          <div style={{ display: "flex", gap: 14, alignItems: "center" }}>
+            <span style={{ display: "flex", alignItems: "center", gap: 6, color: "rgba(255,255,255,0.6)", font: "500 12px/1 'Work Sans',sans-serif" }}>
+              <AppleIcon size={13} /> macOS
+            </span>
+            <span style={{ display: "flex", alignItems: "center", gap: 6, color: "rgba(255,255,255,0.6)", font: "500 12px/1 'Work Sans',sans-serif" }}>
+              <LinuxIcon size={13} /> Linux
+            </span>
+          </div>
         </Reveal>
         <Reveal delay={0.06}>
           <div style={{ display: "flex", gap: 20, alignItems: "center", flexWrap: "wrap", justifyContent: "center" }}>
