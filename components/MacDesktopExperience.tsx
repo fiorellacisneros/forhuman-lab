@@ -877,6 +877,40 @@ function RevealGroup({
   );
 }
 
+function Marquee({ items, dark = false }: { items: ReactNode[]; dark?: boolean }) {
+  // Duplicated once so translating the track exactly -50% loops seamlessly.
+  const track = [...items, ...items];
+  const fadeColor = dark ? "0,0,0" : "255,255,255";
+  return (
+    <div
+      style={{
+        position: "relative",
+        width: "100%",
+        overflow: "hidden",
+        maskImage: `linear-gradient(to right, transparent, rgba(${fadeColor},1) 8%, rgba(${fadeColor},1) 92%, transparent)`,
+        WebkitMaskImage: `linear-gradient(to right, transparent, rgba(${fadeColor},1) 8%, rgba(${fadeColor},1) 92%, transparent)`,
+      }}
+    >
+      <div
+        style={{
+          display: "flex",
+          width: "max-content",
+          animation: "shs-marquee 26s linear infinite",
+        }}
+      >
+        {track.map((item, i) => (
+          <div key={i} style={{ display: "flex", alignItems: "center", gap: 28, paddingRight: 28, flexShrink: 0 }}>
+            <span style={{ font: "500 15px/1 'Work Sans',sans-serif", color: dark ? "var(--white)" : "var(--black)", whiteSpace: "nowrap" }}>
+              {item}
+            </span>
+            <span style={{ color: "var(--yellow)", fontSize: 12 }}>✦</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function GsapCardsReveal({
   children,
   style,
@@ -2296,37 +2330,54 @@ function AgentIconTooltip({ icon: Icon, tools }: { icon: (props: { size?: number
 function FlowmcpBody() {
   return (
     <>
-      <section id="flowmcp-inicio" style={{ padding: "clamp(32px, 8vw, 64px) 64px clamp(24px, 6vw, 56px) 64px", display: "flex", flexDirection: "column", gap: 24 }}>
+      <section
+        id="flowmcp-inicio"
+        style={{
+          padding: "clamp(32px, 8vw, 64px) 64px clamp(24px, 6vw, 56px) 64px",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: 24,
+          textAlign: "center",
+        }}
+      >
         <Reveal>
-          <Tag>CLI de código abierto</Tag>
+          <span
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 8,
+              padding: "6px 16px 6px 12px",
+              borderRadius: "var(--radius-full)",
+              background: "var(--gray-100)",
+              boxShadow: "inset 0 0 0 1px rgba(0,0,0,0.08)",
+            }}
+          >
+            <span style={{ width: 7, height: 7, borderRadius: "50%", background: "#35C759", animation: "shs-pulse-dot 2s ease-in-out infinite" }} />
+            <span style={{ font: "600 12px/1 'Work Sans',sans-serif", color: "var(--gray-600)" }}>CLI de código abierto · MIT</span>
+          </span>
         </Reveal>
         <Reveal delay={0.06}>
-          <h1 style={{ font: "400 clamp(34px, 9vw, 56px)/1.05 'Manrope',sans-serif", letterSpacing: "-0.03em", color: "var(--black)", margin: 0, maxWidth: 820 }}>
-            flowmcp
+          <h1
+            style={{
+              font: "400 clamp(32px, 7vw, 52px)/1.15 'Manrope',sans-serif",
+              letterSpacing: "-0.03em",
+              color: "var(--black)",
+              margin: 0,
+              maxWidth: 760,
+            }}
+          >
+            Conecta Webflow a tu agente de IA.{" "}
+            <span style={{ fontStyle: "italic", color: "var(--blue)" }}>Sin exponer</span> el token.
           </h1>
         </Reveal>
         <Reveal delay={0.12}>
-          <p style={{ font: "300 clamp(16px, 4vw, 22px)/1.4 'Work Sans',sans-serif", color: "var(--black)", maxWidth: 640, margin: 0 }}>
-            Conecta Webflow a tu agente de IA en un comando, sin que el token pase nunca por el contexto del agente.
+          <p style={{ font: "300 clamp(16px, 4vw, 19px)/1.5 'Work Sans',sans-serif", color: "var(--gray-600)", maxWidth: 560, margin: 0 }}>
+            flowmcp gestiona la conexión MCP por ti: guarda el token cifrado y tu agente nunca lo ve.
           </p>
         </Reveal>
-        <Reveal delay={0.15}>
-          <div style={{ display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
-            <span style={{ font: "600 12px/1 'Inconsolata',monospace", letterSpacing: "0.08em", color: "var(--gray-500)", textTransform: "uppercase" }}>
-              Funciona con
-            </span>
-            <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-              {FLOWMCP_AGENTS.map((a) => (
-                <Tag key={a}>{a}</Tag>
-              ))}
-            </div>
-          </div>
-        </Reveal>
         <Reveal delay={0.18}>
-          <TerminalSnippet lines={FLOWMCP_INSTALL_LINES} />
-        </Reveal>
-        <Reveal delay={0.24}>
-          <div style={{ display: "flex", gap: 20, marginTop: 8, alignItems: "center", flexWrap: "wrap" }}>
+          <div style={{ display: "flex", gap: 20, alignItems: "center", flexWrap: "wrap", justifyContent: "center" }}>
             <PrincipalButton
               variant="dark"
               loopAnimation="tablet"
@@ -2337,6 +2388,58 @@ function FlowmcpBody() {
             <TextButton href="https://www.npmjs.com/package/@forhuman/flowmcp" target="_blank" rel="noopener noreferrer">
               Ver en npm
             </TextButton>
+          </div>
+        </Reveal>
+        <Reveal delay={0.24} style={{ width: "100%" }}>
+          <div className="shs-marquee-bleed">
+            <Marquee items={[...FLOWMCP_AGENTS, ...FLOWMCP_MICRO_FEATURES]} />
+          </div>
+        </Reveal>
+        <Reveal delay={0.3} style={{ width: "100%", display: "flex", justifyContent: "center", marginTop: 8 }}>
+          <div style={{ position: "relative", width: "100%", maxWidth: 520 }}>
+            <div
+              style={{
+                position: "absolute",
+                left: "calc(-1 * clamp(2px, 2.4vw, 36px))",
+                top: 22,
+                transform: "rotate(-7deg)",
+                display: "flex",
+                alignItems: "center",
+                gap: 8,
+                background: "var(--white)",
+                borderRadius: 12,
+                padding: "clamp(6px, 1.4vw, 10px) clamp(8px, 2vw, 14px)",
+                boxShadow: "0 14px 30px rgba(0,0,0,0.18)",
+                font: "500 clamp(10px, 2.4vw, 12px)/1.3 'Work Sans',sans-serif",
+                color: "var(--black)",
+                whiteSpace: "nowrap",
+                zIndex: 2,
+              }}
+            >
+              🔒 Token cifrado
+            </div>
+            <div
+              style={{
+                position: "absolute",
+                right: "calc(-1 * clamp(2px, 2vw, 30px))",
+                top: 46,
+                transform: "rotate(6deg)",
+                display: "flex",
+                alignItems: "center",
+                gap: 8,
+                background: "var(--white)",
+                borderRadius: 12,
+                padding: "clamp(6px, 1.4vw, 10px) clamp(8px, 2vw, 14px)",
+                boxShadow: "0 14px 30px rgba(0,0,0,0.18)",
+                font: "500 clamp(10px, 2.4vw, 12px)/1.3 'Work Sans',sans-serif",
+                color: "var(--black)",
+                whiteSpace: "nowrap",
+                zIndex: 2,
+              }}
+            >
+              ✅ Instalación en 30s
+            </div>
+            <TerminalSnippet lines={FLOWMCP_INSTALL_LINES} style={{ maxWidth: "none", position: "relative", zIndex: 1 }} />
           </div>
         </Reveal>
       </section>

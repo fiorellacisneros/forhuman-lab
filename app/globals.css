@@ -121,6 +121,25 @@ body {
   }
 }
 
+@keyframes shs-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes shs-pulse-dot {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(53, 199, 89, 0.45);
+  }
+  50% {
+    box-shadow: 0 0 0 5px rgba(53, 199, 89, 0);
+  }
+}
+
 .shs-ios-select {
   color: inherit;
   isolation: isolate;
@@ -148,6 +167,13 @@ body {
   overflow-x: hidden;
 }
 
+/* Lets a full-bleed marquee break out of a section's own horizontal padding,
+   at each breakpoint that padding uses (see the 859px mobile override below). */
+.shs-marquee-bleed {
+  margin-left: -64px;
+  margin-right: -64px;
+}
+
 @media (max-width: 859px) {
   .shs-scroll > section,
   .shs-scroll > footer,
@@ -156,6 +182,10 @@ body {
     padding-right: 16px !important;
     max-width: 100% !important;
     box-sizing: border-box !important;
+  }
+  .shs-marquee-bleed {
+    margin-left: -16px !important;
+    margin-right: -16px !important;
   }
   .shs-inner-pad {
     padding-left: 16px !important;
