@@ -1988,11 +1988,11 @@ function TerminalSnippet({ lines, style }: { lines: string[]; style?: CSSPropert
             zsh — flowmcp
           </span>
         </div>
-        <div style={{ padding: "20px 24px", display: "flex", flexDirection: "column", gap: 12 }}>
+        <div style={{ padding: "20px 24px", display: "flex", flexDirection: "column", gap: 12, textAlign: "left" }}>
           {lines.map((line, i) => (
             <div key={i} style={{ display: "flex", gap: 10, alignItems: "baseline" }}>
               <span style={{ font: "400 14px/1.5 'Inconsolata',monospace", color: "#28C840", flexShrink: 0 }}>❯</span>
-              <span style={{ font: "400 14px/1.5 'Inconsolata',monospace", wordBreak: "break-all" }}>
+              <span style={{ font: "400 14px/1.5 'Inconsolata',monospace", overflowWrap: "break-word" }}>
                 <TerminalLine line={line} />
               </span>
             </div>
