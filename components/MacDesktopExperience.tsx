@@ -385,6 +385,7 @@ function WindowChrome({
   onToggleSidebar,
   inset = { top: "5%", left: "7%", right: "7%", bottom: "5%" },
   titleBarVariant = "dark",
+  floatingAction,
   children,
 }: {
   title: string;
@@ -396,6 +397,7 @@ function WindowChrome({
   onToggleSidebar?: () => void;
   inset?: { top?: string; left: string; right: string; bottom?: string };
   titleBarVariant?: "dark" | "light";
+  floatingAction?: ReactNode;
   children: ReactNode;
 }) {
   const titleColor = titleBarVariant === "light" ? "#0D0D0D" : "#F7F7F7";
@@ -493,7 +495,7 @@ function WindowChrome({
             {title}
           </span>
         </div>
-        <div style={{ display: "flex", flex: 1, overflow: "hidden" }}>
+        <div style={{ display: "flex", flex: 1, overflow: "hidden", position: "relative" }}>
           {sidebar}
           <div
             className="shs-scroll"
@@ -507,6 +509,9 @@ function WindowChrome({
           >
             {children}
           </div>
+          {floatingAction && (
+            <div style={{ position: "absolute", right: 20, bottom: 20, zIndex: 50 }}>{floatingAction}</div>
+          )}
         </div>
       </div>
   );
@@ -693,12 +698,14 @@ function MobileScreen({
   bg,
   onClose,
   closing = false,
+  floatingAction,
   children,
 }: {
   title: string;
   bg: string;
   onClose: () => void;
   closing?: boolean;
+  floatingAction?: ReactNode;
   children: ReactNode;
 }) {
   const [trafficHover, setTrafficHover] = useState(false);
@@ -741,8 +748,13 @@ function MobileScreen({
           {title}
         </span>
       </div>
-      <div className="shs-scroll" style={{ flex: 1, overflowY: "auto", background: bg, WebkitOverflowScrolling: "touch" }}>
-        {children}
+      <div style={{ flex: 1, position: "relative", overflow: "hidden" }}>
+        <div className="shs-scroll" style={{ height: "100%", overflowY: "auto", background: bg, WebkitOverflowScrolling: "touch" }}>
+          {children}
+        </div>
+        {floatingAction && (
+          <div style={{ position: "absolute", right: 20, bottom: 20, zIndex: 50 }}>{floatingAction}</div>
+        )}
       </div>
     </div>
   );
@@ -1921,6 +1933,221 @@ const FLOWMCP_MICRO_FEATURES = ["JSON-first para agentes", "Diagnóstico incluid
 
 const FLOWMCP_AGENTS = ["Claude Code", "Claude Desktop", "Cursor", "ChatGPT", "Codex"];
 
+const FLOWMCP_VERSIONS = [
+  {
+    version: "0.2.0",
+    date: "9 sep 2026",
+    latest: true,
+    summary: "Ahora también funciona en Windows (antes solo macOS y Linux).",
+  },
+  {
+    version: "0.1.1",
+    date: "4 sep 2026",
+    latest: false,
+    summary: "Correcciones internas: mejoras en los mensajes de ayuda y en cómo se publica cada nueva versión.",
+  },
+  {
+    version: "0.1.0",
+    date: "3 sep 2026",
+    latest: false,
+    summary: "Primera versión pública: soporte para Claude Code, Claude Desktop, Cursor, ChatGPT y Codex, con mensajes en español e inglés.",
+  },
+];
+
+function BellIcon({ size = 18 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M10 2.5c-2.3 0-4 1.9-4 4.2v2.2c0 .5-.2 1.1-.6 1.7l-.9 1.3c-.5.7-.1 1.7.7 1.8.9.1 2.6.3 4.8.3s3.9-.2 4.8-.3c.8-.1 1.2-1.1.7-1.8l-.9-1.3c-.4-.6-.6-1.2-.6-1.7V6.7c0-2.3-1.7-4.2-4-4.2Z"
+        stroke="currentColor"
+        strokeWidth="1.4"
+        strokeLinejoin="round"
+      />
+      <path d="M8.2 16c.3.7 1 1.2 1.8 1.2s1.5-.5 1.8-1.2" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+function WhatsNewButton() {
+  const [open, setOpen] = useState(false);
+  const [hovered, setHovered] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    const markMounted = () => setMounted(true);
+    markMounted();
+  }, []);
+  return (
+    <>
+      <motion.button
+        onClick={() => setOpen(true)}
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+        onTouchStart={() => setHovered(true)}
+        whileHover={{ scale: 1.06 }}
+        whileTap={{ scale: 0.95 }}
+        animate={{ y: [0, -4, 0] }}
+        transition={{ y: { duration: 2.2, repeat: Infinity, ease: "easeInOut" } }}
+        style={{
+          position: "relative",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          width: 44,
+          height: 44,
+          borderRadius: "50%",
+          background: "var(--white)",
+          border: "none",
+          color: "var(--black)",
+          cursor: "pointer",
+          boxShadow: "0 10px 30px rgba(0,0,0,0.35)",
+        }}
+      >
+        <BellIcon size={18} />
+        <span
+          style={{
+            position: "absolute",
+            top: -2,
+            right: -2,
+            width: 15,
+            height: 15,
+            borderRadius: "50%",
+            background: "#E0393E",
+            color: "var(--white)",
+            font: "700 9px/1 'Work Sans',sans-serif",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            boxShadow: "0 0 0 2px var(--white)",
+          }}
+        >
+          1
+        </span>
+        <AnimatePresence>
+          {hovered && (
+            <motion.span
+              initial={{ opacity: 0, x: 6 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: 6 }}
+              transition={{ duration: 0.15 }}
+              style={{
+                position: "absolute",
+                right: "calc(100% + 10px)",
+                top: 0,
+                bottom: 0,
+                margin: "auto 0",
+                height: "fit-content",
+                background: "var(--black)",
+                color: "var(--white)",
+                font: "600 12px/1 'Work Sans',sans-serif",
+                padding: "8px 12px",
+                borderRadius: 8,
+                whiteSpace: "nowrap",
+                boxShadow: "0 8px 20px rgba(0,0,0,0.25)",
+              }}
+            >
+              What&apos;s new
+            </motion.span>
+          )}
+        </AnimatePresence>
+      </motion.button>
+      {mounted &&
+        createPortal(
+          <AnimatePresence>
+            {open && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.2 }}
+                onClick={() => setOpen(false)}
+                style={{
+                  position: "fixed",
+                  inset: 0,
+                  background: "rgba(0,0,0,0.55)",
+                  backdropFilter: "blur(4px)",
+                  zIndex: 10000,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  padding: 20,
+                }}
+              >
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95, y: 8 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.95, y: 8 }}
+                  transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+                  onClick={(e) => e.stopPropagation()}
+                  style={{
+                    background: "var(--black)",
+                    borderRadius: 20,
+                    padding: "28px 28px 24px",
+                    width: "100%",
+                    maxWidth: 420,
+                    maxHeight: "80vh",
+                    overflowY: "auto",
+                    boxShadow: "0 30px 80px rgba(0,0,0,0.55)",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 20,
+                  }}
+                >
+                  <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 12 }}>
+                    <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+                      <span style={{ font: "600 12px/1 'Inconsolata',monospace", letterSpacing: "0.08em", color: "var(--yellow)", textTransform: "uppercase" }}>
+                        Novedades
+                      </span>
+                      <h3 style={{ font: "400 24px/1.1 'Manrope',sans-serif", letterSpacing: "-0.02em", color: "var(--white)", margin: 0 }}>
+                        Historial de versiones
+                      </h3>
+                    </div>
+                    <button
+                      onClick={() => setOpen(false)}
+                      style={{
+                        width: 28,
+                        height: 28,
+                        borderRadius: "50%",
+                        background: "rgba(255,255,255,0.1)",
+                        border: "none",
+                        color: "var(--white)",
+                        cursor: "pointer",
+                        flexShrink: 0,
+                        font: "400 16px/1 sans-serif",
+                      }}
+                    >
+                      ✕
+                    </button>
+                  </div>
+                  <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+                    {FLOWMCP_VERSIONS.map((v) => (
+                      <div key={v.version} style={{ display: "flex", flexDirection: "column", gap: 6, paddingBottom: 14, borderBottom: "1px solid rgba(255,255,255,0.1)" }}>
+                        <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
+                          <span style={{ font: "600 14px/1 'Inconsolata',monospace", color: "var(--white)" }}>v{v.version}</span>
+                          {v.latest && <Tag>Última</Tag>}
+                          <span style={{ font: "400 12px/1 'Work Sans',sans-serif", color: "rgba(255,255,255,0.5)" }}>{v.date}</span>
+                        </div>
+                        <p style={{ font: "300 14px/1.5 'Work Sans',sans-serif", color: "rgba(255,255,255,0.85)", margin: 0 }}>{v.summary}</p>
+                      </div>
+                    ))}
+                  </div>
+                  <TextButton
+                    href="https://www.npmjs.com/package/@forhuman/flowmcp?activeTab=versions"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ color: "var(--white)" }}
+                  >
+                    Ver en npm
+                  </TextButton>
+                </motion.div>
+              </motion.div>
+            )}
+          </AnimatePresence>,
+          document.body
+        )}
+    </>
+  );
+}
+
 function AppleIcon({ size = 16 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 17 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1946,6 +2173,17 @@ function LinuxIcon({ size = 16 }: { size?: number }) {
       />
       <circle cx="8.1" cy="6.3" r="0.9" fill="var(--white)" />
       <circle cx="11.9" cy="6.3" r="0.9" fill="var(--white)" />
+    </svg>
+  );
+}
+
+function WindowsIcon({ size = 16 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M1 3.63 8.27 2.6v6.98H1V3.63Z" fill="currentColor" />
+      <path d="M9.13 2.48 19 1.08v8.5H9.13V2.48Z" fill="currentColor" />
+      <path d="M1 10.4h7.27v6.98L1 16.35V10.4Z" fill="currentColor" />
+      <path d="M9.13 10.4H19v8.5l-9.87-1.4V10.4Z" fill="currentColor" />
     </svg>
   );
 }
@@ -2464,6 +2702,9 @@ function FlowmcpBody() {
             </span>
             <span style={{ display: "flex", alignItems: "center", gap: 6, color: "rgba(255,255,255,0.6)", font: "500 12px/1 'Work Sans',sans-serif" }}>
               <LinuxIcon size={13} /> Linux
+            </span>
+            <span style={{ display: "flex", alignItems: "center", gap: 6, color: "rgba(255,255,255,0.6)", font: "500 12px/1 'Work Sans',sans-serif" }}>
+              <WindowsIcon size={13} /> Windows
             </span>
           </div>
         </Reveal>
@@ -3509,6 +3750,7 @@ export function MacDesktopExperience() {
               sidebarOpen={flowmcpSidebarOpen}
               onToggleSidebar={() => setFlowmcpSidebarOpen((v) => !v)}
               sidebar={<AppSidebar sections={FLOWMCP_SECTIONS} active={flowmcpSection} onSelect={(id) => goToSection(setFlowmcpSection, id)} open={flowmcpSidebarOpen} />}
+              floatingAction={<WhatsNewButton />}
             >
               <FlowmcpBody />
             </WindowChrome>
@@ -3738,7 +3980,7 @@ export function MacDesktopExperience() {
           )}
 
           {(openApp === "flowmcp" || closingApp === "flowmcp") && (
-            <MobileScreen title={windowTitles.flowmcp} bg="var(--white)" onClose={closeApp} closing={closingApp === "flowmcp"}>
+            <MobileScreen title={windowTitles.flowmcp} bg="var(--white)" onClose={closeApp} closing={closingApp === "flowmcp"} floatingAction={<WhatsNewButton />}>
               <FlowmcpBody />
             </MobileScreen>
           )}
