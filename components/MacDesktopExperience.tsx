@@ -2459,12 +2459,7 @@ function FlowmcpBody() {
             </TextButton>
           </div>
         </Reveal>
-        <Reveal delay={0.24} style={{ width: "100%" }}>
-          <div className="shs-marquee-bleed">
-            <Marquee items={[...FLOWMCP_AGENTS, ...FLOWMCP_MICRO_FEATURES]} />
-          </div>
-        </Reveal>
-        <Reveal delay={0.3} style={{ width: "100%", display: "flex", justifyContent: "center", marginTop: 8 }}>
+        <Reveal delay={0.24} style={{ width: "100%", display: "flex", justifyContent: "center", marginTop: 8 }}>
           <div style={{ position: "relative", width: "100%", maxWidth: 520 }}>
             <div
               style={{
@@ -2513,6 +2508,11 @@ function FlowmcpBody() {
               Instalación en 30s
             </div>
             <TerminalSnippet lines={FLOWMCP_INSTALL_LINES} style={{ maxWidth: "none", position: "relative", zIndex: 1 }} />
+          </div>
+        </Reveal>
+        <Reveal delay={0.3} style={{ width: "100%" }}>
+          <div className="shs-marquee-bleed">
+            <Marquee items={[...FLOWMCP_AGENTS, ...FLOWMCP_MICRO_FEATURES]} />
           </div>
         </Reveal>
       </section>
