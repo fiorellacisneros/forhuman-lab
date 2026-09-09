@@ -878,30 +878,36 @@ function RevealGroup({
   );
 }
 
-function Marquee({ items, dark = false }: { items: ReactNode[]; dark?: boolean }) {
-  // Duplicated once so translating the track exactly -50% loops seamlessly.
-  const track = [...items, ...items];
-  const fadeColor = dark ? "0,0,0" : "255,255,255";
+function Marquee({ items, prefix }: { items: ReactNode[]; prefix?: string }) {
+  // A short list (e.g. 5 agent names) doesn't fill wide screens on its own —
+  // repeat it enough times first, then duplicate that whole run once, so
+  // translating exactly -50% always loops seamlessly with no gap, regardless
+  // of how few items were passed in.
+  const repeat = Math.max(1, Math.ceil(24 / items.length));
+  const half = Array.from({ length: repeat }, () => items).flat();
+  const track = [...half, ...half];
   return (
-    <div
-      style={{
-        position: "relative",
-        width: "100%",
-        overflow: "hidden",
-        maskImage: `linear-gradient(to right, transparent, rgba(${fadeColor},1) 8%, rgba(${fadeColor},1) 92%, transparent)`,
-        WebkitMaskImage: `linear-gradient(to right, transparent, rgba(${fadeColor},1) 8%, rgba(${fadeColor},1) 92%, transparent)`,
-      }}
-    >
+    <div style={{ width: "100%", overflow: "hidden", background: "var(--black)" }}>
       <div
         style={{
           display: "flex",
           width: "max-content",
-          animation: "shs-marquee 26s linear infinite",
+          padding: "16px 0",
+          animation: `shs-marquee ${track.length * 1.3}s linear infinite`,
         }}
       >
         {track.map((item, i) => (
-          <div key={i} style={{ display: "flex", alignItems: "center", gap: 28, paddingRight: 28, flexShrink: 0 }}>
-            <span style={{ font: "500 15px/1 'Work Sans',sans-serif", color: dark ? "var(--white)" : "var(--black)", whiteSpace: "nowrap" }}>
+          <div key={i} style={{ display: "flex", alignItems: "center", gap: 20, paddingRight: 20, flexShrink: 0 }}>
+            <span
+              style={{
+                font: "600 13px/1 'Inconsolata',monospace",
+                letterSpacing: "0.06em",
+                textTransform: "uppercase",
+                color: "var(--white)",
+                whiteSpace: "nowrap",
+              }}
+            >
+              {prefix}
               {item}
             </span>
             <span style={{ color: "var(--yellow)", fontSize: 12 }}>✦</span>
@@ -2527,8 +2533,8 @@ function FlowmcpBody() {
           </div>
         </Reveal>
         <Reveal delay={0.3} style={{ width: "100%" }}>
-          <div className="shs-marquee-bleed">
-            <Marquee items={[...FLOWMCP_AGENTS, ...FLOWMCP_MICRO_FEATURES]} />
+          <div className="shs-marquee-bleed" style={{ marginTop: "clamp(32px, 6vw, 56px)", marginBottom: "clamp(24px, 5vw, 40px)" }}>
+            <Marquee items={FLOWMCP_AGENTS} />
           </div>
         </Reveal>
       </section>
