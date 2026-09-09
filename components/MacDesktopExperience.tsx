@@ -1916,7 +1916,7 @@ function TerminalSnippet({ lines, style }: { lines: string[]; style?: CSSPropert
   // so the glow never has to blend with the title bar's own lighter gray —
   // it only ever shows in the sliver just outside the card's own silhouette.
   const ref = useRef<HTMLDivElement>(null);
-  const { haloRef, ringRef } = useGlowHover(ref, "255,255,255");
+  const { haloRef, ringRef } = useGlowHover(ref, "255,255,255", "off", 2.5);
   return (
     <div ref={ref} style={{ position: "relative", width: "100%", maxWidth: 520, ...style }}>
       <span
