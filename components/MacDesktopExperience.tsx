@@ -2437,13 +2437,13 @@ function FlowmcpBody() {
               maxWidth: 760,
             }}
           >
-            Conecta Webflow a tu agente de IA.{" "}
-            <span style={{ fontStyle: "italic", color: "var(--blue)" }}>Sin exponer</span> el token.
+            Un agente de IA.{" "}
+            <span style={{ fontStyle: "italic", color: "var(--blue)" }}>Todos</span> tus proyectos de Webflow.
           </h1>
         </Reveal>
         <Reveal delay={0.12}>
           <p style={{ font: "300 clamp(16px, 4vw, 19px)/1.5 'Work Sans',sans-serif", color: "var(--gray-600)", maxWidth: 560, margin: 0 }}>
-            flowmcp gestiona la conexión MCP por ti: guarda el token cifrado y tu agente nunca lo ve.
+            flowmcp gestiona cada conexión por separado: agrega tantos clientes como necesites, sin mezclar tokens entre ellos.
           </p>
         </Reveal>
         <Reveal delay={0.18}>
