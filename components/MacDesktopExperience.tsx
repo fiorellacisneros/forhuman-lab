@@ -2450,7 +2450,11 @@ function FlowmcpBody() {
             }}
           >
             Un agente de IA.{" "}
-            <span style={{ fontStyle: "italic", color: "var(--blue)" }}>Todos</span> tus proyectos de Webflow.
+            <HeroHighlight>
+              <span style={{ fontStyle: "italic", fontWeight: 500, color: "var(--blue)", marginRight: "0.3em", letterSpacing: 0 }}>Todos</span>
+              tus proyectos de Webflow
+            </HeroHighlight>
+            .
           </h1>
         </Reveal>
         <Reveal delay={0.12}>
