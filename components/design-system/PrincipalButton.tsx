@@ -11,10 +11,15 @@ const VARIANTS: Record<string, CSSProperties> = {
   },
 };
 
-// Cursor-following glow: a soft halo plus a bright ring that traces the
-// button's border, both centered on the pointer. Ported from a Webflow/GSAP
-// snippet into this project's own dynamic-gsap-import convention (see
-// GsapCardsReveal) instead of loading GSAP from a CDN.
+// Glow / orbit button effect, ported from a Webflow+GSAP snippet into this
+// project's own dynamic-gsap-import convention (see GsapCardsReveal) instead
+// of loading GSAP from a CDN:
+// - Halo: a soft blurred glow behind the button.
+// - Ring: a bright beam traced along the button's border (a radial-gradient
+//   clipped to a thin ring via mask-composite, not a filled circle).
+// - On hover (mouse): the beam follows the cursor and the halo fades in.
+// - Without hover (touch, or below `loopBelow`): the beam orbits the border
+//   in an infinite loop instead.
 const GLOW_CFG = {
   haloAlpha: 0.18,
   ringAlpha: 0.9,
@@ -24,9 +29,21 @@ const GLOW_CFG = {
   follow: 0.35,
   inDur: 0.4,
   outDur: 0.4,
+  orbitDur: 6,
 };
 
-function useGlowHover(ref: React.RefObject<HTMLButtonElement | null>, haloColor: string) {
+const GLOW_BP = { tablet: 991, mobile: 767 };
+
+type LoopAnimation = "off" | "mobile" | "tablet" | "desktop";
+
+function loopScopeActive(mode: LoopAnimation) {
+  if (mode === "desktop") return true;
+  if (mode === "tablet") return window.innerWidth <= GLOW_BP.tablet;
+  if (mode === "mobile") return window.innerWidth <= GLOW_BP.mobile;
+  return false;
+}
+
+function useGlowHover(ref: React.RefObject<HTMLButtonElement | null>, haloColor: string, loopAnimation: LoopAnimation) {
   const haloRef = useRef<HTMLSpanElement>(null);
   const ringRef = useRef<HTMLSpanElement>(null);
 
@@ -58,6 +75,8 @@ function useGlowHover(ref: React.RefObject<HTMLButtonElement | null>, haloColor:
 
       let qx: ((v: number) => void) | undefined;
       let qy: ((v: number) => void) | undefined;
+      let qrx: ((v: number) => void) | undefined;
+      let qry: ((v: number) => void) | undefined;
 
       const onPointerMove = (e: PointerEvent) => {
         const r = btn.getBoundingClientRect();
@@ -65,38 +84,105 @@ function useGlowHover(ref: React.RefObject<HTMLButtonElement | null>, haloColor:
         const ny = (e.clientY - r.top) / r.height;
         qx?.((nx - 0.5) * 2 * btn.offsetWidth * GLOW_CFG.followX);
         qy?.((ny - 0.5) * 2 * btn.offsetHeight * GLOW_CFG.followY);
-        mx = nx * 100;
-        my = ny * 100;
-        paintRing();
+        qrx?.(nx * 100);
+        qry?.(ny * 100);
       };
 
       if (!reduce) {
         qx = gsap.quickTo(halo, "x", { duration: GLOW_CFG.follow, ease: "power3" });
         qy = gsap.quickTo(halo, "y", { duration: GLOW_CFG.follow, ease: "power3" });
+        const rp = { x: 50, y: 50 };
+        qrx = gsap.quickTo(rp, "x", {
+          duration: 0.18,
+          ease: "power2",
+          onUpdate: () => {
+            mx = rp.x;
+            paintRing();
+          },
+        });
+        qry = gsap.quickTo(rp, "y", {
+          duration: 0.18,
+          ease: "power2",
+          onUpdate: () => {
+            my = rp.y;
+            paintRing();
+          },
+        });
         btn.addEventListener("pointermove", onPointerMove);
       }
 
+      // Idle orbit: the beam travels around the border in a loop when the
+      // button isn't hovered, active only at/below the configured breakpoint.
+      let orbit: ReturnType<typeof gsap.fromTo> | null = null;
+      let hovering = false;
+      const op = { t: 0 };
+      const applyOrbit = () => {
+        const seg = (op.t % 1) * 4;
+        if (seg < 1) {
+          mx = seg * 100;
+          my = 0;
+        } else if (seg < 2) {
+          mx = 100;
+          my = (seg - 1) * 100;
+        } else if (seg < 3) {
+          mx = 100 - (seg - 2) * 100;
+          my = 100;
+        } else {
+          mx = 0;
+          my = 100 - (seg - 3) * 100;
+        }
+        paintRing();
+      };
+      const startOrbit = () => {
+        if (orbit || hovering || reduce) return;
+        gsap.to(ring, { opacity: 1, duration: GLOW_CFG.inDur, ease: "power2.out", overwrite: "auto" });
+        orbit = gsap.fromTo(op, { t: 0 }, { t: 1, duration: GLOW_CFG.orbitDur, ease: "none", repeat: -1, onUpdate: applyOrbit });
+      };
+      const stopOrbit = (fade: boolean) => {
+        if (!orbit) return;
+        orbit.kill();
+        orbit = null;
+        if (fade && !hovering) gsap.to(ring, { opacity: 0, duration: GLOW_CFG.outDur, ease: "power2.out", overwrite: "auto" });
+      };
+      const syncOrbit = () => {
+        if (loopScopeActive(loopAnimation)) startOrbit();
+        else stopOrbit(true);
+      };
+
       const onEnter = () => {
+        hovering = true;
+        stopOrbit(false);
         gsap.to(ring, { opacity: 1, duration: reduce ? 0.15 : GLOW_CFG.inDur, ease: "power2.out", overwrite: "auto" });
         gsap.to(halo, { opacity: GLOW_CFG.haloAlpha, duration: reduce ? 0.15 : GLOW_CFG.inDur, ease: "power2.out", overwrite: "auto" });
         if (!reduce) gsap.to(halo, { scale: 1, duration: GLOW_CFG.inDur, ease: "power2.out", overwrite: "auto" });
       };
       const onLeave = () => {
+        hovering = false;
         gsap.to([ring, halo], { opacity: 0, duration: reduce ? 0.15 : GLOW_CFG.outDur, ease: "power2.out", overwrite: "auto" });
         if (!reduce) {
           gsap.to(halo, { scale: 0.5, duration: GLOW_CFG.outDur, ease: "power2.out", overwrite: "auto" });
           qx?.(0);
           qy?.(0);
         }
+        syncOrbit();
       };
 
       btn.addEventListener("pointerenter", onEnter);
       btn.addEventListener("pointerleave", onLeave);
+      btn.addEventListener("focusin", onEnter);
+      btn.addEventListener("focusout", onLeave);
+      window.addEventListener("resize", syncOrbit);
+
+      syncOrbit();
 
       cleanup = () => {
         btn.removeEventListener("pointermove", onPointerMove);
         btn.removeEventListener("pointerenter", onEnter);
         btn.removeEventListener("pointerleave", onLeave);
+        btn.removeEventListener("focusin", onEnter);
+        btn.removeEventListener("focusout", onLeave);
+        window.removeEventListener("resize", syncOrbit);
+        orbit?.kill();
         gsap.killTweensOf([halo, ring]);
       };
     });
@@ -105,19 +191,22 @@ function useGlowHover(ref: React.RefObject<HTMLButtonElement | null>, haloColor:
       cancelled = true;
       cleanup();
     };
-  }, [ref, haloColor]);
+  }, [ref, haloColor, loopAnimation]);
 
   return { haloRef, ringRef };
 }
 
 export function PrincipalButton({
   variant = "dark",
+  loopAnimation = "off",
   children,
   style,
   withArrow = true,
   ...rest
 }: {
   variant?: "primary" | "dark" | "light" | "outline";
+  /** Below which breakpoint the light beam orbits the border on its own when not hovered ("off" = hover-only, the classic behavior). */
+  loopAnimation?: LoopAnimation;
   children?: React.ReactNode;
   style?: CSSProperties;
   withArrow?: boolean;
@@ -125,7 +214,10 @@ export function PrincipalButton({
   const ref = useRef<HTMLButtonElement>(null);
   const [hover, setHover] = useState(false);
   const haloColor = variant === "light" ? "0,0,0" : "255,255,255";
-  const { haloRef, ringRef } = useGlowHover(ref, haloColor);
+  // Screen blend only ever lightens, so a black glow (on the light/white
+  // variant) needs multiply instead, or it would be invisible.
+  const blendMode = variant === "light" ? "multiply" : "screen";
+  const { haloRef, ringRef } = useGlowHover(ref, haloColor, loopAnimation);
   const base: CSSProperties = {
     position: "relative",
     overflow: "hidden",
@@ -157,25 +249,40 @@ export function PrincipalButton({
       {...rest}
     >
       <span
-        ref={haloRef}
         aria-hidden="true"
-        style={{
-          position: "absolute",
-          left: "50%",
-          top: "50%",
-          width: "140%",
-          aspectRatio: "1",
-          borderRadius: "50%",
-          background: `radial-gradient(closest-side, rgba(${haloColor},0.9), transparent 70%)`,
-          filter: "blur(20px)",
-          pointerEvents: "none",
-        }}
-      />
-      <span
-        ref={ringRef}
-        aria-hidden="true"
-        style={{ position: "absolute", inset: 0, pointerEvents: "none" }}
-      />
+        style={{ position: "absolute", inset: 0, zIndex: 0, pointerEvents: "none", mixBlendMode: blendMode, borderRadius: "inherit", overflow: "hidden" }}
+      >
+        <span
+          ref={haloRef}
+          style={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            width: "130%",
+            height: "260%",
+            borderRadius: 1000,
+            backgroundImage: `radial-gradient(circle, rgba(${haloColor},1), rgba(${haloColor},0) 70%)`,
+            filter: "blur(18px)",
+            opacity: 0,
+            pointerEvents: "none",
+          }}
+        />
+        <span
+          ref={ringRef}
+          style={{
+            position: "absolute",
+            inset: 0,
+            borderRadius: "inherit",
+            padding: 1.5,
+            opacity: 0,
+            pointerEvents: "none",
+            WebkitMask: "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)",
+            mask: "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)",
+            WebkitMaskComposite: "xor",
+            maskComposite: "exclude",
+          }}
+        />
+      </span>
       {withArrow ? (
         <>
           <span

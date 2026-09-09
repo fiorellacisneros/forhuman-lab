@@ -2329,6 +2329,7 @@ function FlowmcpBody() {
           <div style={{ display: "flex", gap: 20, marginTop: 8, alignItems: "center", flexWrap: "wrap" }}>
             <PrincipalButton
               variant="dark"
+              loopAnimation="tablet"
               onClick={() => window.open("https://github.com/fiorellacisneros/flowmcp", "_blank", "noopener,noreferrer")}
             >
               Ver en GitHub
@@ -2712,6 +2713,7 @@ function FlowmcpBody() {
           <div style={{ display: "flex", gap: 20, alignItems: "center", flexWrap: "wrap", justifyContent: "center" }}>
             <PrincipalButton
               variant="primary"
+              loopAnimation="tablet"
               onClick={() => window.open("https://github.com/fiorellacisneros/flowmcp", "_blank", "noopener,noreferrer")}
             >
               Ver en GitHub
