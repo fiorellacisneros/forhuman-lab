@@ -1,4 +1,4 @@
-import { CSSProperties } from "react";
+import { CSSProperties, ReactNode } from "react";
 
 export function Header({
   title = "Complementa tus habilidades",
@@ -11,8 +11,8 @@ export function Header({
   subtitleStyle,
   titleStyle,
 }: {
-  title?: string;
-  subtitle?: string;
+  title?: ReactNode;
+  subtitle?: ReactNode;
   align?: "center" | "left";
   color?: string;
   kicker?: string;

@@ -887,13 +887,14 @@ function Marquee({ items, prefix }: { items: ReactNode[]; prefix?: string }) {
   const half = Array.from({ length: repeat }, () => items).flat();
   const track = [...half, ...half];
   return (
-    <div style={{ width: "100%", overflow: "hidden", background: "var(--black)" }}>
+    <div className="shs-marquee-wrap" style={{ width: "100%", overflow: "hidden", background: "var(--black)" }}>
       <div
+        className="shs-marquee-track"
         style={{
           display: "flex",
           width: "max-content",
           padding: "9px 0",
-          animation: `shs-marquee ${track.length * 1.3}s linear infinite`,
+          animation: `shs-marquee ${track.length * 1.6}s linear infinite`,
         }}
       >
         {track.map((item, i) => (
@@ -2833,7 +2834,11 @@ function FlowmcpBody() {
           <Header
             kicker="Seguridad"
             kickerColor="var(--yellow)"
-            title="El token nunca pasa por el agente"
+            title={
+              <>
+                El token <ManifiestoHighlight>nunca pasa</ManifiestoHighlight> por el agente
+              </>
+            }
             titleStyle={{ maxWidth: "90%" }}
             subtitle="Ningún comando de flowmcp acepta o imprime un token de API. Se guarda cifrado en Keychain de macOS, o vive en una sesión OAuth aislada — tu agente de IA solo ve el resultado de cada comando, nunca la credencial."
             subtitleStyle={{ maxWidth: 760 }}
@@ -2846,7 +2851,11 @@ function FlowmcpBody() {
         <Reveal>
           <Header
             kicker="Para agencias y freelancers"
-            title="Un cliente, una conexión aislada"
+            title={
+              <>
+                Un cliente, <HeroHighlight>una conexión aislada</HeroHighlight>
+              </>
+            }
             titleStyle={{ maxWidth: "90%" }}
             subtitle="Maneja tantos sitios de Webflow como necesites, de distintos clientes, sin mezclar credenciales entre ellos. flowmcp connect <proyecto> por cada cliente — sin límite de cuántos manejas."
             subtitleStyle={{ maxWidth: 760 }}
