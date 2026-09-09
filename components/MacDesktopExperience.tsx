@@ -2198,7 +2198,19 @@ function WhatsNewButton() {
                       <div key={v.version} style={{ display: "flex", flexDirection: "column", gap: 6, paddingBottom: 14, borderBottom: "1px solid rgba(255,255,255,0.1)" }}>
                         <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
                           <span style={{ font: "600 14px/1 'Inconsolata',monospace", color: "var(--white)" }}>v{v.version}</span>
-                          {v.latest && <Tag>Última</Tag>}
+                          {v.latest && (
+                            <Tag
+                              variant="inverse"
+                              style={{
+                                padding: "2px 8px",
+                                font: "500 10px/1.4 'Inconsolata',monospace",
+                                letterSpacing: "0.02em",
+                                background: "rgba(255,255,255,0.1)",
+                              }}
+                            >
+                              latest
+                            </Tag>
+                          )}
                           <span style={{ font: "400 12px/1 'Work Sans',sans-serif", color: "rgba(255,255,255,0.5)" }}>{v.date}</span>
                         </div>
                         <p style={{ font: "300 14px/1.5 'Work Sans',sans-serif", color: "rgba(255,255,255,0.85)", margin: 0 }}>{v.summary}</p>
