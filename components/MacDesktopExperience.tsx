@@ -1526,7 +1526,7 @@ function FigmaBody() {
         <Reveal>
           <HeroPunchBlock
             kicker="La IA ya genera un mockup en Figma en segundos: acomoda cajas, alinea textos, hasta sugiere una paleta de colores. Si sientes que eso te vuelve prescindible, no es la herramienta lo que tienes que aprender — es el criterio que la IA todavía no tiene."
-            headline={<>Aprende a ser <HeroHighlight>menos reemplazable</HeroHighlight>.</>}
+            headline={<>Aprende a ser<HeroHighlight>menos reemplazable</HeroHighlight>.</>}
           />
         </Reveal>
         <Reveal delay={0.04}>
@@ -1689,7 +1689,7 @@ function WebflowBody() {
         <Reveal>
           <HeroPunchBlock
             kicker="La IA ya arma una web básica en minutos: crea secciones, aplica estilos, hasta escribe el copy. Si te preocupa que eso te vuelva prescindible, no es Webflow lo que tienes que dominar — es el criterio que la IA todavía no tiene."
-            headline={<>Aprende a ser <HeroHighlight>menos reemplazable</HeroHighlight>.</>}
+            headline={<>Aprende a ser<HeroHighlight>menos reemplazable</HeroHighlight>.</>}
           />
         </Reveal>
         <Reveal delay={0.04}>
@@ -2465,7 +2465,8 @@ function FlowmcpBody() {
         </Reveal>
         <Reveal delay={0.12}>
           <p style={{ font: "300 clamp(16px, 4vw, 19px)/1.5 'Work Sans',sans-serif", color: "var(--gray-600)", maxWidth: 560, margin: 0 }}>
-            flowmcp gestiona cada conexión por separado: agrega tantos clientes como necesites, sin mezclar tokens entre ellos.
+            flowmcp gestiona cada conexión por separado: agrega tantos clientes como necesites,
+            <HeroHighlight>sin mezclar tokens entre ellos</HeroHighlight>.
           </p>
         </Reveal>
         <Reveal delay={0.18}>
@@ -2544,7 +2545,12 @@ function FlowmcpBody() {
             kicker="El problema"
             title="Cambiar de cliente no debería ser desconectar y reconectar"
             titleStyle={{ maxWidth: "90%" }}
-            subtitle="Si manejas varios sitios de Webflow con tu agente de IA, ya conoces el ciclo: desconectas al cliente anterior, reinicias el agente, conectas al siguiente. Con 5 clientes activos, eso son 5 reinicios por día."
+            subtitle={
+              <>
+                Si manejas varios sitios de Webflow con tu agente de IA, ya conoces el ciclo: desconectas al cliente anterior, reinicias el agente,
+                conectas al siguiente. Con 5 clientes activos, eso son<HeroHighlight>5 reinicios por día</HeroHighlight>.
+              </>
+            }
             subtitleStyle={{ maxWidth: 760 }}
             align="left"
           />
@@ -2764,7 +2770,11 @@ function FlowmcpBody() {
         <Reveal>
           <Header
             kicker="Cómo hablarle a tu agente"
-            title="Cada sitio queda con su propio nombre de conector"
+            title={
+              <>
+                Cada sitio queda con su propio<HeroHighlight>nombre de conector</HeroHighlight>
+              </>
+            }
             titleStyle={{ maxWidth: "90%" }}
             subtitle="Al conectar un proyecto, flowmcp lo registra como webflow-<proyecto>. Si tienes varios sitios conectados, díselo a tu agente explícitamente para que no haya ambigüedad sobre a cuál se está conectando."
             subtitleStyle={{ maxWidth: 760 }}
@@ -2834,13 +2844,14 @@ function FlowmcpBody() {
           <Header
             kicker="Seguridad"
             kickerColor="var(--yellow)"
-            title={
+            title="El token nunca pasa por el agente"
+            titleStyle={{ maxWidth: "90%" }}
+            subtitle={
               <>
-                El token <ManifiestoHighlight>nunca pasa</ManifiestoHighlight> por el agente
+                Ningún comando de flowmcp acepta o imprime un token de API. Se guarda cifrado en Keychain de macOS, o vive en una sesión OAuth
+                aislada — tu agente de IA solo ve el resultado de cada comando,<ManifiestoHighlight>nunca la credencial</ManifiestoHighlight>.
               </>
             }
-            titleStyle={{ maxWidth: "90%" }}
-            subtitle="Ningún comando de flowmcp acepta o imprime un token de API. Se guarda cifrado en Keychain de macOS, o vive en una sesión OAuth aislada — tu agente de IA solo ve el resultado de cada comando, nunca la credencial."
             subtitleStyle={{ maxWidth: 760 }}
             align="left"
             color="var(--white)"
@@ -2853,7 +2864,7 @@ function FlowmcpBody() {
             kicker="Para agencias y freelancers"
             title={
               <>
-                Un cliente, <HeroHighlight>una conexión aislada</HeroHighlight>
+                Un cliente,<HeroHighlight>una conexión aislada</HeroHighlight>
               </>
             }
             titleStyle={{ maxWidth: "90%" }}
