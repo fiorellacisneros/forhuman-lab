@@ -11,6 +11,7 @@ import { CardAprendizaje } from "@/components/design-system/CardAprendizaje";
 import { CardPricing } from "@/components/design-system/CardPricing";
 import { PromoCard } from "@/components/design-system/PromoCard";
 import { Loader } from "@/components/design-system/Loader";
+import { useGlowHover } from "@/components/design-system/useGlowHover";
 
 type AppId = "figma" | "webflow" | "flowmcp" | "finder" | "photos" | "notas" | "spotify" | null;
 type HoverId = "figma" | "webflow" | "flowmcp" | "photos" | "finder" | "notas" | "spotify" | null;
@@ -1905,52 +1906,92 @@ function TerminalLine({ line }: { line: string }) {
 }
 
 function TerminalSnippet({ lines, style }: { lines: string[]; style?: CSSProperties }) {
+  // The halo/ring sit behind the card as siblings (not clipped inside it),
+  // so the glow never has to blend with the title bar's own lighter gray —
+  // it only ever shows in the sliver just outside the card's own silhouette.
+  const ref = useRef<HTMLDivElement>(null);
+  const { haloRef, ringRef } = useGlowHover(ref, "255,255,255");
   return (
-    <div
-      style={{
-        background: "#161616",
-        borderRadius: "var(--radius-md)",
-        overflow: "hidden",
-        boxShadow: "0 20px 50px rgba(0,0,0,0.35)",
-        width: "100%",
-        maxWidth: 520,
-        ...style,
-      }}
-    >
+    <div ref={ref} style={{ position: "relative", width: "100%", maxWidth: 520, ...style }}>
+      <span
+        ref={haloRef}
+        aria-hidden="true"
+        style={{
+          position: "absolute",
+          top: "50%",
+          left: "50%",
+          width: "130%",
+          height: "260%",
+          borderRadius: 1000,
+          backgroundImage: "radial-gradient(circle, rgba(255,255,255,1), rgba(255,255,255,0) 70%)",
+          filter: "blur(18px)",
+          opacity: 0,
+          pointerEvents: "none",
+          zIndex: 0,
+        }}
+      />
+      <span
+        ref={ringRef}
+        aria-hidden="true"
+        style={{
+          position: "absolute",
+          inset: -1.5,
+          borderRadius: "calc(var(--radius-md) + 1.5px)",
+          padding: 1.5,
+          opacity: 0,
+          pointerEvents: "none",
+          zIndex: 0,
+          WebkitMask: "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)",
+          mask: "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)",
+          WebkitMaskComposite: "xor",
+          maskComposite: "exclude",
+        }}
+      />
       <div
         style={{
-          display: "flex",
-          alignItems: "center",
-          gap: 8,
-          padding: "12px 16px",
-          background: "#242424",
-          borderBottom: "1px solid rgba(247,247,247,0.08)",
+          position: "relative",
+          zIndex: 1,
+          background: "#161616",
+          borderRadius: "var(--radius-md)",
+          overflow: "hidden",
+          boxShadow: "0 20px 50px rgba(0,0,0,0.35)",
         }}
       >
-        <span style={{ width: 11, height: 11, borderRadius: "50%", background: "#FF5F57", display: "inline-block" }} />
-        <span style={{ width: 11, height: 11, borderRadius: "50%", background: "#FEBC2E", display: "inline-block" }} />
-        <span style={{ width: 11, height: 11, borderRadius: "50%", background: "#28C840", display: "inline-block" }} />
-        <span
+        <div
           style={{
-            flex: 1,
-            textAlign: "center",
-            font: "400 12px/1 'Inconsolata',monospace",
-            color: "rgba(247,247,247,0.35)",
-            marginRight: 33,
+            display: "flex",
+            alignItems: "center",
+            gap: 8,
+            padding: "12px 16px",
+            background: "#242424",
+            borderBottom: "1px solid rgba(247,247,247,0.08)",
           }}
         >
-          zsh — flowmcp
-        </span>
-      </div>
-      <div style={{ padding: "20px 24px", display: "flex", flexDirection: "column", gap: 12 }}>
-        {lines.map((line, i) => (
-          <div key={i} style={{ display: "flex", gap: 10, alignItems: "baseline" }}>
-            <span style={{ font: "400 14px/1.5 'Inconsolata',monospace", color: "#28C840", flexShrink: 0 }}>❯</span>
-            <span style={{ font: "400 14px/1.5 'Inconsolata',monospace", wordBreak: "break-all" }}>
-              <TerminalLine line={line} />
-            </span>
-          </div>
-        ))}
+          <span style={{ width: 11, height: 11, borderRadius: "50%", background: "#FF5F57", display: "inline-block" }} />
+          <span style={{ width: 11, height: 11, borderRadius: "50%", background: "#FEBC2E", display: "inline-block" }} />
+          <span style={{ width: 11, height: 11, borderRadius: "50%", background: "#28C840", display: "inline-block" }} />
+          <span
+            style={{
+              flex: 1,
+              textAlign: "center",
+              font: "400 12px/1 'Inconsolata',monospace",
+              color: "rgba(247,247,247,0.35)",
+              marginRight: 33,
+            }}
+          >
+            zsh — flowmcp
+          </span>
+        </div>
+        <div style={{ padding: "20px 24px", display: "flex", flexDirection: "column", gap: 12 }}>
+          {lines.map((line, i) => (
+            <div key={i} style={{ display: "flex", gap: 10, alignItems: "baseline" }}>
+              <span style={{ font: "400 14px/1.5 'Inconsolata',monospace", color: "#28C840", flexShrink: 0 }}>❯</span>
+              <span style={{ font: "400 14px/1.5 'Inconsolata',monospace", wordBreak: "break-all" }}>
+                <TerminalLine line={line} />
+              </span>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
@@ -2380,7 +2421,6 @@ function FlowmcpBody() {
           <div style={{ display: "flex", gap: 20, alignItems: "center", flexWrap: "wrap", justifyContent: "center" }}>
             <PrincipalButton
               variant="dark"
-              loopAnimation="tablet"
               onClick={() => window.open("https://github.com/fiorellacisneros/flowmcp", "_blank", "noopener,noreferrer")}
             >
               Ver en GitHub
@@ -2816,7 +2856,6 @@ function FlowmcpBody() {
           <div style={{ display: "flex", gap: 20, alignItems: "center", flexWrap: "wrap", justifyContent: "center" }}>
             <PrincipalButton
               variant="primary"
-              loopAnimation="tablet"
               onClick={() => window.open("https://github.com/fiorellacisneros/flowmcp", "_blank", "noopener,noreferrer")}
             >
               Ver en GitHub
