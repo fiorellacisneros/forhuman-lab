@@ -892,7 +892,7 @@ function Marquee({ items, prefix }: { items: ReactNode[]; prefix?: string }) {
         style={{
           display: "flex",
           width: "max-content",
-          padding: "16px 0",
+          padding: "9px 0",
           animation: `shs-marquee ${track.length * 1.3}s linear infinite`,
         }}
       >
@@ -2533,7 +2533,7 @@ function FlowmcpBody() {
           </div>
         </Reveal>
         <Reveal delay={0.3} style={{ width: "100%" }}>
-          <div className="shs-marquee-bleed" style={{ marginTop: "clamp(32px, 6vw, 56px)", marginBottom: "clamp(24px, 5vw, 40px)" }}>
+          <div className="shs-marquee-bleed" style={{ marginTop: "clamp(24px, 6vw, 56px)" }}>
             <Marquee items={FLOWMCP_AGENTS} />
           </div>
         </Reveal>
