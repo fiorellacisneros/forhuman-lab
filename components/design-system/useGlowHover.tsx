@@ -36,10 +36,15 @@ function loopScopeActive(mode: GlowLoopAnimation) {
 export function useGlowHover(
   ref: React.RefObject<HTMLElement | null>,
   haloColor: string,
-  loopAnimation: GlowLoopAnimation = "off"
+  loopAnimation: GlowLoopAnimation = "off",
+  // Bigger elements (e.g. the terminal card) need a wider ring radius and a
+  // stronger halo, or the same button-tuned values read as barely visible.
+  sizeScale = 1
 ) {
   const haloRef = useRef<HTMLSpanElement>(null);
   const ringRef = useRef<HTMLSpanElement>(null);
+  const ringRadius = GLOW_CFG.ringRadius * sizeScale;
+  const haloAlpha = Math.min(1, GLOW_CFG.haloAlpha * sizeScale);
 
   useEffect(() => {
     const el = ref.current;
@@ -61,7 +66,7 @@ export function useGlowHover(
       let my = 50;
       const paintRing = () => {
         ring.style.backgroundImage =
-          `radial-gradient(${GLOW_CFG.ringRadius}px circle at ${mx}% ${my}%,` +
+          `radial-gradient(${ringRadius}px circle at ${mx}% ${my}%,` +
           `rgba(${haloColor},${GLOW_CFG.ringAlpha}),` +
           `rgba(${haloColor},${(GLOW_CFG.ringAlpha * 0.28).toFixed(3)}) 32%,transparent 62%)`;
       };
@@ -147,7 +152,7 @@ export function useGlowHover(
         hovering = true;
         stopOrbit(false);
         gsap.to(ring, { opacity: 1, duration: reduce ? 0.15 : GLOW_CFG.inDur, ease: "power2.out", overwrite: "auto" });
-        gsap.to(halo, { opacity: GLOW_CFG.haloAlpha, duration: reduce ? 0.15 : GLOW_CFG.inDur, ease: "power2.out", overwrite: "auto" });
+        gsap.to(halo, { opacity: haloAlpha, duration: reduce ? 0.15 : GLOW_CFG.inDur, ease: "power2.out", overwrite: "auto" });
         if (!reduce) gsap.to(halo, { scale: 1, duration: GLOW_CFG.inDur, ease: "power2.out", overwrite: "auto" });
       };
       const onLeave = () => {
@@ -185,7 +190,7 @@ export function useGlowHover(
       cancelled = true;
       cleanup();
     };
-  }, [ref, haloColor, loopAnimation]);
+  }, [ref, haloColor, loopAnimation, ringRadius, haloAlpha]);
 
   return { haloRef, ringRef };
 }

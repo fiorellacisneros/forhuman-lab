@@ -878,30 +878,37 @@ function RevealGroup({
   );
 }
 
-function Marquee({ items, dark = false }: { items: ReactNode[]; dark?: boolean }) {
-  // Duplicated once so translating the track exactly -50% loops seamlessly.
-  const track = [...items, ...items];
-  const fadeColor = dark ? "0,0,0" : "255,255,255";
+function Marquee({ items, prefix }: { items: ReactNode[]; prefix?: string }) {
+  // A short list (e.g. 5 agent names) doesn't fill wide screens on its own —
+  // repeat it enough times first, then duplicate that whole run once, so
+  // translating exactly -50% always loops seamlessly with no gap, regardless
+  // of how few items were passed in.
+  const repeat = Math.max(1, Math.ceil(24 / items.length));
+  const half = Array.from({ length: repeat }, () => items).flat();
+  const track = [...half, ...half];
   return (
-    <div
-      style={{
-        position: "relative",
-        width: "100%",
-        overflow: "hidden",
-        maskImage: `linear-gradient(to right, transparent, rgba(${fadeColor},1) 8%, rgba(${fadeColor},1) 92%, transparent)`,
-        WebkitMaskImage: `linear-gradient(to right, transparent, rgba(${fadeColor},1) 8%, rgba(${fadeColor},1) 92%, transparent)`,
-      }}
-    >
+    <div className="shs-marquee-wrap" style={{ width: "100%", overflow: "hidden", background: "var(--black)" }}>
       <div
+        className="shs-marquee-track"
         style={{
           display: "flex",
           width: "max-content",
-          animation: "shs-marquee 26s linear infinite",
+          padding: "9px 0",
+          animation: `shs-marquee ${track.length * 1.6}s linear infinite`,
         }}
       >
         {track.map((item, i) => (
-          <div key={i} style={{ display: "flex", alignItems: "center", gap: 28, paddingRight: 28, flexShrink: 0 }}>
-            <span style={{ font: "500 15px/1 'Work Sans',sans-serif", color: dark ? "var(--white)" : "var(--black)", whiteSpace: "nowrap" }}>
+          <div key={i} style={{ display: "flex", alignItems: "center", gap: 20, paddingRight: 20, flexShrink: 0 }}>
+            <span
+              style={{
+                font: "600 13px/1 'Inconsolata',monospace",
+                letterSpacing: "0.06em",
+                textTransform: "uppercase",
+                color: "var(--white)",
+                whiteSpace: "nowrap",
+              }}
+            >
+              {prefix}
               {item}
             </span>
             <span style={{ color: "var(--yellow)", fontSize: 12 }}>✦</span>
@@ -1519,7 +1526,7 @@ function FigmaBody() {
         <Reveal>
           <HeroPunchBlock
             kicker="La IA ya genera un mockup en Figma en segundos: acomoda cajas, alinea textos, hasta sugiere una paleta de colores. Si sientes que eso te vuelve prescindible, no es la herramienta lo que tienes que aprender — es el criterio que la IA todavía no tiene."
-            headline={<>Aprende a ser <HeroHighlight>menos reemplazable</HeroHighlight>.</>}
+            headline={<>Aprende a ser<HeroHighlight>menos reemplazable</HeroHighlight>.</>}
           />
         </Reveal>
         <Reveal delay={0.04}>
@@ -1682,7 +1689,7 @@ function WebflowBody() {
         <Reveal>
           <HeroPunchBlock
             kicker="La IA ya arma una web básica en minutos: crea secciones, aplica estilos, hasta escribe el copy. Si te preocupa que eso te vuelva prescindible, no es Webflow lo que tienes que dominar — es el criterio que la IA todavía no tiene."
-            headline={<>Aprende a ser <HeroHighlight>menos reemplazable</HeroHighlight>.</>}
+            headline={<>Aprende a ser<HeroHighlight>menos reemplazable</HeroHighlight>.</>}
           />
         </Reveal>
         <Reveal delay={0.04}>
@@ -1910,7 +1917,7 @@ function TerminalSnippet({ lines, style }: { lines: string[]; style?: CSSPropert
   // so the glow never has to blend with the title bar's own lighter gray —
   // it only ever shows in the sliver just outside the card's own silhouette.
   const ref = useRef<HTMLDivElement>(null);
-  const { haloRef, ringRef } = useGlowHover(ref, "255,255,255");
+  const { haloRef, ringRef } = useGlowHover(ref, "255,255,255", "off", 2.5);
   return (
     <div ref={ref} style={{ position: "relative", width: "100%", maxWidth: 520, ...style }}>
       <span
@@ -1982,11 +1989,11 @@ function TerminalSnippet({ lines, style }: { lines: string[]; style?: CSSPropert
             zsh — flowmcp
           </span>
         </div>
-        <div style={{ padding: "20px 24px", display: "flex", flexDirection: "column", gap: 12 }}>
+        <div style={{ padding: "20px 24px", display: "flex", flexDirection: "column", gap: 12, textAlign: "left" }}>
           {lines.map((line, i) => (
             <div key={i} style={{ display: "flex", gap: 10, alignItems: "baseline" }}>
               <span style={{ font: "400 14px/1.5 'Inconsolata',monospace", color: "#28C840", flexShrink: 0 }}>❯</span>
-              <span style={{ font: "400 14px/1.5 'Inconsolata',monospace", wordBreak: "break-all" }}>
+              <span style={{ font: "400 14px/1.5 'Inconsolata',monospace", overflowWrap: "break-word" }}>
                 <TerminalLine line={line} />
               </span>
             </div>
@@ -2198,7 +2205,19 @@ function WhatsNewButton() {
                       <div key={v.version} style={{ display: "flex", flexDirection: "column", gap: 6, paddingBottom: 14, borderBottom: "1px solid rgba(255,255,255,0.1)" }}>
                         <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
                           <span style={{ font: "600 14px/1 'Inconsolata',monospace", color: "var(--white)" }}>v{v.version}</span>
-                          {v.latest && <Tag>Última</Tag>}
+                          {v.latest && (
+                            <Tag
+                              variant="inverse"
+                              style={{
+                                padding: "2px 8px",
+                                font: "500 10px/1.4 'Inconsolata',monospace",
+                                letterSpacing: "0.02em",
+                                background: "rgba(255,255,255,0.1)",
+                              }}
+                            >
+                              latest
+                            </Tag>
+                          )}
                           <span style={{ font: "400 12px/1 'Work Sans',sans-serif", color: "rgba(255,255,255,0.5)" }}>{v.date}</span>
                         </div>
                         <p style={{ font: "300 14px/1.5 'Work Sans',sans-serif", color: "rgba(255,255,255,0.85)", margin: 0 }}>{v.summary}</p>
@@ -2438,12 +2457,16 @@ function FlowmcpBody() {
             }}
           >
             Un agente de IA.{" "}
-            <span style={{ fontStyle: "italic", color: "var(--blue)" }}>Todos</span> tus proyectos de Webflow.
+            <HeroHighlight>
+              <span style={{ fontStyle: "italic", fontWeight: 500, color: "var(--blue)", marginRight: "0.3em", letterSpacing: 0 }}>Todos</span>
+              tus proyectos de Webflow.
+            </HeroHighlight>
           </h1>
         </Reveal>
         <Reveal delay={0.12}>
           <p style={{ font: "300 clamp(16px, 4vw, 19px)/1.5 'Work Sans',sans-serif", color: "var(--gray-600)", maxWidth: 560, margin: 0 }}>
-            flowmcp gestiona cada conexión por separado: agrega tantos clientes como necesites, sin mezclar tokens entre ellos.
+            flowmcp gestiona cada conexión por separado: agrega tantos clientes como necesites,
+            <HeroHighlight>sin mezclar tokens entre ellos</HeroHighlight>.
           </p>
         </Reveal>
         <Reveal delay={0.18}>
@@ -2511,8 +2534,8 @@ function FlowmcpBody() {
           </div>
         </Reveal>
         <Reveal delay={0.3} style={{ width: "100%" }}>
-          <div className="shs-marquee-bleed">
-            <Marquee items={[...FLOWMCP_AGENTS, ...FLOWMCP_MICRO_FEATURES]} />
+          <div className="shs-marquee-bleed" style={{ marginTop: "clamp(24px, 6vw, 56px)" }}>
+            <Marquee items={FLOWMCP_AGENTS} />
           </div>
         </Reveal>
       </section>
@@ -2522,7 +2545,12 @@ function FlowmcpBody() {
             kicker="El problema"
             title="Cambiar de cliente no debería ser desconectar y reconectar"
             titleStyle={{ maxWidth: "90%" }}
-            subtitle="Si manejas varios sitios de Webflow con tu agente de IA, ya conoces el ciclo: desconectas al cliente anterior, reinicias el agente, conectas al siguiente. Con 5 clientes activos, eso son 5 reinicios por día."
+            subtitle={
+              <>
+                Si manejas varios sitios de Webflow con tu agente de IA, ya conoces el ciclo: desconectas al cliente anterior, reinicias el agente,
+                conectas al siguiente. Con 5 clientes activos, eso son<HeroHighlight>5 reinicios por día</HeroHighlight>.
+              </>
+            }
             subtitleStyle={{ maxWidth: 760 }}
             align="left"
           />
@@ -2742,7 +2770,11 @@ function FlowmcpBody() {
         <Reveal>
           <Header
             kicker="Cómo hablarle a tu agente"
-            title="Cada sitio queda con su propio nombre de conector"
+            title={
+              <>
+                Cada sitio queda con su propio<HeroHighlight>nombre de conector</HeroHighlight>
+              </>
+            }
             titleStyle={{ maxWidth: "90%" }}
             subtitle="Al conectar un proyecto, flowmcp lo registra como webflow-<proyecto>. Si tienes varios sitios conectados, díselo a tu agente explícitamente para que no haya ambigüedad sobre a cuál se está conectando."
             subtitleStyle={{ maxWidth: 760 }}
@@ -2814,7 +2846,12 @@ function FlowmcpBody() {
             kickerColor="var(--yellow)"
             title="El token nunca pasa por el agente"
             titleStyle={{ maxWidth: "90%" }}
-            subtitle="Ningún comando de flowmcp acepta o imprime un token de API. Se guarda cifrado en Keychain de macOS, o vive en una sesión OAuth aislada — tu agente de IA solo ve el resultado de cada comando, nunca la credencial."
+            subtitle={
+              <>
+                Ningún comando de flowmcp acepta o imprime un token de API. Se guarda cifrado en Keychain de macOS, o vive en una sesión OAuth
+                aislada — tu agente de IA solo ve el resultado de cada comando,<ManifiestoHighlight>nunca la credencial</ManifiestoHighlight>.
+              </>
+            }
             subtitleStyle={{ maxWidth: 760 }}
             align="left"
             color="var(--white)"
@@ -2825,7 +2862,11 @@ function FlowmcpBody() {
         <Reveal>
           <Header
             kicker="Para agencias y freelancers"
-            title="Un cliente, una conexión aislada"
+            title={
+              <>
+                Un cliente,<HeroHighlight>una conexión aislada</HeroHighlight>
+              </>
+            }
             titleStyle={{ maxWidth: "90%" }}
             subtitle="Maneja tantos sitios de Webflow como necesites, de distintos clientes, sin mezclar credenciales entre ellos. flowmcp connect <proyecto> por cada cliente — sin límite de cuántos manejas."
             subtitleStyle={{ maxWidth: 760 }}
