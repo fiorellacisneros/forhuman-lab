@@ -274,7 +274,7 @@ const FIGMA_FAQ = [
     a: "Las clases principales se dictan en vivo martes y jueves de 7 a 9pm Perú y se graban. Como estudiante On-Demand recibirás las grabaciones al día siguiente. Además tendrás acceso a 2 sesiones grupales en vivo al mes para resolver dudas junto a otros estudiantes On-Demand.",
   },
   { q: "¿Cómo funcionan los retos semanales?", a: "Cada semana tendrás un reto práctico donde aplicarás lo aprendido en clase. Estos retos te ayudan a consolidar el conocimiento y avanzar paso a paso en tu proyecto final." },
-  { q: "¿Qué necesito técnicamente?", a: "• Laptop\n• Conexión a internet estable\n• Ganas de construir 🚀" },
+  { q: "¿Qué necesito técnicamente?", a: "• Laptop\n• Conexión a internet estable\n• Ganas de construir" },
   {
     q: "¿Se puede pagar en 2 cuotas?",
     a: "Sí. Ofrecemos pago en 2 partes: 50% al momento de inscribirte y 50% antes de que inicien las clases.",
@@ -302,7 +302,7 @@ const WEBFLOW_FAQ = [
     a: "Las clases principales se dictan en vivo martes y jueves de 7 a 9pm Perú y se graban. Como estudiante On-Demand recibirás las grabaciones al día siguiente. Además tendrás acceso a 2 sesiones grupales en vivo al mes para resolver dudas junto a otros estudiantes On-Demand.",
   },
   { q: "¿Cómo funcionan los retos semanales?", a: "Cada semana tendrás un reto práctico donde aplicarás lo aprendido en clase. Estos retos te ayudan a consolidar el conocimiento y avanzar paso a paso en tu proyecto final." },
-  { q: "¿Qué necesito técnicamente?", a: "• Laptop\n• Conexión a internet estable\n• Ganas de construir 🚀" },
+  { q: "¿Qué necesito técnicamente?", a: "• Laptop\n• Conexión a internet estable\n• Ganas de construir" },
   {
     q: "¿Se puede pagar en 2 cuotas?",
     a: "Sí. Ofrecemos pago en 2 partes: 50% al momento de inscribirte y 50% antes de que inicien las clases.",
@@ -2263,6 +2263,35 @@ function WindowsIcon({ size = 16 }: { size?: number }) {
   );
 }
 
+function LockIcon({ size = 14 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="4.5" y="11" width="15" height="10" rx="2" />
+      <path d="M8 11V7a4 4 0 0 1 8 0v4" />
+    </svg>
+  );
+}
+
+function CheckCircleIcon({ size = 14 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="12" r="9" />
+      <path d="m8.5 12.5 2.5 2.5 5-5" />
+    </svg>
+  );
+}
+
+function CoffeeIcon({ size = 16 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M4 9h13v6a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4V9Z" />
+      <path d="M17 10.5h1.5a2.5 2.5 0 0 1 0 5H17" />
+      <path d="M8 5.5c0-1 .8-1 .8-2S8 2 8 1" />
+      <path d="M12 5.5c0-1 .8-1 .8-2S12 2 12 1" />
+    </svg>
+  );
+}
+
 function ClaudeLogo({ size = 16 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -2456,7 +2485,8 @@ function FlowmcpBody() {
                 zIndex: 2,
               }}
             >
-              🔒 Token cifrado
+              <LockIcon size={13} />
+              Token cifrado
             </div>
             <div
               style={{
@@ -2477,7 +2507,10 @@ function FlowmcpBody() {
                 zIndex: 2,
               }}
             >
-              ✅ Instalación en 30s
+              <span style={{ color: "#35C759", display: "flex" }}>
+                <CheckCircleIcon size={13} />
+              </span>
+              Instalación en 30s
             </div>
             <TerminalSnippet lines={FLOWMCP_INSTALL_LINES} style={{ maxWidth: "none", position: "relative", zIndex: 1 }} />
           </div>
@@ -2866,7 +2899,10 @@ function FlowmcpBody() {
               rel="noopener noreferrer"
               style={{ color: "var(--white)" }}
             >
-              Buy me a coffee ☕
+              <span style={{ display: "inline-flex", alignItems: "center", gap: 8 }}>
+                <CoffeeIcon size={16} />
+                Buy me a coffee
+              </span>
             </TextButton>
           </div>
         </Reveal>
