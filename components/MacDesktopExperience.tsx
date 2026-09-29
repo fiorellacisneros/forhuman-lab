@@ -3249,15 +3249,9 @@ function SessionRoleCard({ role }: { role: SessionRole }) {
         ))}
       </div>
       <div style={{ marginTop: "auto", paddingTop: 12 }}>
-        {role === "publico" ? (
-          <TextButton href="#footer-email" onClick={goToSubscribe} style={{ fontSize: 16 }}>
-            {panel.cta}
-          </TextButton>
-        ) : (
-          <TextButton href={whatsappUrl(SESSIONS_WHATSAPP, panel.whatsapp ?? "")} target="_blank" rel="noopener noreferrer" style={{ fontSize: 16 }}>
-            {panel.cta}
-          </TextButton>
-        )}
+        <PrincipalButton variant="dark" onClick={role === "publico" ? goToSubscribe : () => openSessionsWhatsApp(panel.whatsapp ?? "")} style={{ fontSize: 17 }}>
+          {panel.cta}
+        </PrincipalButton>
       </div>
     </motion.div>
   );
