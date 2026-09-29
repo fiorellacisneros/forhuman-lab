@@ -4522,7 +4522,7 @@ export function MacDesktopExperience() {
     figma: "superHuman — Figma Camp",
     webflow: "superHuman — Webflow Camp",
     flowmcp: "flowmcp",
-    sessions: "forHuman Sessions",
+    sessions: "forHuman Sessions - ¿IA fuimos?",
     finder: "Finder — forHuman",
     photos: "Fotos",
     notas: "Eventos.txt",
