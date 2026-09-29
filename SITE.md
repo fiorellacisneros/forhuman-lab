@@ -36,6 +36,8 @@ En pantallas de celular, todo el mismo contenido se muestra dentro de un marco d
 
 ## Recent Changes
 
+- 2026-09-28: El botón de speaker en la sección "Sumarte" de Sessions ahora dice "Te cuento mi idea" (antes "Contarle mi idea a Fio"). Sigue abriendo el WhatsApp de Fio con el mensaje ya escrito.
+
 - 2026-09-28: Preguntas frecuentes: el efecto de hover ahora se hace solo con CSS (`.shs-faq-list` / `.shs-faq-row` en `app/globals.css`): al pasar el mouse por la lista, todas las preguntas menos la que tienes debajo del mouse bajan a 30% de opacidad casi al instante (0.12 s), y vuelven a 100% al salir. Más simple y sin depender del estado de React.
 
 - 2026-09-28: (1) El tag "¿IA fuimos?" del inicio de Sessions ya no parece un botón: ahora es una etiqueta de texto en mayúsculas, color azul, con un punto azul al lado (sin borde ni forma de píldora). (2) Preguntas frecuentes: se rehízo la animación de entrada para que sea más estable — al llegar a la sección, cada pregunta aparece una tras otra (con 0.14 s de diferencia); antes, al pasar el mouse, podía verse rara una pregunta. El efecto de opacidad al hacer hover en una pregunta se mantiene.
