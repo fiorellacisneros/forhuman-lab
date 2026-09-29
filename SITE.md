@@ -36,6 +36,8 @@ En pantallas de celular, todo el mismo contenido se muestra dentro de un marco d
 
 ## Recent Changes
 
+- 2026-09-29: El widget de Clima del escritorio ya no pide la ubicación del visitante. Ahora muestra siempre el clima real de **Lima** (temperatura, condición, máx./mín.), tomado del servicio gratuito Open-Meteo con las coordenadas de Lima; si el servicio falla, muestra "Lima, 19°, Nublado". La ruta interna `app/api/reverse-geocode` ya no se usa (queda sin efecto; se puede borrar).
+
 - 2026-09-29: En "Lo que ya hicimos" se quitaron los números (01, 02, 03, 04) de las tarjetas; el diseño con la foto arriba se mantiene igual.
 
 - 2026-09-29: Repensada la sección de fotos "Lo que ya hicimos". Ahora cada tarjeta empieza con la **foto arriba** (con el número en una píldora encima) y debajo el título y el texto; se quitaron los números gigantes, las inclinaciones y las tarjetas montadas unas sobre otras, que hacían que se viera raro y tapaban contenido. Se mantienen dos columnas de distinto ancho (izquierda: 01 Trujillo y 03 Lima; derecha, más baja: 02 Chimbote y la tarjeta negra 04) con sombra suave. Componente nuevo `MemoryCard` en `components/MacDesktopExperience.tsx`; estilos `.shs-hist` en `app/globals.css`.
