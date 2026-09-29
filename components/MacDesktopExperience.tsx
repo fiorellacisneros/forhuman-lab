@@ -3672,8 +3672,8 @@ function SessionsBody() {
           <RevealLine>¿Cada día sale</RevealLine>
           <RevealLine delay={0.1}>una nueva IA?</RevealLine>
           <span style={{ display: "block", marginTop: "0.42em", fontSize: "0.46em", lineHeight: 1.15, fontWeight: 600, letterSpacing: "-0.03em" }}>
-            <RevealLine delay={0.2}>¿Sin saber cuál es el mejor modelo?</RevealLine>
-            <RevealLine delay={0.28}>¿Viendo a todos presumir en LinkedIn?</RevealLine>
+            <RevealLine delay={0.2}>¿No sabes cuál es el mejor modelo?</RevealLine>
+            <RevealLine delay={0.28}>¿Ves a todos presumir en LinkedIn?</RevealLine>
             <RevealLine delay={0.36} mask={false}>
               <HeroHighlight>¿Leyendo esto con voz de anuncio de televisión?</HeroHighlight>
             </RevealLine>
