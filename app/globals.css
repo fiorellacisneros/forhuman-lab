@@ -219,7 +219,7 @@ body {
 }
 /* FAQ: while hovering the list, every row except the hovered one fades back */
 .shs-faq-row {
-  transition: opacity 0.12s ease-out;
+  transition: opacity 0.1s ease-out;
 }
 .shs-faq-list:hover .shs-faq-row:not(:hover) {
   opacity: 0.3;
