@@ -13,8 +13,8 @@ import { PromoCard } from "@/components/design-system/PromoCard";
 import { Loader } from "@/components/design-system/Loader";
 import { useGlowHover } from "@/components/design-system/useGlowHover";
 
-type AppId = "figma" | "webflow" | "flowmcp" | "finder" | "photos" | "notas" | "spotify" | null;
-type HoverId = "figma" | "webflow" | "flowmcp" | "photos" | "finder" | "notas" | "spotify" | null;
+type AppId = "figma" | "webflow" | "flowmcp" | "sessions" | "finder" | "photos" | "notas" | "spotify" | null;
+type HoverId = "figma" | "webflow" | "flowmcp" | "sessions" | "photos" | "finder" | "notas" | "spotify" | null;
 
 type WhatsAppContact = { name: string; firstName: string; phone: string; photo: string };
 
@@ -588,6 +588,15 @@ const FLOWMCP_SECTIONS = [
   { id: "flowmcp-hablar-agente", label: "Conectores" },
   { id: "flowmcp-seguridad", label: "Seguridad" },
   { id: "flowmcp-agencias", label: "Agencias" },
+];
+
+const SESSIONS_SECTIONS = [
+  { id: "sessions-inicio", label: "Inicio" },
+  { id: "sessions-que-es", label: "Qué es" },
+  { id: "sessions-ediciones", label: "Ediciones" },
+  { id: "sessions-sumate", label: "Cómo sumarte" },
+  { id: "sessions-estado", label: "Estado" },
+  { id: "sessions-faq", label: "Preguntas" },
 ];
 
 const WEBFLOW_TESTIMONIALS = [
@@ -4300,7 +4309,7 @@ function formatMenuBarDateTime(date: Date) {
 
 export function MacDesktopExperience() {
   const [isMobile, setIsMobile] = useState(false);
-  const [openApp, setOpenApp] = useState<AppId>("flowmcp");
+  const [openApp, setOpenApp] = useState<AppId>("sessions");
   const [loadingApp, setLoadingApp] = useState<AppId>(null);
   const [closingApp, setClosingApp] = useState<AppId>(null);
   const [hoveredApp, setHoveredApp] = useState<HoverId>(null);
@@ -4319,6 +4328,8 @@ export function MacDesktopExperience() {
   const [webflowSection, setWebflowSection] = useState("webflow-inicio");
   const [flowmcpSidebarOpen, setFlowmcpSidebarOpen] = useState(false);
   const [flowmcpSection, setFlowmcpSection] = useState("flowmcp-inicio");
+  const [sessionsSidebarOpen, setSessionsSidebarOpen] = useState(false);
+  const [sessionsSection, setSessionsSection] = useState("sessions-inicio");
   const [fotosSidebarOpen, setFotosSidebarOpen] = useState(false);
   const [fotosSection, setFotosSection] = useState("favoritos");
 
@@ -4435,9 +4446,10 @@ export function MacDesktopExperience() {
     figma: "superHuman — Figma Camp",
     webflow: "superHuman — Webflow Camp",
     flowmcp: "flowmcp",
+    sessions: "forHuman Sessions — ¿IA fuimos?",
     finder: "Finder — forHuman",
     photos: "Fotos",
-    notas: "Manifiesto.txt",
+    notas: "Eventos.txt",
     spotify: "Spotify — Playlist",
   };
 
