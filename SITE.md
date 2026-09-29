@@ -36,6 +36,8 @@ En pantallas de celular, todo el mismo contenido se muestra dentro de un marco d
 
 ## Recent Changes
 
+- 2026-09-29: Revisión del responsive en celular (390px) de Sessions. Se corrigió que la píldora "Tentativo: 15 o 16 oct · 6 pm" se partía en dos líneas (ahora no se parte; si no cabe junto al texto de al lado, ese texto baja a otra línea), y la etiqueta de la sección "Lo que ya hicimos" ya no dice "Ediciones". El resto del inicio (titular, botones, imagen) se ve bien en celular.
+
 - 2026-09-29: Ajuste del haz de luz: en los botones negros de Sessions el haz es amarillo y en los botones blancos ("Quiero sumarme" y "Quiero ser sponsor →") el haz es **negro** (`#0D0D0D`, mezclado normal en vez de multiplicado, para que se vea limpio y no como una mancha gris). Antes los blancos tenían haz azul.
 
 - 2026-09-29: El haz de luz de los botones principales ahora puede cambiar de color (`PrincipalButton` acepta `glowColor` y `glowBlend`; si no se usan, todo queda como antes). En Sessions: los botones negros de las tarjetas de "Sumarte" (voluntario, speaker, enterarme) tienen el haz **amarillo**, porque el blanco casi no se veía sobre negro; los botones blancos ("Quiero sumarme" y "Quiero ser sponsor →") tienen el haz **azul de marca**, porque el negro se veía sucio sobre blanco. Los botones azules siguen con el haz blanco.
