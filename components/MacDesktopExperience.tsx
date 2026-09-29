@@ -3686,13 +3686,18 @@ function SessionsBody() {
         </Reveal>
         <h1 className="shs-hero-h1" style={{ font: "700 clamp(38px, 9.5vw, 104px)/0.98 'Manrope',sans-serif", letterSpacing: "-0.04em", color: "var(--black)", margin: 0, maxWidth: "none" }}>
           <RevealLine>¿Cansado de que cada día</RevealLine>
-          <RevealLine delay={0.12} mask={false}>
-            <HeroHighlight>salga una nueva IA?</HeroHighlight>
-          </RevealLine>
+          <RevealLine delay={0.1}>salga una nueva IA?</RevealLine>
+          <span style={{ display: "block", marginTop: "0.42em", fontSize: "0.46em", lineHeight: 1.15, fontWeight: 600, letterSpacing: "-0.03em" }}>
+            <RevealLine delay={0.2}>¿Fingiendo que sabes cuál es el mejor modelo?</RevealLine>
+            <RevealLine delay={0.28}>¿Comparándote con el de las 47 automatizaciones?</RevealLine>
+            <RevealLine delay={0.36} mask={false}>
+              <HeroHighlight>¿Leyendo esto con voz de anuncio de televisión?</HeroHighlight>
+            </RevealLine>
+          </span>
         </h1>
         <Reveal delay={0.3}>
           <p style={{ font: "300 clamp(16px, 4vw, 22px)/1.4 'Work Sans',sans-serif", color: "var(--gray-600)", maxWidth: 620, margin: 0 }}>
-            ¿Qué modelo usar? ¿Compararte con todos? ¿Sentir que hasta leer esto suena a spot publicitario? Hablemos de lo que no contamos en LinkedIn. Estamos armando el espacio para decirlo en voz alta y necesitamos tu ayuda para ejecutarlo.
+            Respira, a nosotros también nos pasa. Hablemos de lo que no contamos en LinkedIn. Estamos armando el espacio para decirlo en voz alta y necesitamos tu ayuda para ejecutarlo.
           </p>
         </Reveal>
         <Reveal delay={0.4}>
