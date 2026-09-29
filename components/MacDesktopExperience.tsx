@@ -3532,6 +3532,7 @@ function SessionsFaq({ items }: { items: { q: string; a: ReactNode }[] }) {
 const SESSIONS_TIMELINE: { state: "done" | "now" | "next"; title: string; body: string }[] = [
   { state: "done", title: "Nace la idea", body: "Juntar a la gente de una ciudad a conversar de lo que pasa alrededor del trabajo." },
   { state: "done", title: "Cada Sessions, su tema", body: "Cada encuentro tiene su propio tema y sus propias historias." },
+  { state: "done", title: "Comunidad", body: "La gente que ya nos sigue y que se suma a cada encuentro." },
   { state: "now", title: "Buscamos manos", body: "Speakers y voluntarios con ganas de ejecutarlo. Estás aquí." },
   { state: "next", title: "Fecha, lugar y programa", body: "Fecha tentativa: jueves 15 o viernes 16 de octubre, 6 pm. Falta confirmar el día, el lugar y el programa." },
   { state: "next", title: "Se abre la inscripción", body: "Te avisamos primero si dejaste tu correo." },
