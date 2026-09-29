@@ -593,7 +593,7 @@ const FLOWMCP_SECTIONS = [
 const SESSIONS_SECTIONS = [
   { id: "sessions-inicio", label: "Inicio" },
   { id: "sessions-que-es", label: "Qué es" },
-  { id: "sessions-ediciones", label: "Ediciones" },
+  { id: "sessions-ediciones", label: "Lo que ya hicimos" },
   { id: "sessions-sumate", label: "Cómo sumarte" },
   { id: "sessions-estado", label: "Estado" },
   { id: "sessions-faq", label: "Preguntas" },
@@ -3144,7 +3144,7 @@ const SESSION_PANELS: Record<
 > = {
   voluntario: {
     title: "Ayúdanos a hacerlo realidad",
-    lead: "Estamos tramando la edición de Lima y hay mucho por ejecutar. Te contamos el plan y nos ayudas a sacarlo adelante.",
+    lead: "Estamos armando un nuevo encuentro y hay mucho por ejecutar. Te contamos el plan y nos ayudas a sacarlo adelante.",
     asks: [
       { tag: "Speakers", text: "Traer o contactar a alguien con algo real que contar." },
       { tag: "Dinámicas", text: "Ayudar a diseñar qué pasa en el encuentro: cómo se conversa, cómo se siente la sala." },
@@ -3168,7 +3168,7 @@ const SESSION_PANELS: Record<
     title: "Entérate primero",
     lead: "Todavía estamos definiendo la fecha, el lugar y el programa. Deja tu correo y te contamos todos los detalles apenas estén definidos.",
     asks: [
-      { tag: "Tema", text: "En Lima, ¿IA fuimos?: cómo estamos parados frente a la IA, los egos, el burnout, lo que no contamos en LinkedIn." },
+      { tag: "Tema", text: "Cada forHuman Sessions tiene su propio tema, siempre sobre lo que pasa alrededor del trabajo: la IA, los egos, el burnout, lo que no contamos en LinkedIn." },
       { tag: "Inscripción", text: "Todavía no abre — se define junto con la fecha." },
       { tag: "Qué hacer ahora", text: "Deja tu correo en el formulario del final de la página." },
     ],
@@ -3178,12 +3178,11 @@ const SESSION_PANELS: Record<
 
 const SESSIONS_BOOKING_URL = "https://cal.com/forhuman-studio/sumate";
 
-const SESSIONS_MARQUEE = ["forHuman Sessions", "¿IA fuimos?", "Chimbote", "Trujillo", "Lima", "Próximamente"];
+const SESSIONS_MARQUEE = ["forHuman Sessions", "Chimbote", "Trujillo", "Encuentros presenciales"];
 
 const SESSIONS_EDITIONS = [
-  { number: "01", title: "Chimbote", body: "Una edición de forHuman Sessions en Chimbote, con la comunidad de la ciudad." },
-  { number: "02", title: "Trujillo", body: "Otra edición de forHuman Sessions, esta vez en Trujillo, con gente real." },
-  { number: "03", title: "Lima", body: "Por primera vez en Lima: ¿IA fuimos?, un encuentro presencial. La fecha se anuncia pronto." },
+  { number: "01", title: "Chimbote", body: "Un forHuman Sessions con la gente de la ciudad, con su propio tema y sus propias historias." },
+  { number: "02", title: "Trujillo", body: "Otro forHuman Sessions, distinto al de Chimbote: otra ciudad, otro tema, otras historias." },
 ];
 
 const SESSION_ROLE_ICONS: Record<SessionRole, MotivoIconKind> = { voluntario: "layers", speaker: "zap", publico: "globe" };
@@ -3198,9 +3197,9 @@ const SESSIONS_OPEN = [
 ];
 
 const SESSIONS_FAQ = [
-  { q: "¿Qué es forHuman Sessions?", a: "Encuentros presenciales organizados por forHuman, en distintas ciudades. Ya hubo ediciones en Chimbote y Trujillo, y ahora armamos la de Lima, que se llama ¿IA fuimos?" },
-  { q: "¿Cuándo y dónde es?", a: "Es en Lima. La fecha, la hora y el lugar exactos todavía se están definiendo." },
-  { q: "¿De qué se habla?", a: "Cada edición de forHuman Sessions tiene su propio tema. El de Lima, ¿IA fuimos?, habla de salud mental en tiempos de IA: egos, burnout, lo que no contamos en LinkedIn." },
+  { q: "¿Qué es forHuman Sessions?", a: "Encuentros presenciales organizados por forHuman, en distintas ciudades. Ya lo hicimos en Chimbote y Trujillo, y cada uno fue distinto." },
+  { q: "¿Cuándo y dónde es?", a: "Todavía se está definiendo: la ciudad, la fecha, la hora y el lugar se anuncian pronto." },
+  { q: "¿De qué se habla?", a: "Cada forHuman Sessions tiene su propio tema, siempre sobre lo que pasa alrededor del trabajo: cómo estamos frente a la IA, los egos, el burnout, lo que no contamos en LinkedIn." },
   { q: "¿Tengo que ser experto para hablar?", a: "No. Buscamos historias, no ponencias: algo que hayas vivido de verdad. Nada de 40 minutos de slides." },
   { q: "¿Cómo me inscribo?", a: "La inscripción todavía no abre. Deja tu correo en el formulario del final de la página y te escribimos apenas esté definida." },
 ];
@@ -3364,8 +3363,8 @@ function PillButton({ children, onClick, dark = false }: { children: ReactNode; 
 }
 
 const SESSIONS_INDEX = [
-  { n: "01", label: "Ver las ediciones", target: "sessions-ediciones" },
-  { n: "02", label: "Sumarme a la edición de Lima", target: "sessions-sumate" },
+  { n: "01", label: "Ver lo que ya hicimos", target: "sessions-ediciones" },
+  { n: "02", label: "Sumarme", target: "sessions-sumate" },
   { n: "03", label: "Ver cómo vamos", target: "sessions-estado" },
 ];
 
@@ -3516,9 +3515,8 @@ function SessionsFaq({ items }: { items: { q: string; a: ReactNode }[] }) {
 }
 
 const SESSIONS_TIMELINE: { state: "done" | "now" | "next"; title: string; body: string }[] = [
-  { state: "done", title: "Nace la idea", body: "Una historia de Instagram: 20 personas escribieron para sumarse." },
-  { state: "done", title: "Se define el tema", body: "Salud mental en tiempos de IA: egos, burnout, cómo estamos." },
-  { state: "done", title: "Se define el nombre", body: "¿IA fuimos? Primera vez que lo hacemos y primera vez en Lima." },
+  { state: "done", title: "Nace la idea", body: "Juntar a la gente de una ciudad a conversar de lo que pasa alrededor del trabajo." },
+  { state: "done", title: "Cada Sessions, su tema", body: "Cada encuentro tiene su propio tema y sus propias historias." },
   { state: "now", title: "Buscamos manos", body: "Speakers y voluntarios con ganas de ejecutarlo. Estás aquí." },
   { state: "next", title: "Fecha, lugar y programa", body: "Cuánto dura, qué dinámicas, quién modera." },
   { state: "next", title: "Se abre la inscripción", body: "Te avisamos primero si dejaste tu correo." },
