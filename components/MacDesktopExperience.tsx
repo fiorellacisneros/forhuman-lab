@@ -1437,7 +1437,7 @@ function SiteFooter() {
               <FooterLink href="https://www.instagram.com/superhuman.school/">Instagram</FooterLink>
             </FooterLinkCol>
             <FooterLinkCol eyebrow="Contacto" width={300}>
-              <FooterLink href="mailto:hola@forhuman.studio">hola@forhuman.studio</FooterLink>
+              <EmailCopyCTA compact />
               <FooterLink href="https://api.whatsapp.com/send/?phone=%2B51936098806&text=Hola%2C+quisiera+informaci%C3%B3n+sobre...&type=phone_number&app_absent=0">
                 +51 936 098 806
               </FooterLink>
@@ -3350,6 +3350,107 @@ function PillButton({ children, onClick, dark = false }: { children: ReactNode; 
       }}
     >
       {children}
+    </button>
+  );
+}
+
+const SESSIONS_INDEX = [
+  { n: "01", label: "Ver las ediciones", target: "sessions-ediciones" },
+  { n: "02", label: "Sumarme a la edición de Lima", target: "sessions-sumate" },
+  { n: "03", label: "Ver cómo vamos", target: "sessions-estado" },
+];
+
+function SessionsIndexLink({ n, label, target }: { n: string; label: string; target: string }) {
+  const [hover, setHover] = useState(false);
+  const color = useShiftColor("#0D0D0D", "#FFFFFF");
+  const dim = useShiftColor("rgba(13,13,13,0.5)", "rgba(255,255,255,0.5)");
+  return (
+    <a
+      href={`#${target}`}
+      onClick={(e) => {
+        e.preventDefault();
+        smoothScrollToId(target);
+      }}
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
+      style={{ display: "flex", alignItems: "baseline", gap: 14, textDecoration: "none", cursor: "pointer" }}
+    >
+      <motion.span style={{ font: "400 clamp(16px, 4vw, 20px)/1 'Work Sans',sans-serif", color: dim }}>({n})</motion.span>
+      <motion.span
+        animate={{ x: hover ? 10 : 0 }}
+        transition={{ type: "spring", stiffness: 300, damping: 22 }}
+        style={{ font: "400 clamp(20px, 5vw, 28px)/1.2 'Manrope',sans-serif", letterSpacing: "-0.02em", color }}
+      >
+        {label}
+      </motion.span>
+      <motion.span animate={{ opacity: hover ? 1 : 0, x: hover ? 0 : -8 }} style={{ color: "var(--yellow)", font: "400 22px/1 'Work Sans',sans-serif" }}>
+        →
+      </motion.span>
+    </a>
+  );
+}
+
+function ShiftLabel() {
+  const color = useShiftColor("rgba(13,13,13,0.6)", "rgba(255,255,255,0.55)");
+  return (
+    <motion.span style={{ flex: "0 0 180px", font: "400 15px/1.3 'Work Sans',sans-serif", color, display: "flex", alignItems: "center", gap: 8, height: "fit-content" }}>
+      <span style={{ width: 7, height: 7, borderRadius: "50%", background: "var(--blue)", flexShrink: 0 }} />
+      Qué es forHuman Sessions
+    </motion.span>
+  );
+}
+
+const SESSIONS_EMAIL = "hola@forhuman.studio";
+
+/** Big email: an envelope slides in on hover and the address rolls to "Copiado" on click (like mammutstudios.com's footer). */
+function EmailCopyCTA({ compact = false }: { compact?: boolean }) {
+  const [hover, setHover] = useState(false);
+  const [copied, setCopied] = useState(false);
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText(SESSIONS_EMAIL);
+    } catch {
+      window.location.href = `mailto:${SESSIONS_EMAIL}`;
+    }
+    setCopied(true);
+    window.setTimeout(() => setCopied(false), 2000);
+  };
+  return (
+    <button
+      type="button"
+      onClick={copy}
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
+      aria-label={`Copiar ${SESSIONS_EMAIL}`}
+      style={{ background: "none", border: "none", padding: 0, cursor: "pointer", display: "inline-flex", alignItems: "center", gap: 0, color: "var(--white)", textAlign: "left" }}
+    >
+      <motion.span
+        animate={{ width: hover || copied ? (compact ? 22 : 36) : 0, marginRight: hover || copied ? (compact ? 10 : 16) : 0, opacity: hover || copied ? 1 : 0, x: hover || copied ? 0 : -12 }}
+        transition={{ duration: 0.35, ease: EASE_OUT }}
+        style={{ display: "inline-flex", overflow: "hidden", flexShrink: 0 }}
+      >
+        <svg width={compact ? 22 : 36} height={compact ? 22 : 36} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          {copied ? <path d="M5 12.5 10 17.5 19 7" /> : (
+            <>
+              <rect x="3" y="5" width="18" height="14" rx="2" />
+              <path d="m3.5 7 8.5 6 8.5-6" />
+            </>
+          )}
+        </svg>
+      </motion.span>
+      <span style={{ position: "relative", display: "inline-block", overflow: "hidden", height: "1.25em", font: compact ? "400 22px/1.25 'Manrope',sans-serif" : "400 clamp(22px, 5.4vw, 48px)/1.25 'Manrope',sans-serif", letterSpacing: compact ? "0" : "-0.03em" }}>
+        <motion.span animate={{ y: copied ? "-110%" : "0%", opacity: compact || hover || copied ? 1 : 0.75 }} transition={{ duration: 0.45, ease: EASE_OUT }} style={{ display: "block" }}>
+          {SESSIONS_EMAIL}
+        </motion.span>
+        <motion.span
+          initial={false}
+          animate={{ y: copied ? "0%" : "110%" }}
+          transition={{ duration: 0.45, ease: EASE_OUT }}
+          style={{ position: "absolute", left: 0, top: 0, display: "block", color: "var(--yellow)" }}
+        >
+          ¡Copiado!
+        </motion.span>
+      </span>
     </button>
   );
 }
