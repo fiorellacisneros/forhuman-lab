@@ -3770,7 +3770,7 @@ function SessionsBody() {
               <span style={{ font: "400 88px/1 'Work Sans',sans-serif", color: "var(--yellow)", letterSpacing: "0.02em" }}>03</span>
               <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
                 <div style={{ font: "400 28px/1.05 'Manrope',sans-serif", letterSpacing: "-0.03em" }}>¿Llegaremos a Perú Tech Week?</div>
-                <div style={{ font: "300 16px/1.4 'Work Sans',sans-serif", color: "rgba(247,247,247,0.85)" }}>Es un secreto por ahora.</div>
+                <div style={{ font: "300 16px/1.4 'Work Sans',sans-serif", color: "rgba(247,247,247,0.85)" }}>Está en suspenso por ahora.</div>
                 <div aria-hidden="true" style={{ display: "flex", flexDirection: "column", gap: 8, filter: "blur(5px)", userSelect: "none", opacity: 0.7 }}>
                   <span style={{ font: "500 15px/1 'Inconsolata',monospace", letterSpacing: "0.08em" }}>LUGAR ▮▮▮▮▮▮▮▮</span>
                   <span style={{ font: "500 15px/1 'Inconsolata',monospace", letterSpacing: "0.08em" }}>TEMA ▮▮▮▮▮▮▮▮▮▮▮▮</span>
