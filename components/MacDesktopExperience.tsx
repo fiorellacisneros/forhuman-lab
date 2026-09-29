@@ -3856,8 +3856,8 @@ function SessionsBody() {
           <Header
             kicker="Quiénes lo organizan"
             kickerColor="rgba(255,255,255,0.6)"
-            title="forHuman pone el espacio, tú pones la historia"
-            subtitle="Somos las mismas personas detrás de forHuman Studio y superHuman School. Escríbenos directo."
+            title="forHuman lo organiza, tú pones la historia"
+            subtitle="Somos las mismas personas detrás de forHuman Studio y superHuman School."
             align="left"
             color="var(--white)"
           />
@@ -3888,7 +3888,7 @@ function SessionsBody() {
             Preguntas
           </span>
           <h2 style={{ font: "400 clamp(30px, 5vw, 48px)/1.05 'Manrope',sans-serif", letterSpacing: "-0.03em", color: "var(--black)", margin: 0 }}>
-            Lo que quizá te preguntas
+            Antes de sumarte
           </h2>
           <p style={{ font: "300 16px/1.45 'Work Sans',sans-serif", color: "var(--gray-600)", margin: 0 }}>
             Lo que sabemos hoy sobre forHuman Sessions. ¿Falta algo?{" "}
