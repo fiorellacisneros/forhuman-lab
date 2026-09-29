@@ -4829,7 +4829,7 @@ export function MacDesktopExperience() {
               >
                 <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
                   <div style={{ width: 13, height: 13, background: "url(/forhuman-lab/logo-forhuman-mark.svg) center / contain no-repeat" }} />
-                  <span style={{ font: "700 12px/1 'Work Sans',sans-serif" }}>forHuman Lab</span>
+                  <span style={{ font: "700 12px/1 'Work Sans',sans-serif" }}>forHuman Sessions</span>
                 </div>
                 <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
                   <svg width="14" height="10.5" viewBox="0 0 19 12">
@@ -4856,8 +4856,8 @@ export function MacDesktopExperience() {
                     </div>
                   </div>
                   {[
-                    ["Webflow IA Camp", "Mar y Jue · 7–9pm Perú"],
-                    ["Figma Camp", "Mar y Jue · 7–9pm Perú"],
+                    ["¿IA fuimos?", "Fecha por confirmar"],
+                    ["Inscripciones", "Fecha por confirmar"],
                   ].map(([title, detail]) => (
                     <div key={title} style={{ background: "rgba(255,255,255,0.09)", borderRadius: 10, padding: "8px 10px" }}>
                       <div style={{ font: "500 13px/1.3 'Work Sans',sans-serif", color: "#F7F7F7" }}>{title}</div>
@@ -4867,10 +4867,10 @@ export function MacDesktopExperience() {
                 </div>
                 <div style={{ borderRadius: 22, background: "rgba(13,13,13,0.4)", backdropFilter: "blur(24px)", padding: 16, display: "flex", flexDirection: "column", gap: 10, boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.08)" }}>
                   <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                    <span style={{ font: "500 13px/1 'Work Sans',sans-serif", color: "#F7F7F7" }}>Próximos lanzamientos</span>
+                    <span style={{ font: "500 13px/1 'Work Sans',sans-serif", color: "#F7F7F7" }}>To-do list</span>
                     <span style={{ font: "600 11px/1 'Work Sans',sans-serif", color: "#F7F7F7", background: "rgba(255,255,255,0.15)", borderRadius: 999, padding: "3px 8px" }}>4</span>
                   </div>
-                  {["Webflow IA Camp — Mar y Jue", "Figma Camp — Mar y Jue", "Cupos Early Bird limitados", "Certificado al completar"].map((item) => (
+                  {["Confirmar fecha y hora", "Definir speakers", "Elegir quién modera", "Abrir inscripción"].map((item) => (
                     <div key={item} style={{ display: "flex", alignItems: "center", gap: 9 }}>
                       <div style={{ width: 15, height: 15, borderRadius: "50%", boxShadow: "inset 0 0 0 1.5px rgba(247,247,247,0.55)", flexShrink: 0 }} />
                       <span style={{ font: "300 12px/1.3 'Work Sans',sans-serif", color: "rgba(247,247,247,0.92)" }}>{item}</span>
@@ -4923,8 +4923,8 @@ export function MacDesktopExperience() {
                     {hoveredApp === "webflow" && <DockTooltip label="Webflow Camp — Coming soon" />}
                     <div style={{ width: 56, height: 56, borderRadius: 14, background: "url(/forhuman-lab/icon-webflow.svg) center / cover no-repeat" }} />
                   </div>
-                  <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }} onClick={() => openWindow("flowmcp")}>
-                    <div style={{ width: 56, height: 56, borderRadius: 14, background: "url(/forhuman-lab/icon-flowmcp.svg) center / cover no-repeat", cursor: "pointer" }} />
+                  <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }} onClick={() => openWindow("sessions")}>
+                    <div style={{ width: 56, height: 56, borderRadius: 14, background: "url(/forhuman-lab/icon-sessions.svg) center / cover no-repeat", cursor: "pointer" }} />
                   </div>
                   <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }} onClick={() => openWindow("notas")}>
                     <div style={{ width: 56, height: 56, borderRadius: 14, background: "url(/forhuman-lab/icon-notas.svg) center / cover no-repeat", cursor: "pointer" }} />
@@ -4949,6 +4949,12 @@ export function MacDesktopExperience() {
           {(openApp === "flowmcp" || closingApp === "flowmcp") && (
             <MobileScreen title={windowTitles.flowmcp} bg="var(--white)" onClose={closeApp} closing={closingApp === "flowmcp"} floatingAction={<WhatsNewButton />}>
               <FlowmcpBody />
+            </MobileScreen>
+          )}
+
+          {(openApp === "sessions" || closingApp === "sessions") && (
+            <MobileScreen title={windowTitles.sessions} bg="var(--white)" onClose={closeApp} closing={closingApp === "sessions"}>
+              <SessionsBody />
             </MobileScreen>
           )}
 
