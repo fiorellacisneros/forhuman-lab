@@ -36,6 +36,16 @@ En pantallas de celular, todo el mismo contenido se muestra dentro de un marco d
 
 ## Recent Changes
 
+- 2026-09-29: En las preguntas frecuentes, la respuesta de "¿Cuándo y dónde es?" ahora dice que es en Lima, en el marco de Perú Tech Week (y mantiene la fecha tentativa: jueves 15 o viernes 16 de octubre, 6 pm; falta confirmar el día y el lugar).
+
+- 2026-09-29: En la tarjeta de incógnita ("¿Llegaremos a Perú Tech Week?") el texto "Es un secreto por ahora." cambió a "Está en suspenso por ahora." (todavía no es un secreto, solo falta confirmarlo).
+
+- 2026-09-29: Arreglado que la "g" de "salga" en el titular del inicio de Sessions se veía cortada por abajo: las líneas del titular que suben con máscara ahora tienen más espacio debajo para las letras que bajan (g, j, p, q, y), sin cambiar la separación entre líneas.
+
+- 2026-09-29: Titular del inicio de Sessions más divertido y menos duro (tono sarcástico, estilo meme de anuncio de televisión). Cascada: "¿Cansado de que cada día salga una nueva IA?" → "¿Fingiendo que sabes cuál es el mejor modelo?" → "¿Comparándote con el de las 47 automatizaciones?" → (resaltada en azul) "¿Leyendo esto con voz de anuncio de televisión?". El párrafo ahora arranca con "Respira, a nosotros también nos pasa." y sigue con "Hablemos de lo que no contamos en LinkedIn."
+
+- 2026-09-29: El titular del inicio de Sessions ahora imita el formato del meme de "anuncio de televisión": una cadena de preguntas cortas. Arriba, grande: "¿Cansado de que cada día salga una nueva IA?"; debajo, más chico y una por línea: "¿Qué modelo usar?", "¿Compararte con todos?" y, resaltada en azul, "¿Leyendo esto con voz de spot publicitario?". El párrafo ahora empieza con "Hablemos de lo que no contamos en LinkedIn."
+
 - 2026-09-29: Nuevo titular del inicio de Sessions: "¿Cansado de que cada día / salga una nueva IA?" (la segunda línea va resaltada en azul). El párrafo de abajo ahora sigue el mismo tono con preguntas: "¿Qué modelo usar? ¿Compararte con todos? ¿Sentir que hasta leer esto suena a spot publicitario? Hablemos de lo que no contamos en LinkedIn." y luego la invitación a ayudar. El titular anterior era "Hablemos de lo que no contamos en LinkedIn."
 
 - 2026-09-29: En "Lo que ya estamos armando" (Sessions), la columna "Listo" ahora tiene una tercera tarjeta: **Comunidad** — "La gente que ya nos sigue y que se suma a cada encuentro." (coincide con lo que se dice en "Lo que pone forHuman").
