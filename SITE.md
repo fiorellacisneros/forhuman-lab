@@ -36,6 +36,36 @@ En pantallas de celular, todo el mismo contenido se muestra dentro de un marco d
 
 ## Recent Changes
 
+- 2026-09-29: En "Lo que ya hicimos" se quitaron los números (01, 02, 03, 04) de las tarjetas; el diseño con la foto arriba se mantiene igual.
+
+- 2026-09-29: Repensada la sección de fotos "Lo que ya hicimos". Ahora cada tarjeta empieza con la **foto arriba** (con el número en una píldora encima) y debajo el título y el texto; se quitaron los números gigantes, las inclinaciones y las tarjetas montadas unas sobre otras, que hacían que se viera raro y tapaban contenido. Se mantienen dos columnas de distinto ancho (izquierda: 01 Trujillo y 03 Lima; derecha, más baja: 02 Chimbote y la tarjeta negra 04) con sombra suave. Componente nuevo `MemoryCard` en `components/MacDesktopExperience.tsx`; estilos `.shs-hist` en `app/globals.css`.
+
+- 2026-09-29: El título de "Lo que ya hicimos" ahora va siempre en dos líneas: "Ya lo hicimos en" / "Chimbote, Trujillo y Lima."
+
+- 2026-09-29: El título de "Sumarte" ahora se parte con un salto de línea fijo: "Si tienes ganas de ejecutar," / "con eso nos basta" (antes "basta" quedaba solo en la segunda línea).
+
+- 2026-09-29: En la grilla de "Lo que ya hicimos" las tarjetas ahora se separan visualmente entre sí: todas tienen una sombra suave y un borde muy fino (antes las blancas se confundían entre ellas y con el fondo), y las de abajo (03 y 04) se montan más sobre las de arriba (44px en vez de 28px).
+
+- 2026-09-29: En la grilla de "Lo que ya hicimos", la tarjeta 03 Lima ahora está pegada a la 01 Trujillo (queda montada unos 28px sobre ella, igual que la 04 sobre la 02).
+
+- 2026-09-29: Textos reales en las tarjetas de "Lo que ya hicimos": **Trujillo** — "Nos fuimos al norte a hablar de Webflow."; **Chimbote** — "Nos fuimos por un ceviche y a repensar los eventos tech en el norte del país."
+
+- 2026-09-29: El texto de la tarjeta 03 Lima ya no empieza con "En casa:": ahora dice "Workshops de IA, diseño y Webflow, y charlas de liderazgo. Menos teoría, más manos en la masa."
+
+- 2026-09-29: En la tarjeta 04 de "Lo que ya hicimos", debajo de "¿Llegaremos a Perú Tech Week?" ahora dice "Lo averiguaremos…" (antes "Está en suspenso por ahora.").
+
+- 2026-09-29: En las tarjetas de "Lo que ya hicimos" se quitó el nombre de la ciudad del texto de abajo (ya está en el título): Lima "En casa: workshops de IA, diseño y Webflow, y charlas de liderazgo. Menos teoría, más manos en la masa."; Chimbote "Salimos a juntarnos con la gente de la ciudad. Su propio tema, sus propias historias."; Trujillo "Otra ciudad, otro tema, otras historias. Ningún Sessions se repite."
+
+- 2026-09-29: Textos de las tarjetas de "Lo que ya hicimos" corregidos (el equipo vive en Lima, así que no "se fue" a Lima): **Lima**: "En casa, en Lima: workshops de IA, diseño y Webflow, y charlas de liderazgo. Menos teoría, más manos en la masa."; **Chimbote**: "Nos fuimos a Chimbote a juntarnos con la gente de la ciudad. Su propio tema, sus propias historias."; **Trujillo**: "Después nos fuimos a Trujillo: otra ciudad, otro tema, otras historias. Ningún Sessions se repite."
+
+- 2026-09-29: Texto de la tarjeta 03 Lima con más fuerza y con liderazgo: "Nos fuimos a Lima a trabajar con las manos en la masa: workshops de IA, diseño y Webflow, y charlas de liderazgo. Nada de teoría dormida: gente creando, probando y saliendo con algo hecho." Es una propuesta de copy; ajústala con lo que realmente pasó en Lima.
+
+- 2026-09-29: Donde el sitio decía "Ya lo hicimos en Chimbote y Trujillo", ahora dice **"Chimbote, Trujillo y Lima"**: título de la sección "Lo que ya hicimos", texto de "Qué es forHuman Sessions", pregunta frecuente "¿Qué es forHuman Sessions?" y la nota Eventos.txt.
+
+- 2026-09-29: Rehecha la grilla de "Lo que ya hicimos" para que no queden huecos blancos: ahora son dos columnas que encajan entre sí, la izquierda más angosta (01 Trujillo y debajo 03 Lima) y la derecha más ancha y bajada 64px (02 Chimbote y debajo la tarjeta 04 negra, metida un poco encima de la de Chimbote y desplazada a la derecha). Las tarjetas siguen inclinadas y miden solo su contenido. En celular, una columna. Estilos en `app/globals.css` (`.shs-hist`); el componente es `HistGrid` en `components/MacDesktopExperience.tsx`.
+
+- 2026-09-29: Nueva tarjeta **03 Lima** en "Lo que ya hicimos": foto real de un workshop de forHuman en Lima (`public/forhuman-lab/sessions-lima.jpg`, reducida a 1400px, a color y con glitch al pasar el mouse) y el texto "Workshops de IA, diseño y Webflow." La tarjeta de incógnita "¿Llegaremos a Perú Tech Week?" pasó a ser la **04**. La grilla ahora tiene dos filas: Trujillo y Chimbote arriba; Lima (ancha) y la tarjeta 04 (negra, montada un poco sobre las otras) abajo. En celular todo en una columna.
+
 - 2026-09-29: Arreglado que la tarjeta Chimbote se veía gigante, con un hueco blanco entre el texto y la foto: la tarjeta se estiraba a lo alto de las dos filas que ocupa en la grilla. Ahora cada tarjeta de "Lo que ya hicimos" mide solo lo que necesita su contenido.
 
 - 2026-09-29: La tarjeta Chimbote de "Lo que ya hicimos" era demasiado alta (al ser ancha, su foto en formato 3:2 quedaba muy grande); ahora la foto es más panorámica (2:1), lo que la baja de altura unos 100px. Trujillo mantiene 3:2.
