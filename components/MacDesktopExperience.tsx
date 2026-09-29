@@ -3676,8 +3676,7 @@ function SessionsBody() {
       <section id="sessions-inicio" className="shs-canon shs-canon-hero" style={{ padding: "clamp(32px, 8vw, 64px) 64px clamp(24px, 6vw, 48px) 64px", display: "flex", flexDirection: "column", gap: "clamp(20px, 4vw, 32px)" }}>
         <Reveal>
           <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-            <span style={{ display: "inline-flex", alignItems: "center", gap: 10, font: "600 13px/1 'Inconsolata',monospace", letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--blue)" }}>
-              <span aria-hidden="true" style={{ width: 8, height: 8, borderRadius: "50%", background: "var(--blue)" }} />
+            <span style={{ display: "inline-block", font: "600 clamp(20px, 2.4vw, 26px)/1.2 'Manrope',sans-serif", letterSpacing: "-0.02em", color: "var(--blue)", padding: "0 6px", background: "linear-gradient(transparent 58%, rgba(255, 190, 0, 0.55) 58%)" }}>
               ¿IA fuimos?
             </span>
           </div>
