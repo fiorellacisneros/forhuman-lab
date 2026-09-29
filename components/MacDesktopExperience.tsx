@@ -3465,12 +3465,24 @@ function EmailCopyCTA({ compact = false }: { compact?: boolean }) {
 
 function SessionsFaq({ items }: { items: { q: string; a: ReactNode }[] }) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [hoverIndex, setHoverIndex] = useState<number | null>(null);
   return (
-    <div style={{ borderBottom: "1px solid var(--border-subtle)" }}>
+    <div style={{ borderBottom: "1px solid var(--border-subtle)" }} onMouseLeave={() => setHoverIndex(null)}>
       {items.map((item, i) => {
         const isOpen = openIndex === i;
+        const dimmed = hoverIndex !== null && hoverIndex !== i;
         return (
-          <div key={item.q} style={{ borderTop: "1px solid var(--border-subtle)" }}>
+          <motion.div
+            key={item.q}
+            initial={{ opacity: 0, y: 28 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-40px" }}
+            transition={{ duration: 0.6, ease: EASE_OUT }}
+          >
+          <div
+            onMouseEnter={() => setHoverIndex(i)}
+            style={{ borderTop: "1px solid var(--border-subtle)", opacity: dimmed ? 0.3 : 1, transition: "opacity 0.3s ease" }}
+          >
             <button
               type="button"
               onClick={() => setOpenIndex(isOpen ? null : i)}
@@ -3508,6 +3520,7 @@ function SessionsFaq({ items }: { items: { q: string; a: ReactNode }[] }) {
               )}
             </AnimatePresence>
           </div>
+          </motion.div>
         );
       })}
     </div>
