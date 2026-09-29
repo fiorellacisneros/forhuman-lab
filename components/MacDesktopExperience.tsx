@@ -3185,8 +3185,23 @@ const SESSIONS_WHATSAPP = "936098806";
 const SESSIONS_MARQUEE = ["forHuman Sessions", "Chimbote", "Trujillo", "Lima", "Próximamente…"];
 
 const SESSIONS_EDITIONS = [
-  { number: "01", title: "Chimbote", body: "Un forHuman Sessions con la gente de la ciudad, con su propio tema y sus propias historias." },
-  { number: "02", title: "Trujillo", body: "Otro forHuman Sessions, distinto al de Chimbote: otra ciudad, otro tema, otras historias." },
+  {
+    number: "01",
+    title: "Trujillo",
+    body: "Otro forHuman Sessions, distinto al de Chimbote: otra ciudad, otro tema, otras historias.",
+    image: "/forhuman-lab/sessions-trujillo.jpg",
+    imageAlt: "Asistentes al forHuman Sessions de Trujillo, sentados con sus laptops",
+    imagePosition: "center 45%",
+  },
+  {
+    number: "02",
+    title: "Chimbote",
+    body: "Un forHuman Sessions con la gente de la ciudad, con su propio tema y sus propias historias.",
+    image: "/forhuman-lab/sessions-chimbote.jpg",
+    imageAlt: "Grupo de asistentes al forHuman Sessions de Chimbote, con el cartel de Sessions",
+    imagePosition: "center",
+    imageAspect: "2 / 1",
+  },
 ];
 
 const SESSION_ROLE_ICONS: Record<SessionRole, MotivoIconKind> = { voluntario: "layers", speaker: "zap", publico: "globe" };
@@ -3745,10 +3760,17 @@ function SessionsBody() {
             align="left"
           />
         </Reveal>
-        <RevealGroup className="shs-stagger" style={{ display: "flex", gap: 20, flexWrap: "wrap", alignItems: "flex-start" }} itemStyle={{ flex: "1 1 300px", minWidth: 0 }}>
+        <RevealGroup className="shs-hist" style={{ display: "grid" }} itemStyle={{ minWidth: 0 }}>
           {[
             ...SESSIONS_EDITIONS.map((e) => (
-              <CardAprendizaje key={e.number} number={e.number} label="" title={e.title} body={e.body} style={{ width: "100%", height: "100%" }} />
+              <CardAprendizaje key={e.number} number={e.number} label="" title={e.title} body={e.body} media={"image" in e ? (
+                <GlitchImage
+                  src={e.image}
+                  alt={e.imageAlt}
+                  loading="lazy"
+                  style={{ width: "100%", aspectRatio: e.imageAspect ?? "3 / 2", objectFit: "cover", objectPosition: e.imagePosition, borderRadius: 12, display: "block" }}
+                />
+              ) : undefined} style={{ width: "100%", height: "100%" }} />
             )),
             <div
               key="mystery"
