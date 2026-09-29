@@ -3197,7 +3197,7 @@ const SESSIONS_OPEN = [
   "El lugar.",
   "Cuánto dura y qué dinámicas se hacen.",
   "Quién modera.",
-  "Cómo y cuándo abre la inscripción.",
+  "Cuándo abrimos las inscripciones (pronto).",
 ];
 
 const SESSIONS_FAQ = [
@@ -3537,7 +3537,7 @@ const SESSIONS_TIMELINE: { state: "done" | "now" | "next"; title: string; body: 
   { state: "done", title: "Comunidad", body: "La gente que ya nos sigue y que se suma a cada encuentro." },
   { state: "now", title: "Buscamos manos", body: "Speakers y voluntarios con ganas de ejecutarlo. Estás aquí." },
   { state: "next", title: "Fecha, lugar y programa", body: "Fecha tentativa: jueves 15 o viernes 16 de octubre, 6 pm. Falta confirmar el día, el lugar y el programa." },
-  { state: "next", title: "Se abre la inscripción", body: "Te avisamos primero si dejaste tu correo." },
+  { state: "next", title: "Abrimos inscripciones", body: "Pronto. Te avisamos primero si dejaste tu correo." },
 ];
 
 function BoardColumnTitle({ label, count, light = false }: { label: string; count?: number; light?: boolean }) {
@@ -4606,7 +4606,7 @@ export function MacDesktopExperience() {
                 </div>
                 <div style={{ background: "rgba(255,255,255,0.1)", borderRadius: 12, padding: "8px 11px" }}>
                   <div style={{ font: "600 13px/1.3 'Work Sans',sans-serif", color: "#F7F7F7" }}>Inscripciones</div>
-                  <div style={{ font: "400 12px/1.3 'Inconsolata',monospace", color: "rgba(247,247,247,0.6)" }}>Fecha por confirmar</div>
+                  <div style={{ font: "400 12px/1.3 'Inconsolata',monospace", color: "rgba(247,247,247,0.6)" }}>Pronto</div>
                 </div>
               </div>
             </div>
@@ -4924,7 +4924,7 @@ export function MacDesktopExperience() {
                   </div>
                   {[
                     ["forHuman Sessions", "15 o 16 oct · 6 pm (tentativo)"],
-                    ["Inscripciones", "Fecha por confirmar"],
+                    ["Inscripciones", "Pronto"],
                   ].map(([title, detail]) => (
                     <div key={title} style={{ background: "rgba(255,255,255,0.09)", borderRadius: 10, padding: "8px 10px" }}>
                       <div style={{ font: "500 13px/1.3 'Work Sans',sans-serif", color: "#F7F7F7" }}>{title}</div>
