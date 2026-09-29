@@ -3700,8 +3700,8 @@ function SessionsBody() {
         </Reveal>
         <Reveal delay={0.4}>
           <div style={{ display: "flex", gap: 20, alignItems: "center", flexWrap: "wrap" }}>
-            <PrincipalButton variant="primary" onClick={() => openSessionsWhatsApp("Hola Fio, quiero ser voluntario/a en ¿IA fuimos?, quiero ayudar en...")}>Ser voluntario</PrincipalButton>
-            <TextButton href={whatsappUrl("936098806", "Hola Fio, quiero ser sponsor")} target="_blank" rel="noopener noreferrer">Ser sponsor</TextButton>
+            <PrincipalButton variant="primary" onClick={() => smoothScrollToId("sessions-sumate")}>Ser voluntario</PrincipalButton>
+            <TextButton href="#sessions-ofrecemos" onClick={(e) => { e.preventDefault(); smoothScrollToId("sessions-ofrecemos"); }}>Ser sponsor</TextButton>
           </div>
         </Reveal>
         <motion.div
