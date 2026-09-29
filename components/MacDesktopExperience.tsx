@@ -3172,8 +3172,8 @@ const SESSION_PANELS: Record<
     title: "Entérate primero",
     lead: "La fecha tentativa es el jueves 15 o el viernes 16 de octubre a las 6 pm; el lugar y el programa todavía se están definiendo. Deja tu correo y te contamos todos los detalles apenas estén definidos.",
     asks: [
-      { tag: "Tema", text: "Cada forHuman Sessions tiene su propio tema. En ¿IA fuimos? hablamos de cómo estamos frente a la IA, los egos, el burnout y lo que no contamos en LinkedIn." },
-      { tag: "Inscripción", text: "Todavía no abre — se define junto con la fecha." },
+      { tag: "Tema", text: "Cada forHuman Sessions tiene su propio tema. En ¿IA fuimos? hablamos de salud mental en tiempos de IA: compararnos todo el tiempo, la presión de estar al día, los egos y el burnout." },
+      { tag: "Inscripción", text: "Pronto abrimos inscripciones." },
       { tag: "Qué hacer ahora", text: "Deja tu correo en el formulario del final de la página." },
     ],
     cta: "Quiero enterarme",
@@ -3203,9 +3203,9 @@ const SESSIONS_OPEN = [
 const SESSIONS_FAQ = [
   { q: "¿Qué es forHuman Sessions?", a: "Encuentros presenciales organizados por forHuman, en distintas ciudades. Ya lo hicimos en Chimbote y Trujillo, y cada uno fue distinto." },
   { q: "¿Cuándo y dónde es?", a: "Es en Lima, en el marco de Perú Tech Week. La fecha tentativa es el jueves 15 o el viernes 16 de octubre a las 6 pm; falta confirmar el día, y el lugar todavía se está definiendo. Lo anunciamos pronto." },
-  { q: "¿De qué se habla?", a: "Cada forHuman Sessions tiene su propio tema. En ¿IA fuimos? hablamos de cómo estamos frente a la IA, los egos, el burnout y lo que no contamos en LinkedIn." },
-  { q: "¿Tengo que ser experto para hablar?", a: "No. Buscamos historias, no ponencias: algo que hayas vivido de verdad. Nada de 40 minutos de slides." },
-  { q: "¿Cómo me inscribo?", a: "La inscripción todavía no abre. Deja tu correo en el formulario del final de la página y te escribimos apenas esté definida." },
+  { q: "¿De qué se habla?", a: "Cada forHuman Sessions tiene su propio tema. En ¿IA fuimos? hablamos de salud mental en tiempos de IA: compararnos todo el tiempo con los demás, la presión de estar al día, los egos, el burnout y lo que no contamos en LinkedIn. La idea es tomar conciencia y sentirnos menos solos con esto." },
+  { q: "¿Tengo que ser experto para hablar?", a: "No. Buscamos a quien haya pasado por burnout o presión y quiera compartir lo que le ha resultado, y también a psicólogas, psicólogos y coaches, o a quien haya creado una dinámica propia que le ayuda. Cada charla o dinámica dura entre 20 y 25 minutos: historias reales, nada de slides." },
+  { q: "¿Cómo me inscribo?", a: "Pronto abrimos inscripciones. Deja tu correo en el formulario del final de la página y te avisamos primero." },
 ];
 
 function goToSubscribe(e: { preventDefault: () => void }) {
@@ -3699,7 +3699,7 @@ function SessionsBody() {
         </h1>
         <Reveal delay={0.3}>
           <p style={{ font: "300 clamp(16px, 4vw, 22px)/1.4 'Work Sans',sans-serif", color: "var(--gray-600)", maxWidth: 620, margin: 0 }}>
-            Respira, a nosotros también nos pasa. Hablemos de lo que no contamos en LinkedIn. Estamos armando el espacio para decirlo en voz alta y necesitamos tu ayuda para ejecutarlo.
+            Respira, a nosotros también nos pasa. Hablemos de salud mental en tiempos de IA y de lo que no contamos en LinkedIn. Estamos armando el espacio para decirlo en voz alta y necesitamos tu ayuda para ejecutarlo.
           </p>
         </Reveal>
         <Reveal delay={0.4}>
@@ -3737,7 +3737,7 @@ function SessionsBody() {
           <ShiftLabel />
           <div style={{ flex: "1 1 420px", minWidth: 0, display: "flex", flexDirection: "column", gap: "clamp(28px, 5vw, 48px)" }}>
             <ScrollWords
-              text="Encuentros presenciales en distintas ciudades para hablar de lo que pasa alrededor del trabajo. Ya pasamos por Chimbote y Trujillo, y estamos armando un nuevo encuentro: la IA, el ego, el burnout y lo que no contamos en LinkedIn."
+              text="Encuentros presenciales en distintas ciudades para hablar de lo que pasa alrededor del trabajo. Ya pasamos por Chimbote y Trujillo, y estamos armando un nuevo encuentro para hablar de salud mental en tiempos de IA: compararnos todo el tiempo, el ego, el burnout y lo que no contamos en LinkedIn."
               style={{ font: "500 clamp(24px, 4.6vw, 44px)/1.15 'Manrope',sans-serif", letterSpacing: "-0.03em", margin: 0 }}
             />
             <RevealGroup style={{ display: "flex", flexDirection: "column", gap: 18 }}>
