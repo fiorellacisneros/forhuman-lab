@@ -31,7 +31,7 @@ const reenieBeanie = Reenie_Beanie({
   display: "swap",
 });
 
-const siteTitle = "forHuman Lab";
+const siteTitle = "forHuman Sessions - ¿IA fuimos?";
 const siteDescription = "Experimentación de productos con IA.";
 
 export const metadata: Metadata = {

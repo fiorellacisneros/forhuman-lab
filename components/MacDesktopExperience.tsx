@@ -3676,7 +3676,7 @@ function SessionsBody() {
       <section id="sessions-inicio" className="shs-canon shs-canon-hero" style={{ padding: "clamp(32px, 8vw, 64px) 64px clamp(24px, 6vw, 48px) 64px", display: "flex", flexDirection: "column", gap: "clamp(20px, 4vw, 32px)" }}>
         <Reveal>
           <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-            <PillButton>forHuman Sessions · ¿IA fuimos?</PillButton>
+            <PillButton>¿IA fuimos?</PillButton>
           </div>
         </Reveal>
         <h1 className="shs-hero-h1" style={{ font: "700 clamp(38px, 9.5vw, 104px)/0.98 'Manrope',sans-serif", letterSpacing: "-0.04em", color: "var(--black)", margin: 0, maxWidth: "none" }}>
