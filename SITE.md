@@ -36,6 +36,8 @@ En pantallas de celular, todo el mismo contenido se muestra dentro de un marco d
 
 ## Recent Changes
 
+- 2026-09-29: En "Qué hacer ahora" de las tarjetas de voluntario y speaker ya no se nombra a Fio: ahora dice "Escríbenos por WhatsApp y cuéntanos en qué quieres ayudar." y "Escríbenos por WhatsApp y cuéntanos tu idea o lo que quieres compartir." (los botones siguen abriendo el WhatsApp de Fio).
+
 - 2026-09-29: Cargos en las fotos de "Quiénes lo organizan" (Sessions): Fio ahora es "Webflow & Builder Educator" (antes "Figma & Webflow Educator") y Dani es "Figma & Design AI Educator" (antes "Product Designer"). Solo se cambió en la ventana Sessions; en las secciones de Webflow Camp y Finder siguen sus cargos anteriores ("Webflow Educator" y "Webflow Designer", o "Product Designer" en la de Figma), porque ahí se habla de la certificación de Webflow.
 
 - 2026-09-29: Titular del inicio de Sessions en lenguaje neutral (sin "cansado"): "¿Te cansa que cada día salga una nueva IA?" → "¿Te cansa no saber cuál es el mejor modelo?" → "¿Te cansa ver a todos presumiendo en LinkedIn?" → (resaltada) "¿Leyendo esto con voz de anuncio de televisión?".
