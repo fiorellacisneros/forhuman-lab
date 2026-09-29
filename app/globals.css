@@ -189,15 +189,33 @@ body {
 .shs-hero-h1 span {
   white-space: nowrap;
 }
-.shs-canon-hero > :nth-child(3),
+.shs-canon-hero > :nth-child(2),
+.shs-canon-hero > :nth-child(3) {
+  grid-column: 1 / 5;
+}
+.shs-canon-hero > :nth-child(2) {
+  grid-row: 2;
+}
+.shs-canon-hero > :nth-child(3) {
+  grid-row: 3;
+}
 .shs-canon-hero > :nth-child(4) {
-  grid-column: 5 / 10;
+  grid-column: 5 / 10; /* hero image: beside the text, not below it */
+  grid-row: 2 / span 2;
+  align-self: start;
+  margin-top: 8px;
 }
 .shs-canon-hero > :nth-child(5) {
-  grid-column: 3 / 10;
-}
-.shs-canon-hero > :nth-child(6) {
   grid-column: 3 / 8;
+  grid-row: 4;
+}
+.shs-hero-h1 {
+  position: relative;
+}
+.shs-hero-tag {
+  position: absolute;
+  right: 1%;
+  top: 1.05em;
 }
 .shs-canon-ediciones > :nth-child(1) {
   grid-column: 1 / 6;
@@ -226,6 +244,11 @@ body {
 @media (max-width: 859px) {
   .shs-canon > * {
     grid-column: 1 / -1 !important;
+    grid-row: auto !important;
+  }
+  .shs-hero-tag {
+    position: static !important;
+    margin-top: 0.1em;
   }
   .shs-stagger > * {
     margin-top: 0 !important;
@@ -339,5 +362,6 @@ body {
 }
 
 /* hero title: two lines, sized to the window */
+
 
 

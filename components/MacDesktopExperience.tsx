@@ -3679,22 +3679,18 @@ function SessionsBody() {
   return (
     <>
       <section id="sessions-inicio" className="shs-canon shs-canon-hero" style={{ padding: "clamp(32px, 8vw, 64px) 64px clamp(24px, 6vw, 48px) 64px", display: "flex", flexDirection: "column", gap: "clamp(20px, 4vw, 32px)" }}>
-        <Reveal>
-          <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-            <span style={{ display: "inline-block", font: "600 clamp(20px, 2.4vw, 26px)/1.2 'Manrope',sans-serif", letterSpacing: "-0.02em", color: "var(--blue)", padding: "0 6px", background: "linear-gradient(transparent 58%, rgba(255, 190, 0, 0.55) 58%)" }}>
-              ¿IA fuimos?
-            </span>
-          </div>
-        </Reveal>
         <h1 className="shs-hero-h1" style={{ font: "700 clamp(38px, 9.5vw, 104px)/0.98 'Manrope',sans-serif", letterSpacing: "-0.04em", color: "var(--black)", margin: 0, maxWidth: "none" }}>
           <RevealLine>¿Cansado de que cada día</RevealLine>
           <RevealLine delay={0.1}>salga una nueva IA?</RevealLine>
           <span style={{ display: "block", marginTop: "0.42em", fontSize: "0.46em", lineHeight: 1.15, fontWeight: 600, letterSpacing: "-0.03em" }}>
-            <RevealLine delay={0.2}>¿Fingiendo que sabes cuál es el mejor modelo?</RevealLine>
-            <RevealLine delay={0.28}>¿Comparándote con el de las 47 automatizaciones?</RevealLine>
+            <RevealLine delay={0.2}>¿Cansado de no saber cuál es el mejor modelo?</RevealLine>
+            <RevealLine delay={0.28}>¿Cansado de ver a todos presumiendo en LinkedIn?</RevealLine>
             <RevealLine delay={0.36} mask={false}>
               <HeroHighlight>¿Leyendo esto con voz de anuncio de televisión?</HeroHighlight>
             </RevealLine>
+          </span>
+          <span className="shs-hero-tag" style={{ display: "block", fontFamily: "'Reenie Beanie',cursive", fontWeight: 400, fontSize: "0.85em", letterSpacing: 0, lineHeight: 1, color: "var(--blue)", transform: "rotate(-7deg)", transformOrigin: "center" }}>
+            <RevealLine delay={0.5} mask={false}>¿IA fuimos?</RevealLine>
           </span>
         </h1>
         <Reveal delay={0.3}>
@@ -3717,7 +3713,7 @@ function SessionsBody() {
           <GlitchImage
             src="/forhuman-lab/hero-stippling.png"
             alt="Textura de puntos azules"
-            style={{ width: "100%", height: "clamp(200px, 48vw, 440px)", objectFit: "cover", objectPosition: "center", display: "block" }}
+            style={{ width: "100%", height: "clamp(200px, 30vw, 330px)", objectFit: "cover", objectPosition: "center", display: "block" }}
           />
         </motion.div>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
