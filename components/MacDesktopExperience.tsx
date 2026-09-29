@@ -4077,9 +4077,8 @@ function HeroPunchBlock({ kicker, headline }: { kicker: ReactNode; headline: Rea
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
       <HeroKicker>{kicker}</HeroKicker>
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src="/forhuman-lab/hero-ai-detection.png"
+      <GlitchImage
+        className="shs-duotone" src="/forhuman-lab/hero-ai-detection.png"
         alt="Detección de personas con IA, superpuesta sobre una foto de un cruce peatonal"
         style={{ width: "100%", height: "clamp(200px, 55vw, 480px)", objectFit: "cover", objectPosition: "top", borderRadius: "var(--radius-md)" }}
       />
