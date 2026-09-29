@@ -3182,7 +3182,7 @@ const SESSION_PANELS: Record<
 
 const SESSIONS_WHATSAPP = "936098806";
 
-const SESSIONS_MARQUEE = ["forHuman Sessions", "Chimbote", "Trujillo", "Encuentros presenciales"];
+const SESSIONS_MARQUEE = ["forHuman Sessions", "Chimbote", "Trujillo", "Lima", "Próximamente…"];
 
 const SESSIONS_EDITIONS = [
   { number: "01", title: "Chimbote", body: "Un forHuman Sessions con la gente de la ciudad, con su propio tema y sus propias historias." },
