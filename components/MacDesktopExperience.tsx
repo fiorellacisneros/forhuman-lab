@@ -3198,7 +3198,7 @@ const SESSIONS_OPEN = [
 
 const SESSIONS_FAQ = [
   { q: "¿Qué es forHuman Sessions?", a: "Encuentros presenciales organizados por forHuman, en distintas ciudades. Ya lo hicimos en Chimbote y Trujillo, y cada uno fue distinto." },
-  { q: "¿Cuándo y dónde es?", a: "Todavía se está definiendo: la ciudad, la fecha, la hora y el lugar se anuncian pronto." },
+  { q: "¿Cuándo y dónde es?", a: "Es en Lima. La fecha, la hora y el lugar todavía se están definiendo y se anuncian pronto." },
   { q: "¿De qué se habla?", a: "Cada forHuman Sessions tiene su propio tema. En ¿IA fuimos? hablamos de cómo estamos frente a la IA, los egos, el burnout y lo que no contamos en LinkedIn." },
   { q: "¿Tengo que ser experto para hablar?", a: "No. Buscamos historias, no ponencias: algo que hayas vivido de verdad. Nada de 40 minutos de slides." },
   { q: "¿Cómo me inscribo?", a: "La inscripción todavía no abre. Deja tu correo en el formulario del final de la página y te escribimos apenas esté definida." },
@@ -3765,7 +3765,7 @@ function SessionsBody() {
                 <div style={{ font: "400 28px/1.05 'Manrope',sans-serif", letterSpacing: "-0.03em" }}>¿Qué sigue?</div>
                 <div style={{ font: "300 16px/1.4 'Work Sans',sans-serif", color: "rgba(247,247,247,0.85)" }}>Es un secreto por ahora.</div>
                 <div aria-hidden="true" style={{ display: "flex", flexDirection: "column", gap: 8, filter: "blur(5px)", userSelect: "none", opacity: 0.7 }}>
-                  <span style={{ font: "500 15px/1 'Inconsolata',monospace", letterSpacing: "0.08em" }}>CIUDAD ▮▮▮▮▮▮▮▮</span>
+                  <span style={{ font: "500 15px/1 'Inconsolata',monospace", letterSpacing: "0.08em" }}>LUGAR ▮▮▮▮▮▮▮▮</span>
                   <span style={{ font: "500 15px/1 'Inconsolata',monospace", letterSpacing: "0.08em" }}>TEMA ▮▮▮▮▮▮▮▮▮▮▮▮</span>
                   <span style={{ font: "500 15px/1 'Inconsolata',monospace", letterSpacing: "0.08em" }}>FECHA ▮▮▮▮▮▮</span>
                 </div>
