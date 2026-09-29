@@ -36,6 +36,10 @@ En pantallas de celular, todo el mismo contenido se muestra dentro de un marco d
 
 ## Recent Changes
 
+- 2026-09-28: Preguntas frecuentes: el efecto de hover ahora se hace solo con CSS (`.shs-faq-list` / `.shs-faq-row` en `app/globals.css`): al pasar el mouse por la lista, todas las preguntas menos la que tienes debajo del mouse bajan a 30% de opacidad casi al instante (0.12 s), y vuelven a 100% al salir. Más simple y sin depender del estado de React.
+
+- 2026-09-28: (1) El tag "¿IA fuimos?" del inicio de Sessions ya no parece un botón: ahora es una etiqueta de texto en mayúsculas, color azul, con un punto azul al lado (sin borde ni forma de píldora). (2) Preguntas frecuentes: se rehízo la animación de entrada para que sea más estable — al llegar a la sección, cada pregunta aparece una tras otra (con 0.14 s de diferencia); antes, al pasar el mouse, podía verse rara una pregunta. El efecto de opacidad al hacer hover en una pregunta se mantiene.
+
 - 2026-09-28: El efecto de vidrio detrás del nombre de Fio y Dani (Sessions) se hizo más sutil: desenfoque de 5px, velo oscuro muy leve y un borde superior que se difumina (ya no es una franja con bordes marcados).
 
 - 2026-09-28: En la tarjeta azul "Buscamos manos" el botón "Quiero sumarme" ahora es blanco (antes amarillo). En las fotos de Fio y Dani de "Quiénes lo organizan", el degradado negro de abajo se cambió por una franja translúcida con desenfoque (efecto vidrio) detrás del nombre, para que se lea sin tapar la foto. Solo se cambió en la ventana Sessions; las tarjetas de Fio y Dani de las otras ventanas siguen igual.
