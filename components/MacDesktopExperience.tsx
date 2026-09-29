@@ -3839,7 +3839,7 @@ function SessionsBody() {
           <Header
             kicker="Sumarte"
             kickerColor="var(--yellow)"
-            title="Si tienes ganas de ejecutar, con eso nos basta"
+            title={<>Si tienes ganas de ejecutar,<br />con eso nos basta</>}
             subtitle="No buscamos perfiles ni roles: necesitamos que las cosas pasen. Estamos armando un nuevo encuentro; elige por dónde quieres entrar."
             align="left"
             color="var(--white)"
