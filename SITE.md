@@ -36,6 +36,14 @@ En pantallas de celular, todo el mismo contenido se muestra dentro de un marco d
 
 ## Recent Changes
 
+- 2026-09-29: Titular del inicio de Sessions sin "te cansa" (sonaba raro), ahora en formato de preguntas cortas como el meme original, sin género: "¿Cada día sale una nueva IA?" → "¿Sin saber cuál es el mejor modelo?" → "¿Viendo a todos presumir en LinkedIn?" → (resaltada) "¿Leyendo esto con voz de anuncio de televisión?".
+
+- 2026-09-29: La franja en movimiento (marquee) de Sessions ahora dice: forHuman Sessions · Chimbote · Trujillo · **Lima** · **Próximamente…** (antes terminaba en "Encuentros presenciales"). Se revisó que el sitio no diga en ningún lado "por primera vez en Lima": no aparece.
+
+- 2026-09-29: Los dos botones blancos de Sessions ("Quiero sumarme" en la tarjeta azul "Buscamos manos" y "Quiero ser sponsor" en la tarjeta de sponsor) ahora usan el mismo componente de botón principal que los demás (`PrincipalButton`, variante blanca), así que también tienen el haz de luz que recorre el borde al pasar el mouse. Se quitó el hover amarillo que tenían antes.
+
+- 2026-09-29: El "Quiero ser sponsor" de la sección "Sumarte" (debajo de las tres tarjetas, sobre fondo negro) ahora es un **botón azul** (con flecha, como los botones principales), en vez del enlace de texto. Sigue bajando a "Qué ofrecemos".
+
 - 2026-09-29: Arreglado en las fotos de Fio y Dani (Sessions) que la franja de desenfoque detrás del nombre se salía en forma de cuadrado por las esquinas de abajo: el desenfoque ahora tiene sus propias esquinas redondeadas iguales a las de la tarjeta.
 
 - 2026-09-29: En "Qué hacer ahora" de las tarjetas de voluntario y speaker ya no se nombra a Fio: ahora dice "Escríbenos por WhatsApp y cuéntanos en qué quieres ayudar." y "Escríbenos por WhatsApp y cuéntanos tu idea o lo que quieres compartir." (los botones siguen abriendo el WhatsApp de Fio).
