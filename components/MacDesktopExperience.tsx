@@ -3721,7 +3721,7 @@ function SessionsBody() {
         id="sessions-que-es"
         style={{ borderRadius: "var(--radius-md)", margin: "0 clamp(12px, 2vw, 24px)", overflow: "hidden", display: "flex", flexDirection: "column" }}
       >
-        <div style={{ padding: "clamp(40px, 9vw, 96px) 64px", display: "flex", gap: "clamp(24px, 6vw, 80px)", flexWrap: "wrap" }}>
+        <div className="shs-inner-pad" style={{ padding: "clamp(40px, 9vw, 96px) 64px", display: "flex", gap: "clamp(24px, 6vw, 80px)", flexWrap: "wrap" }}>
           <ShiftLabel />
           <div style={{ flex: "1 1 420px", minWidth: 0, display: "flex", flexDirection: "column", gap: "clamp(28px, 5vw, 48px)" }}>
             <ScrollWords
