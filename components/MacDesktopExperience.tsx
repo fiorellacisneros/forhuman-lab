@@ -3249,7 +3249,7 @@ function SessionRoleCard({ role }: { role: SessionRole }) {
         ))}
       </div>
       <div style={{ marginTop: "auto", paddingTop: 12 }}>
-        <PrincipalButton variant="dark" onClick={role === "publico" ? goToSubscribe : () => openSessionsWhatsApp(panel.whatsapp ?? "")} style={{ fontSize: 17 }}>
+        <PrincipalButton variant="dark" glowColor="255,190,0" onClick={role === "publico" ? goToSubscribe : () => openSessionsWhatsApp(panel.whatsapp ?? "")} style={{ fontSize: 17 }}>
           {panel.cta}
         </PrincipalButton>
       </div>
@@ -3576,7 +3576,7 @@ function SessionsProgress() {
             <span style={{ alignSelf: "flex-start", font: "600 11px/1 'Inconsolata',monospace", letterSpacing: "0.1em", textTransform: "uppercase", padding: "6px 10px", borderRadius: "var(--radius-full)", background: "var(--yellow)", color: "var(--black)" }}>Estás aquí</span>
             <span style={{ font: "700 clamp(28px, 3.4vw, 44px)/1 'Manrope',sans-serif", letterSpacing: "-0.04em" }}>{now.title}</span>
             <span style={{ font: "300 16px/1.45 'Work Sans',sans-serif", color: "rgba(247,247,247,0.85)" }}>{now.body}</span>
-            <PrincipalButton variant="light" onClick={() => openSessionsWhatsApp("Hola Fio, quiero sumarme a ¿IA fuimos?, te cuento cómo puedo ayudar...")} style={{ alignSelf: "flex-start", marginTop: 8, fontSize: 17 }}>Quiero sumarme</PrincipalButton>
+            <PrincipalButton variant="light" glowColor="13,13,13" glowBlend="normal" onClick={() => openSessionsWhatsApp("Hola Fio, quiero sumarme a ¿IA fuimos?, te cuento cómo puedo ayudar...")} style={{ alignSelf: "flex-start", marginTop: 8, fontSize: 17 }}>Quiero sumarme</PrincipalButton>
           </div>
         </Reveal>
       )}
@@ -3819,7 +3819,7 @@ function SessionsBody() {
                   </span>
                 ))}
               </div>
-              <PrincipalButton variant="light" onClick={() => openSessionsWhatsApp("Hola Fio, quiero ser sponsor")} style={{ alignSelf: "flex-start", marginTop: "auto", fontSize: 17 }}>Quiero ser sponsor</PrincipalButton>
+              <PrincipalButton variant="light" glowColor="13,13,13" glowBlend="normal" onClick={() => openSessionsWhatsApp("Hola Fio, quiero ser sponsor")} style={{ alignSelf: "flex-start", marginTop: "auto", fontSize: 17 }}>Quiero ser sponsor</PrincipalButton>
             </div>,
             <div key="forhuman" style={{ height: "100%", boxSizing: "border-box", background: "var(--pure-white)", borderRadius: "var(--radius-md)", padding: "clamp(24px, 3vw, 36px)", boxShadow: "inset 0 0 0 1px var(--border-subtle)", display: "flex", flexDirection: "column", gap: 20 }}>
               <span style={{ font: "600 12px/1 'Inconsolata',monospace", letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--blue)" }}>Lo que aporta forHuman</span>
