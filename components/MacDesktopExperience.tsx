@@ -3226,7 +3226,7 @@ const SESSIONS_OPEN = [
 ];
 
 const SESSIONS_FAQ = [
-  { q: "¿Qué es forHuman Sessions?", a: "Encuentros presenciales organizados por forHuman, en distintas ciudades. Ya lo hicimos en Chimbote y Trujillo, y cada uno fue distinto." },
+  { q: "¿Qué es forHuman Sessions?", a: "Encuentros presenciales organizados por forHuman, en distintas ciudades. Ya lo hicimos en Chimbote, Trujillo y Lima, y cada uno fue distinto." },
   { q: "¿Cuándo y dónde es?", a: "Es en Lima, en el marco de Perú Tech Week. La fecha tentativa es el jueves 15 o el viernes 16 de octubre a las 6 pm; falta confirmar el día, y el lugar todavía se está definiendo. Lo anunciamos pronto." },
   { q: "¿De qué se habla?", a: "Cada forHuman Sessions tiene su propio tema. En ¿IA fuimos? hablamos de salud mental en tiempos de IA: compararnos todo el tiempo con los demás, la presión de estar al día, los egos, el burnout y lo que no contamos en LinkedIn. La idea es tomar conciencia y sentirnos menos solos con esto." },
   { q: "¿Tengo que ser experto para hablar?", a: "No. Buscamos a quien haya pasado por burnout o presión y quiera compartir lo que le ha resultado, y también a psicólogas, psicólogos y coaches, o a quien haya creado una dinámica propia que le ayuda. Cada charla o dinámica dura entre 20 y 25 minutos: historias reales, nada de slides." },
@@ -3795,7 +3795,7 @@ function SessionsBody() {
           <ShiftLabel />
           <div style={{ flex: "1 1 420px", minWidth: 0, display: "flex", flexDirection: "column", gap: "clamp(28px, 5vw, 48px)" }}>
             <ScrollWords
-              text="Encuentros presenciales en distintas ciudades para hablar de lo que pasa alrededor del trabajo. Ya pasamos por Chimbote y Trujillo, y estamos armando un nuevo encuentro para hablar de salud mental en tiempos de IA: compararnos todo el tiempo, el ego, el burnout y lo que no contamos en LinkedIn."
+              text="Encuentros presenciales en distintas ciudades para hablar de lo que pasa alrededor del trabajo. Ya pasamos por Chimbote, Trujillo y Lima, y estamos armando un nuevo encuentro para hablar de salud mental en tiempos de IA: compararnos todo el tiempo, el ego, el burnout y lo que no contamos en LinkedIn."
               style={{ font: "500 clamp(24px, 4.6vw, 44px)/1.15 'Manrope',sans-serif", letterSpacing: "-0.03em", margin: 0 }}
             />
             <RevealGroup style={{ display: "flex", flexDirection: "column", gap: 18 }}>
@@ -3813,7 +3813,7 @@ function SessionsBody() {
           <Header
             kicker="Lo que ya hicimos"
             kickerColor="var(--blue)"
-            title="Ya lo hicimos en Chimbote y Trujillo."
+            title={<>Ya lo hicimos en<br />Chimbote, Trujillo y Lima.</>}
             subtitle="Cada forHuman Sessions es distinto: cambian la ciudad, el tema y la gente que cuenta su historia."
             align="left"
           />
@@ -4264,7 +4264,7 @@ function ManifiestoBody({ now, compact = false }: { now: Date | null; compact?: 
         forHuman Studio no solo entrega proyectos: también junta gente. Hemos sido parte de hackathons, potenciamos los eventos de Webflow Perú y hemos sido sponsors de <ManifiestoHighlight>Colombia Tech Week, FOF Perú, IA Hackathon y Webflow Perú</ManifiestoHighlight>.
       </p>
       <p style={{ font: `300 ${compact ? 15 : 18}px/1.6 'Work Sans',sans-serif`, color: "rgba(247,247,247,0.9)", margin: 0 }}>
-        Ahora abrimos nuestro propio espacio: forHuman Sessions. Ya lo hicimos en Chimbote y Trujillo, y <ManifiestoHighlight>seguimos armando más encuentros</ManifiestoHighlight>, siempre presenciales.
+        Ahora abrimos nuestro propio espacio: forHuman Sessions. Ya lo hicimos en Chimbote, Trujillo y Lima, y <ManifiestoHighlight>seguimos armando más encuentros</ManifiestoHighlight>, siempre presenciales.
       </p>
       <p style={{ font: `300 ${compact ? 15 : 18}px/1.6 'Work Sans',sans-serif`, color: "rgba(247,247,247,0.9)", margin: 0 }}>
         Nuestros eventos son con gente real y sin slides de vendedor. En forHuman Sessions cada encuentro tiene su propio tema; en ¿IA fuimos? hablamos de la IA, de egos, de burnout y de <ManifiestoHighlight>lo que no contamos en LinkedIn</ManifiestoHighlight>. Si algo te movió, escríbenos y súmate.
