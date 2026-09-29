@@ -36,6 +36,8 @@ En pantallas de celular, todo el mismo contenido se muestra dentro de un marco d
 
 ## Recent Changes
 
+- 2026-09-29: Arreglado que en la primera carga del inicio de Sessions solo se veía un punto azul y nada más: los dos puntos azules del resaltado (estilo selección de texto de iOS) aparecían antes que el texto, porque el texto tarda un instante en animarse. Ahora los puntos permanecen invisibles hasta que el texto ya es visible y entonces aparecen con un fundido. Aplica a todos los resaltados del sitio (titular, Manifiesto, etc.).
+
 - 2026-09-29: En la tarjeta azul de sponsor ("Qué ofrecemos") se agregó lo que se necesita de los sponsors: bajo el texto, un bloque "Lo que necesitamos" con **Catering**, **Fotografía** y **Merch** (cada uno con un + amarillo), antes del botón "Quiero ser sponsor →".
 
 - 2026-09-29: El ícono de la app Sessions (en el dock del escritorio y en la pantalla de inicio del celular) ahora usa el logo de forHuman (el círculo con "fh") en blanco sobre fondo negro, en vez de las dos burbujas de conversación. Archivo: `public/forhuman-lab/icon-sessions-fh.svg`.
