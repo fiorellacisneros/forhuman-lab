@@ -139,9 +139,12 @@ function easeInOutQuad(t: number) {
   return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
 }
 
+function whatsappUrl(phone: string, message: string) {
+  return `https://api.whatsapp.com/send/?phone=%2B51${phone}&text=${encodeURIComponent(message)}&type=phone_number&app_absent=0`;
+}
+
 function openMentorWhatsApp(phone: string, firstName: string) {
-  const text = encodeURIComponent(`Hola ${firstName}, quiero información sobre los cursos`);
-  window.open(`https://api.whatsapp.com/send/?phone=%2B51${phone}&text=${text}&type=phone_number&app_absent=0`, "_blank", "noopener,noreferrer");
+  window.open(whatsappUrl(phone, `Hola ${firstName}, quiero información sobre los cursos`), "_blank", "noopener,noreferrer");
 }
 
 function smoothScrollToId(id: string, duration = 500) {
