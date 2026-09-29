@@ -36,6 +36,10 @@ En pantallas de celular, todo el mismo contenido se muestra dentro de un marco d
 
 ## Recent Changes
 
+- 2026-09-29: Los botones de arriba del inicio de Sessions ya no abren WhatsApp, ahora llevan a la sección correspondiente: "Ser voluntario" baja a "Sumarte" (donde están las tarjetas de voluntario, speaker y "enterarme") y "Ser sponsor" baja a "Qué ofrecemos" (lo que se llevan los sponsors). Los botones de esas secciones ("Quiero ser voluntario", "Quiero ser speaker", "Quiero ser sponsor →", etc.) sí abren el WhatsApp de Fio con su mensaje.
+
+- 2026-09-29: Revisados el título y la descripción de la página (lo que sale en Google y al compartir el link). Título: "forHuman Sessions - ¿IA fuimos?". Descripción (antes "Experimentación de productos con IA.", que era de forHuman Lab): "Encuentro presencial en Lima sobre salud mental en tiempos de IA: compararnos, burnout y lo que no contamos en LinkedIn. 15 o 16 de octubre, 6 pm (tentativo)." El nombre del sitio en redes ahora es "forHuman Sessions". Se cambia en `app/layout.tsx`. Cuando la fecha se confirme hay que actualizar la descripción.
+
 - 2026-09-29: Arreglado que en la primera carga del inicio de Sessions solo se veía un punto azul y nada más: los dos puntos azules del resaltado (estilo selección de texto de iOS) aparecían antes que el texto, porque el texto tarda un instante en animarse. Ahora los puntos permanecen invisibles hasta que el texto ya es visible y entonces aparecen con un fundido. Aplica a todos los resaltados del sitio (titular, Manifiesto, etc.).
 
 - 2026-09-29: En la tarjeta azul de sponsor ("Qué ofrecemos") se agregó lo que se necesita de los sponsors: bajo el texto, un bloque "Lo que necesitamos" con **Catering**, **Fotografía** y **Merch** (cada uno con un + amarillo), antes del botón "Quiero ser sponsor →".
