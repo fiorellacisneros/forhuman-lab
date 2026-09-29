@@ -163,6 +163,83 @@ body {
 }
 
 
+/* Blue duotone + film grain on photos (filter lives in app/layout.tsx) */
+.shs-duotone {
+  filter: url(#shs-duotone);
+}
+
+/* Golden-canon-style layout: sections sit on a 9-column grid and some
+   elements are deliberately pushed off the usual left edge (hero, ediciones, estado). */
+.shs-canon {
+  display: grid !important;
+  grid-template-columns: repeat(9, minmax(0, 1fr));
+  column-gap: clamp(8px, 1.6vw, 20px);
+  row-gap: clamp(20px, 4vw, 32px) !important;
+}
+.shs-canon > * {
+  grid-column: 1 / -1;
+  min-width: 0;
+}
+.shs-canon-hero {
+  container-type: inline-size;
+}
+.shs-hero-h1 {
+  font-size: clamp(32px, 7.4cqi, 120px) !important;
+}
+.shs-hero-h1 span {
+  white-space: nowrap;
+}
+.shs-canon-hero > :nth-child(3),
+.shs-canon-hero > :nth-child(4) {
+  grid-column: 5 / 10;
+}
+.shs-canon-hero > :nth-child(5) {
+  grid-column: 3 / 10;
+}
+.shs-canon-hero > :nth-child(6) {
+  grid-column: 3 / 8;
+}
+.shs-canon-ediciones > :nth-child(1) {
+  grid-column: 1 / 6;
+}
+.shs-canon-estado > :nth-child(1) {
+  grid-column: 1 / 4;
+  align-self: start;
+}
+.shs-canon-estado > :nth-child(2) {
+  grid-column: 5 / 10;
+}
+.shs-estado-now {
+  margin-right: -64px;
+  border-radius: 16px 0 0 16px;
+}
+.shs-stagger > :nth-child(2) {
+  margin-top: 56px;
+}
+.shs-stagger > :nth-child(3) {
+  margin-top: 112px;
+}
+@media (max-width: 859px) {
+  .shs-canon > * {
+    grid-column: 1 / -1 !important;
+  }
+  .shs-stagger > * {
+    margin-top: 0 !important;
+  }
+  .shs-hero-h1 {
+    font-size: clamp(38px, 9.5vw, 104px) !important;
+  }
+  .shs-hero-h1 span {
+    white-space: normal;
+  }
+  .shs-canon-estado > :nth-child(1) {
+    position: static !important;
+  }
+  .shs-estado-now {
+    margin-right: -16px;
+  }
+}
+
 .shs-scroll {
   overflow-x: hidden;
 }
