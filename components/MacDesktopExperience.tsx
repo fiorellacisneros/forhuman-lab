@@ -3716,7 +3716,7 @@ function SessionsBody() {
           <ShiftLabel />
           <div style={{ flex: "1 1 420px", minWidth: 0, display: "flex", flexDirection: "column", gap: "clamp(28px, 5vw, 48px)" }}>
             <ScrollWords
-              text="Encuentros presenciales en distintas ciudades para hablar de lo que pasa alrededor del trabajo. Ya pasamos por Chimbote y Trujillo. Ahora llegamos a Lima con ¿IA fuimos?: cómo estamos parados frente a la IA, el ego, el burnout y lo que no contamos en LinkedIn."
+              text="Encuentros presenciales en distintas ciudades para hablar de lo que pasa alrededor del trabajo. Ya pasamos por Chimbote y Trujillo, y estamos armando un nuevo encuentro: la IA, el ego, el burnout y lo que no contamos en LinkedIn."
               style={{ font: "500 clamp(24px, 4.6vw, 44px)/1.15 'Manrope',sans-serif", letterSpacing: "-0.03em", margin: 0 }}
             />
             <RevealGroup style={{ display: "flex", flexDirection: "column", gap: 18 }}>
@@ -3734,8 +3734,8 @@ function SessionsBody() {
           <Header
             kicker="Ediciones"
             kickerColor="var(--blue)"
-            title="Ya pasamos por Chimbote y Trujillo. Ahora, Lima."
-            subtitle="Cada edición de forHuman Sessions junta a la gente de una ciudad para conversar de lo que pasa alrededor del trabajo."
+            title="Ya lo hicimos en Chimbote y Trujillo."
+            subtitle="Cada forHuman Sessions es distinto: cambian la ciudad, el tema y la gente que cuenta su historia."
             align="left"
           />
         </Reveal>
@@ -3763,7 +3763,7 @@ function SessionsBody() {
             kicker="Sumarte"
             kickerColor="var(--yellow)"
             title="Si tienes ganas de ejecutar, con eso nos basta"
-            subtitle="No buscamos perfiles ni roles: necesitamos que las cosas pasen. Estamos tramando la edición de Lima; elige por dónde quieres entrar."
+            subtitle="No buscamos perfiles ni roles: necesitamos que las cosas pasen. Estamos armando un nuevo encuentro; elige por dónde quieres entrar."
             align="left"
             color="var(--white)"
             style={{ gap: 16 }}
@@ -4118,10 +4118,10 @@ function ManifiestoBody({ now, compact = false }: { now: Date | null; compact?: 
         forHuman Studio no solo entrega proyectos: también junta gente. Hemos sido parte de hackathons, potenciamos los eventos de Webflow Perú y hemos sido sponsors de <ManifiestoHighlight>Colombia Tech Week, FOF Perú, IA Hackathon y Webflow Perú</ManifiestoHighlight>.
       </p>
       <p style={{ font: `300 ${compact ? 15 : 18}px/1.6 'Work Sans',sans-serif`, color: "rgba(247,247,247,0.9)", margin: 0 }}>
-        Ahora abrimos nuestro propio espacio: forHuman Sessions. Ya tuvo ediciones en Chimbote y Trujillo, y <ManifiestoHighlight>llega por primera vez a Lima con ¿IA fuimos?</ManifiestoHighlight>, un encuentro presencial.
+        Ahora abrimos nuestro propio espacio: forHuman Sessions. Ya lo hicimos en Chimbote y Trujillo, y <ManifiestoHighlight>seguimos armando más encuentros</ManifiestoHighlight>, siempre presenciales.
       </p>
       <p style={{ font: `300 ${compact ? 15 : 18}px/1.6 'Work Sans',sans-serif`, color: "rgba(247,247,247,0.9)", margin: 0 }}>
-        Nuestros eventos son con gente real y sin slides de vendedor. En forHuman Sessions cada edición tiene su propio tema; el de Lima habla de salud mental en tiempos de IA, de egos, de burnout y de <ManifiestoHighlight>lo que no contamos en LinkedIn</ManifiestoHighlight>. Si algo te movió, escríbenos y súmate.
+        Nuestros eventos son con gente real y sin slides de vendedor. En forHuman Sessions cada encuentro tiene su propio tema; hablamos de la IA, de egos, de burnout y de <ManifiestoHighlight>lo que no contamos en LinkedIn</ManifiestoHighlight>. Si algo te movió, escríbenos y súmate.
       </p>
       <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", marginTop: compact ? 8 : 24 }}>
         <span style={{ font: `400 ${compact ? 30 : 38}px/1 'Reenie Beanie',cursive`, color: "#F7F7F7" }}>Dani y Fio</span>
@@ -4444,7 +4444,7 @@ export function MacDesktopExperience() {
     figma: "superHuman — Figma Camp",
     webflow: "superHuman — Webflow Camp",
     flowmcp: "flowmcp",
-    sessions: "forHuman Sessions — ¿IA fuimos?",
+    sessions: "forHuman Sessions",
     finder: "Finder — forHuman",
     photos: "Fotos",
     notas: "Eventos.txt",
@@ -4532,7 +4532,7 @@ export function MacDesktopExperience() {
               <div style={{ display: "flex", flexDirection: "column", gap: 8, flex: 1, minWidth: 0 }}>
                 <span style={{ font: "600 11px/1 'Inconsolata',monospace", letterSpacing: "0.08em", color: "rgba(247,247,247,0.5)", textTransform: "uppercase" }}>{now ? MENU_BAR_MONTHS[now.getMonth()] : ""}</span>
                 <div style={{ background: "rgba(255,255,255,0.1)", borderRadius: 12, padding: "8px 11px" }}>
-                  <div style={{ font: "600 13px/1.3 'Work Sans',sans-serif", color: "#F7F7F7" }}>¿IA fuimos?</div>
+                  <div style={{ font: "600 13px/1.3 'Work Sans',sans-serif", color: "#F7F7F7" }}>forHuman Sessions</div>
                   <div style={{ font: "400 12px/1.3 'Inconsolata',monospace", color: "rgba(247,247,247,0.6)" }}>Fecha por confirmar</div>
                 </div>
                 <div style={{ background: "rgba(255,255,255,0.1)", borderRadius: 12, padding: "8px 11px" }}>
@@ -4854,7 +4854,7 @@ export function MacDesktopExperience() {
                     </div>
                   </div>
                   {[
-                    ["¿IA fuimos?", "Fecha por confirmar"],
+                    ["forHuman Sessions", "Fecha por confirmar"],
                     ["Inscripciones", "Fecha por confirmar"],
                   ].map(([title, detail]) => (
                     <div key={title} style={{ background: "rgba(255,255,255,0.09)", borderRadius: 10, padding: "8px 10px" }}>
