@@ -3268,7 +3268,7 @@ function RevealLine({ children, delay = 0, mask = true }: { children: ReactNode;
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, margin: "-40px" });
   return (
-    <span ref={ref} style={{ display: "block", overflow: mask ? "hidden" : "visible", paddingBottom: mask ? "0.1em" : 0 }}>
+    <span ref={ref} style={{ display: "block", overflow: mask ? "hidden" : "visible", paddingBottom: mask ? "0.22em" : 0, marginBottom: mask ? "-0.12em" : 0 }}>
       <motion.span
         style={{ display: "block" }}
         initial={mask ? { y: "110%" } : { y: 40, opacity: 0 }}
