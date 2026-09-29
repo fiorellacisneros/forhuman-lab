@@ -4654,8 +4654,8 @@ export function MacDesktopExperience() {
             <DockIcon label="Webflow Camp — Coming soon" hoverId="webflow" hovered={hoveredApp} onHover={setHoveredApp} open={false} mouseX={dockMouseX}>
               <div style={{ width: 56, height: 56, borderRadius: 14, background: "url(/forhuman-lab/icon-webflow.svg) center / cover no-repeat" }} />
             </DockIcon>
-            <DockIcon label="flowmcp" hoverId="flowmcp" hovered={hoveredApp} onHover={setHoveredApp} onClick={() => openWindow("flowmcp")} open={openApp === "flowmcp"} mouseX={dockMouseX}>
-              <div style={{ width: 56, height: 56, borderRadius: 14, background: "url(/forhuman-lab/icon-flowmcp.svg) center / cover no-repeat" }} />
+            <DockIcon label="forHuman Sessions" hoverId="sessions" hovered={hoveredApp} onHover={setHoveredApp} onClick={() => openWindow("sessions")} open={openApp === "sessions"} mouseX={dockMouseX}>
+              <div style={{ width: 56, height: 56, borderRadius: 14, background: "url(/forhuman-lab/icon-sessions.svg) center / cover no-repeat" }} />
             </DockIcon>
             <DockIcon label="Fotos" hoverId="photos" hovered={hoveredApp} onHover={setHoveredApp} onClick={() => openWindow("photos")} open={openApp === "photos" || loadingApp === "photos"} mouseX={dockMouseX}>
               <div style={{ width: 56, height: 56, borderRadius: 14, background: "url(/forhuman-lab/icon-fotos.svg) center / cover no-repeat" }} />
@@ -4708,6 +4708,18 @@ export function MacDesktopExperience() {
               floatingAction={<WhatsNewButton />}
             >
               <FlowmcpBody />
+            </WindowChrome>
+          )}
+          {(openApp === "sessions" || closingApp === "sessions") && (
+            <WindowChrome
+              title={windowTitles.sessions}
+              onClose={closeApp}
+              closing={closingApp === "sessions"}
+              sidebarOpen={sessionsSidebarOpen}
+              onToggleSidebar={() => setSessionsSidebarOpen((v) => !v)}
+              sidebar={<AppSidebar sections={SESSIONS_SECTIONS} active={sessionsSection} onSelect={(id) => goToSection(setSessionsSection, id)} open={sessionsSidebarOpen} />}
+            >
+              <SessionsBody />
             </WindowChrome>
           )}
           {(openApp === "finder" || closingApp === "finder") && (
