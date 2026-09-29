@@ -36,6 +36,8 @@ En pantallas de celular, todo el mismo contenido se muestra dentro de un marco d
 
 ## Recent Changes
 
+- 2026-09-29: Nuevo titular del inicio de Sessions: "¿Cansado de que cada día / salga una nueva IA?" (la segunda línea va resaltada en azul). El párrafo de abajo ahora sigue el mismo tono con preguntas: "¿Qué modelo usar? ¿Compararte con todos? ¿Sentir que hasta leer esto suena a spot publicitario? Hablemos de lo que no contamos en LinkedIn." y luego la invitación a ayudar. El titular anterior era "Hablemos de lo que no contamos en LinkedIn."
+
 - 2026-09-29: En "Lo que ya estamos armando" (Sessions), la columna "Listo" ahora tiene una tercera tarjeta: **Comunidad** — "La gente que ya nos sigue y que se suma a cada encuentro." (coincide con lo que se dice en "Lo que pone forHuman").
 
 - 2026-09-29: Ajustes de copy y estilo en Sessions: (1) el bloque "Quiénes lo organizan" ya no dice "Escríbenos directo" y su título cambió de "forHuman pone el espacio, tú pones la historia" (todavía no hay local) a "forHuman lo organiza, tú pones la historia"; (2) el botón "Quiero ser sponsor" abre el WhatsApp de Fio con el mensaje "Hola Fio, quiero ser sponsor"; (3) el título de las preguntas frecuentes pasó de "Lo que quizá te preguntas" a "Antes de sumarte"; (4) el tag "¿IA fuimos?" del inicio dejó la letra manuscrita inclinada y ahora es texto limpio en azul (Manrope semi-negrita) con un resaltado amarillo detrás, como marcador.
