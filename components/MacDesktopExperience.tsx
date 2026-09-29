@@ -3909,14 +3909,14 @@ function SessionsBody() {
             <GlitchImage src="/forhuman-lab/fio-stippling.png" alt="Fiorella Cisneros" loading="lazy" style={{ width: "100%", aspectRatio: "4 / 5", objectFit: "cover", objectPosition: "center top", display: "block" }} />
             <div style={{ position: "absolute", left: 0, right: 0, bottom: 0, padding: "28px 20px 18px", background: "linear-gradient(0deg, rgba(13,13,13,0.4), rgba(13,13,13,0))", backdropFilter: "blur(5px)", WebkitBackdropFilter: "blur(5px)", maskImage: "linear-gradient(0deg, #000 55%, transparent)", WebkitMaskImage: "linear-gradient(0deg, #000 55%, transparent)" }}>
               <div style={{ font: "500 20px/1 'Manrope',sans-serif", color: "var(--white)" }}>Fiorella Cisneros</div>
-              <div style={{ font: "300 13px/1 'Work Sans',sans-serif", color: "rgba(255,255,255,0.8)" }}>Figma & Webflow Educator</div>
+              <div style={{ font: "300 13px/1 'Work Sans',sans-serif", color: "rgba(255,255,255,0.8)" }}>Webflow &amp; Builder Educator</div>
             </div>
           </MomentumCard>
           <MomentumCard style={{ width: 260, flexShrink: 0, borderRadius: "var(--radius-md)", overflow: "hidden", position: "relative" }} onClick={() => openMentorWhatsApp("937845233", "Dani")}>
             <GlitchImage src="/forhuman-lab/dani-stippling.png" alt="Danitza Rosas" loading="lazy" style={{ width: "100%", aspectRatio: "4 / 5", objectFit: "cover", objectPosition: "center 50%", display: "block" }} />
             <div style={{ position: "absolute", left: 0, right: 0, bottom: 0, padding: "28px 20px 18px", background: "linear-gradient(0deg, rgba(13,13,13,0.4), rgba(13,13,13,0))", backdropFilter: "blur(5px)", WebkitBackdropFilter: "blur(5px)", maskImage: "linear-gradient(0deg, #000 55%, transparent)", WebkitMaskImage: "linear-gradient(0deg, #000 55%, transparent)" }}>
               <div style={{ font: "500 20px/1 'Manrope',sans-serif", color: "var(--white)" }}>Danitza Rosas</div>
-              <div style={{ font: "300 13px/1 'Work Sans',sans-serif", color: "rgba(255,255,255,0.8)" }}>Product Designer</div>
+              <div style={{ font: "300 13px/1 'Work Sans',sans-serif", color: "rgba(255,255,255,0.8)" }}>Figma &amp; Design AI Educator</div>
             </div>
           </MomentumCard>
         </RevealGroup>
