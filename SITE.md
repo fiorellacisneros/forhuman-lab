@@ -36,6 +36,26 @@ En pantallas de celular, todo el mismo contenido se muestra dentro de un marco d
 
 ## Recent Changes
 
+- 2026-09-28: El efecto de vidrio detrás del nombre de Fio y Dani (Sessions) se hizo más sutil: desenfoque de 5px, velo oscuro muy leve y un borde superior que se difumina (ya no es una franja con bordes marcados).
+
+- 2026-09-28: En la tarjeta azul "Buscamos manos" el botón "Quiero sumarme" ahora es blanco (antes amarillo). En las fotos de Fio y Dani de "Quiénes lo organizan", el degradado negro de abajo se cambió por una franja translúcida con desenfoque (efecto vidrio) detrás del nombre, para que se lea sin tapar la foto. Solo se cambió en la ventana Sessions; las tarjetas de Fio y Dani de las otras ventanas siguen igual.
+
+- 2026-09-28: En celular, la sección "Qué es forHuman Sessions" (el bloque de color que cambia con el scroll) tenía demasiado espacio a los lados (64px). Ahora usa 16px como el resto de las secciones. En escritorio no cambia.
+
+- 2026-09-28: El título de la página (lo que se ve en la pestaña del navegador y al compartir el link) ahora es "forHuman Sessions - ¿IA fuimos?" (antes "forHuman Lab"; se cambia en `app/layout.tsx`, variable `siteTitle`). La etiqueta del inicio de la ventana Sessions ahora dice solo "¿IA fuimos?".
+
+- 2026-09-28: En la sección "Lo que ya hicimos" se quitó la etiqueta "Ya pasó" de las tarjetas de Chimbote y Trujillo, y se agregó una tercera tarjeta negra "de incógnito": número 03 en amarillo, título "¿Qué sigue?", el texto "Es un secreto por ahora." y tres líneas borrosas (CIUDAD, TEMA, FECHA) como si fueran datos ocultos.
+
+- 2026-09-28: En la ventana Sessions se dejó de hablar de "ediciones" y de "la próxima". Ahora la sección de antecedentes se llama "Lo que ya hicimos" (título: "Ya lo hicimos en Chimbote y Trujillo."), con solo dos tarjetas (Chimbote y Trujillo, etiquetadas "Ya pasó"); se quitó la tercera tarjeta "La próxima". Cada forHuman Sessions se describe como un encuentro distinto (otra ciudad, otro tema, otras historias). Pendiente: las tarjetas todavía no tienen datos concretos (fecha, asistentes, tema); conviene completarlos con información real.
+
+- 2026-09-28: Rehecha otra vez la sección "Lo que ya estamos armando" (ventana Sessions): se quitó la lista numerada 01–06. Ahora es un tablero de tres columnas que van bajando como escalera: "Listo" (tarjetas blancas con check: Nace la idea, Cada edición su tema), "En marcha" (tarjeta azul grande y ligeramente inclinada: "Buscamos manos", con el botón amarillo "Quiero sumarme" que abre Cal.com) y "Por definir" (casillas vacías: fecha y hora, speakers, lugar, duración, quién modera, inscripción). En celular las tres columnas se apilan.
+
+- 2026-09-28: La ventana Sessions (y el resto del sitio) ya no habla de la edición de Lima ni del nombre "¿IA fuimos?": ahora forHuman Sessions se presenta como la serie de encuentros en general. Se mantienen como ediciones pasadas Chimbote y Trujillo, y la tercera tarjeta pasó a "La próxima" (ciudad, fecha y tema por anunciar). Cambios de copy: etiqueta y título de la ventana ("forHuman Sessions"), franja en movimiento, preguntas frecuentes, línea de tiempo (5 pasos, sin "Se define el nombre"), tarjetas de cómo sumarte, la nota Eventos.txt y los widgets. Solo el clima de respaldo sigue diciendo "Lima" (es una ciudad de ejemplo).
+
+- 2026-09-28: Se quitó de la ventana Sessions la sección "Lo único seguro hoy" (las tres tarjetas amarilla, azul y negra: "Es la primera vez", "Nació de 20 mensajes", "Presencial y con gente real"). Ya se había pedido sacarla antes; había quedado en el código.
+
+- 2026-09-28: Preguntas frecuentes de Sessions ("Bueno saber"): ahora cada pregunta aparece una tras otra (sube y se desvanece hacia adentro) a medida que haces scroll, en vez de mostrarse todas juntas. Y al pasar el mouse sobre una pregunta, las demás bajan de opacidad (30%) para enfocar la que estás mirando; al sacar el mouse vuelven a la normalidad.
+
 - 2026-09-28: El titular del inicio de Sessions se agrandó: ahora se parte en "Hablemos de lo que" / "no contamos en LinkedIn." (la frase resaltada en azul es "no contamos en LinkedIn."), lo que permite letra bastante más grande sin que nada baje a una tercera línea. La foto de Dani se subió en su tarjeta para que aparezca más arriba y se vea la cara completa. Además, el primer cuadro del glitch ya no sale como rejilla de círculos.
 
 - 2026-09-28: Inicio de Sessions: se quitó la etiqueta "Lima · primera vez"; el titular "Hablemos de / lo que no contamos en LinkedIn." ahora se ajusta al ancho de la ventana para que la frase de LinkedIn quede completa en una sola línea (ya no baja "en LinkedIn." a una tercera línea). En celular el titular sí puede partirse en varias líneas para que quepa. También se arregló el glitch de las fotos: el primer cuadro se veía como una rejilla rara por cómo se encogía la imagen de puntos; ahora los bloques salen suaves y se van afinando.
