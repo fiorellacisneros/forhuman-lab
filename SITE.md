@@ -36,6 +36,16 @@ En pantallas de celular, todo el mismo contenido se muestra dentro de un marco d
 
 ## Recent Changes
 
+- 2026-09-29: Cargos en las fotos de "Quiénes lo organizan" (Sessions): Fio ahora es "Webflow & Builder Educator" (antes "Figma & Webflow Educator") y Dani es "Figma & Design AI Educator" (antes "Product Designer"). Solo se cambió en la ventana Sessions; en las secciones de Webflow Camp y Finder siguen sus cargos anteriores ("Webflow Educator" y "Webflow Designer", o "Product Designer" en la de Figma), porque ahí se habla de la certificación de Webflow.
+
+- 2026-09-29: Titular del inicio de Sessions en lenguaje neutral (sin "cansado"): "¿Te cansa que cada día salga una nueva IA?" → "¿Te cansa no saber cuál es el mejor modelo?" → "¿Te cansa ver a todos presumiendo en LinkedIn?" → (resaltada) "¿Leyendo esto con voz de anuncio de televisión?".
+
+- 2026-09-29: En las tres tarjetas de "Sumarte" (voluntario, speaker y público), "Quiero ser voluntario", "Quiero ser speaker" y "Quiero enterarme" pasaron de enlaces azules con flecha a botones negros con flecha blanca (como los botones principales del sitio), porque ya había muchas cosas azules en la tarjeta. Hacen lo mismo que antes: los dos primeros abren el WhatsApp de Fio; "Quiero enterarme" lleva al formulario de correo del footer.
+
+- 2026-09-29: Hover en los botones blancos de Sessions ("Quiero sumarme →" de la tarjeta azul "Buscamos manos" y "Quiero ser sponsor →" de la tarjeta de sponsor): al pasar el mouse crecen un poco y se vuelven amarillos; al hacer clic se aprietan.
+
+- 2026-09-29: El enlace "Quiero ser sponsor" de la sección "Sumarte" (debajo de las tres tarjetas) ahora tiene el mismo estilo que "Ver lo que ya hicimos" de la lista de "Qué es forHuman Sessions": texto grande en Manrope que se desliza a la derecha al pasar el mouse y muestra una flecha amarilla. Sigue bajando a la sección "Qué ofrecemos".
+
 - 2026-09-29: Revisado el aviso "Layout Shifts" (saltos de diseño) de la barra de desarrollo de Vercel. Había tres tipos: (1) botones y un bloque de texto que cambian de ancho o alto un instante al cargar la tipografía (impacto ≈0, verde, sin acción); (2) dos imágenes que aparecen y empujan otros elementos (0.13 y 0.12, naranja). La más probable era el logo grande del footer, que se cargaba sin reservar su altura; ahora tiene su proporción (2275×371) fijada de antemano, así no empuja lo de abajo. Las demás imágenes (fotos, imagen del inicio) ya tenían su espacio reservado. Estos números de la barra de desarrollo suelen ser más altos que en producción; para el dato real hay que mirar Vercel Speed Insights después de unos días de visitas.
 
 - 2026-09-29: Los botones de arriba del inicio de Sessions ya no abren WhatsApp, ahora llevan a la sección correspondiente: "Ser voluntario" baja a "Sumarte" (donde están las tarjetas de voluntario, speaker y "enterarme") y "Ser sponsor" baja a "Qué ofrecemos" (lo que se llevan los sponsors). Los botones de esas secciones ("Quiero ser voluntario", "Quiero ser speaker", "Quiero ser sponsor →", etc.) sí abren el WhatsApp de Fio con su mensaje.
