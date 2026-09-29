@@ -3668,11 +3668,11 @@ function SessionsBody() {
     <>
       <section id="sessions-inicio" className="shs-canon shs-canon-hero" style={{ padding: "clamp(32px, 8vw, 64px) 64px clamp(24px, 6vw, 48px) 64px", display: "flex", flexDirection: "column", gap: "clamp(20px, 4vw, 32px)" }}>
         <h1 className="shs-hero-h1" style={{ font: "700 clamp(38px, 9.5vw, 104px)/0.98 'Manrope',sans-serif", letterSpacing: "-0.04em", color: "var(--black)", margin: 0, maxWidth: "none" }}>
-          <RevealLine>¿Te cansa que cada día</RevealLine>
-          <RevealLine delay={0.1}>salga una nueva IA?</RevealLine>
+          <RevealLine>¿Cada día sale</RevealLine>
+          <RevealLine delay={0.1}>una nueva IA?</RevealLine>
           <span style={{ display: "block", marginTop: "0.42em", fontSize: "0.46em", lineHeight: 1.15, fontWeight: 600, letterSpacing: "-0.03em" }}>
-            <RevealLine delay={0.2}>¿Te cansa no saber cuál es el mejor modelo?</RevealLine>
-            <RevealLine delay={0.28}>¿Te cansa ver a todos presumiendo en LinkedIn?</RevealLine>
+            <RevealLine delay={0.2}>¿Sin saber cuál es el mejor modelo?</RevealLine>
+            <RevealLine delay={0.28}>¿Viendo a todos presumir en LinkedIn?</RevealLine>
             <RevealLine delay={0.36} mask={false}>
               <HeroHighlight>¿Leyendo esto con voz de anuncio de televisión?</HeroHighlight>
             </RevealLine>
