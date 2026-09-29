@@ -3196,6 +3196,61 @@ const SESSIONS_FAQ = [
   { q: "¿Cómo me inscribo?", a: "La inscripción todavía no abre. Deja tu correo en el formulario del final de la página y te escribimos apenas esté definida." },
 ];
 
+function goToSubscribe(e: { preventDefault: () => void }) {
+  e.preventDefault();
+  smoothScrollToId("footer-email");
+  window.setTimeout(() => document.getElementById("footer-email")?.focus({ preventScroll: true }), 650);
+}
+
+function openSessionsBooking() {
+  window.open(SESSIONS_BOOKING_URL, "_blank", "noopener,noreferrer");
+}
+
+function SessionRoleCard({ role }: { role: SessionRole }) {
+  const meta = SESSION_ROLES.find((r) => r.id === role)!;
+  const panel = SESSION_PANELS[role];
+  return (
+    <motion.div
+      whileHover={{ y: -8 }}
+      transition={{ type: "spring", stiffness: 260, damping: 20 }}
+      style={{
+        height: "100%",
+        background: "var(--pure-white)",
+        borderRadius: "var(--radius-md)",
+        padding: 28,
+        display: "flex",
+        flexDirection: "column",
+        gap: 16,
+        boxSizing: "border-box",
+      }}
+    >
+      <MotivoIcon kind={SESSION_ROLE_ICONS[role]} />
+      <span style={{ font: "600 12px/1 'Inconsolata',monospace", letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--blue)" }}>{meta.title}</span>
+      <div style={{ font: "400 24px/1.15 'Manrope',sans-serif", letterSpacing: "-0.03em", color: "var(--black)" }}>{panel.title}</div>
+      <div style={{ font: "300 15px/1.4 'Work Sans',sans-serif", color: "var(--gray-500)" }}>{panel.lead}</div>
+      <div style={{ display: "flex", flexDirection: "column", gap: 12, marginTop: 4 }}>
+        {panel.asks.map((ask) => (
+          <div key={ask.tag} style={{ display: "flex", flexDirection: "column", gap: 4, paddingTop: 12, borderTop: "1px solid var(--border-subtle)" }}>
+            <span style={{ font: "600 11px/1.3 'Inconsolata',monospace", letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--blue)" }}>{ask.tag}</span>
+            <span style={{ font: "300 14px/1.4 'Work Sans',sans-serif", color: "var(--black)" }}>{ask.text}</span>
+          </div>
+        ))}
+      </div>
+      <div style={{ marginTop: "auto", paddingTop: 12 }}>
+        {role === "publico" ? (
+          <TextButton href="#footer-email" onClick={goToSubscribe} style={{ fontSize: 16 }}>
+            {panel.cta}
+          </TextButton>
+        ) : (
+          <TextButton href={whatsappUrl("936098806", panel.whatsapp ?? "")} target="_blank" rel="noopener noreferrer" style={{ fontSize: 16 }}>
+            {panel.cta}
+          </TextButton>
+        )}
+      </div>
+    </motion.div>
+  );
+}
+
 function FotosSection({ id, title, count, photos = REAL_PHOTOS }: { id: string; title: string; count: number; photos?: string[] }) {
   return (
     <div id={id} style={{ padding: "16px 20px 28px" }}>
