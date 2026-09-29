@@ -3455,6 +3455,141 @@ function EmailCopyCTA({ compact = false }: { compact?: boolean }) {
   );
 }
 
+function SessionsFaq({ items }: { items: { q: string; a: ReactNode }[] }) {
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  return (
+    <div style={{ borderBottom: "1px solid var(--border-subtle)" }}>
+      {items.map((item, i) => {
+        const isOpen = openIndex === i;
+        return (
+          <div key={item.q} style={{ borderTop: "1px solid var(--border-subtle)" }}>
+            <button
+              type="button"
+              onClick={() => setOpenIndex(isOpen ? null : i)}
+              aria-expanded={isOpen}
+              style={{ width: "100%", background: "none", border: "none", cursor: "pointer", padding: "clamp(20px, 3vw, 30px) 0", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 24, textAlign: "left" }}
+            >
+              <motion.span
+                animate={{ x: isOpen ? 10 : 0 }}
+                transition={{ type: "spring", stiffness: 300, damping: 24 }}
+                style={{ font: "400 clamp(20px, 3.4vw, 30px)/1.2 'Manrope',sans-serif", letterSpacing: "-0.02em", color: "var(--black)" }}
+              >
+                {item.q}
+              </motion.span>
+              <motion.span
+                animate={{ rotate: isOpen ? 135 : 0, background: isOpen ? "#0D0D0D" : "rgba(13,13,13,0)", color: isOpen ? "#FFFFFF" : "#0D0D0D" }}
+                transition={{ duration: 0.35, ease: EASE_OUT }}
+                style={{ width: 40, height: 40, borderRadius: "50%", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "inset 0 0 0 1px rgba(13,13,13,0.25)" }}
+              >
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" aria-hidden="true">
+                  <path d="M8 1v14M1 8h14" />
+                </svg>
+              </motion.span>
+            </button>
+            <AnimatePresence initial={false}>
+              {isOpen && (
+                <motion.div
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: "auto", opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  transition={{ duration: 0.4, ease: EASE_OUT }}
+                  style={{ overflow: "hidden" }}
+                >
+                  <p style={{ font: "300 clamp(16px, 2.4vw, 19px)/1.55 'Work Sans',sans-serif", color: "var(--gray-600)", margin: "0 0 28px", maxWidth: 620 }}>{item.a}</p>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+const SESSIONS_TIMELINE: { state: "done" | "now" | "next"; title: string; body: string }[] = [
+  { state: "done", title: "Nace la idea", body: "Una historia de Instagram: 20 personas escribieron para sumarse." },
+  { state: "done", title: "Se define el tema", body: "Salud mental en tiempos de IA: egos, burnout, cómo estamos." },
+  { state: "done", title: "Se define el nombre", body: "¿IA fuimos? Primera vez que lo hacemos y primera vez en Lima." },
+  { state: "now", title: "Buscamos manos", body: "Speakers y voluntarios con ganas de ejecutarlo. Estás aquí." },
+  { state: "next", title: "Fecha, lugar y programa", body: "Cuánto dura, qué dinámicas, quién modera." },
+  { state: "next", title: "Se abre la inscripción", body: "Te avisamos primero si dejaste tu correo." },
+];
+
+const SESSIONS_STATE_LABEL = { done: "Listo", now: "Estás aquí", next: "Pronto" } as const;
+
+function SessionsProgress() {
+  return (
+    <div style={{ display: "flex", flexDirection: "column" }}>
+      <div style={{ display: "flex", flexDirection: "column" }}>
+        {SESSIONS_TIMELINE.map((step, i) => {
+          const now = step.state === "now";
+          const done = step.state === "done";
+          return (
+            <motion.div
+              key={step.title}
+              className={now ? "shs-estado-now" : undefined}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: step.state === "next" ? 0.6 : 1, y: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.6, delay: 0.05 * i, ease: EASE_OUT }}
+              style={{
+                display: "grid",
+                gridTemplateColumns: "clamp(36px, 6vw, 56px) minmax(0, 1fr) auto",
+                columnGap: 16,
+                alignItems: "baseline",
+                padding: now ? "clamp(24px, 4vw, 36px) 0" : "22px 0",
+                borderTop: `1px solid ${now ? "var(--blue)" : "var(--border-subtle)"}`,
+                background: now ? "var(--blue)" : "transparent",
+                color: now ? "var(--white)" : "var(--black)",
+              }}
+            >
+              <span style={{ font: "500 13px/1 'Inconsolata',monospace", letterSpacing: "0.1em", color: now ? "var(--yellow)" : done ? "var(--blue)" : "var(--gray-500)", paddingLeft: now ? 20 : 0 }}>
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+                <span style={{ font: `${now ? 700 : 600} ${now ? "clamp(24px, 3.4vw, 40px)" : "clamp(18px, 2.4vw, 26px)"}/1.1 'Manrope',sans-serif`, letterSpacing: "-0.03em" }}>{step.title}</span>
+                <span style={{ font: "300 15px/1.45 'Work Sans',sans-serif", color: now ? "rgba(247,247,247,0.85)" : "var(--gray-600)", maxWidth: 480 }}>{step.body}</span>
+              </div>
+              <span
+                style={{
+                  font: "600 11px/1 'Inconsolata',monospace",
+                  letterSpacing: "0.1em",
+                  textTransform: "uppercase",
+                  padding: "6px 10px",
+                  borderRadius: "var(--radius-full)",
+                  color: now ? "var(--black)" : done ? "var(--blue)" : "var(--gray-500)",
+                  background: now ? "var(--yellow)" : done ? "var(--blue-light)" : "transparent",
+                  boxShadow: step.state === "next" ? "inset 0 0 0 1px var(--border-subtle)" : "none",
+                  marginRight: now ? 20 : 0,
+                }}
+              >
+                {SESSIONS_STATE_LABEL[step.state]}
+              </span>
+            </motion.div>
+          );
+        })}
+      </div>
+
+      <div style={{ borderTop: "1px solid var(--border-subtle)", paddingTop: 28, marginTop: 0, display: "flex", flexDirection: "column", gap: 16 }}>
+        <span style={{ font: "600 12px/1 'Inconsolata',monospace", letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--blue)" }}>Todavía por definir</span>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
+          {SESSIONS_OPEN.map((text) => (
+            <span
+              key={text}
+              style={{ font: "400 14px/1.2 'Work Sans',sans-serif", padding: "9px 14px", borderRadius: "var(--radius-full)", boxShadow: "inset 0 0 0 1px var(--black)" }}
+            >
+              {text.replace(/\.$/, "")}
+            </span>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* Slice glitch on photos (inspired by native.agency). On hover, a few horizontal
+   bands of the photo itself slide sideways for about a third of a second, then
+   snap back. No zoom, no filter: at rest the photo is shown untouched. */
 function FotosSection({ id, title, count, photos = REAL_PHOTOS }: { id: string; title: string; count: number; photos?: string[] }) {
   return (
     <div id={id} style={{ padding: "16px 20px 28px" }}>
