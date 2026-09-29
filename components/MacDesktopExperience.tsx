@@ -1527,7 +1527,7 @@ function SiteFooter() {
         </div>
         <div style={{ marginTop: "auto", paddingTop: "clamp(32px, 9vw, 120px)" }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/forhuman-lab/logo-forhuman-footer.svg" alt="forHuman" loading="lazy" style={{ width: "100%", display: "block" }} />
+          <img src="/forhuman-lab/logo-forhuman-footer.svg" alt="forHuman" width={2275} height={371} loading="lazy" style={{ width: "100%", height: "auto", aspectRatio: "2275 / 371", display: "block" }} />
         </div>
       </motion.div>
     </footer>
