@@ -4521,43 +4521,28 @@ export function MacDesktopExperience() {
     return () => clearInterval(tick);
   }, []);
 
+  // Weather for Lima, always. No location prompt: the event is in Lima, so we don't ask the visitor for anything.
   useEffect(() => {
-    if (!navigator.geolocation) {
-      const applyFallbackWeather = () => setWeather(FALLBACK_WEATHER);
-      applyFallbackWeather();
-      return;
-    }
-    navigator.geolocation.getCurrentPosition(
-      async (pos) => {
-        const { latitude, longitude } = pos.coords;
-
-        try {
-          const weatherRes = await fetch(
-            `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,weather_code&daily=temperature_2m_max,temperature_2m_min&timezone=auto`
-          );
-          const weatherData = await weatherRes.json();
-          setWeather((prev) => ({
-            ...(prev ?? FALLBACK_WEATHER),
-            temp: Math.round(weatherData.current.temperature_2m),
-            max: Math.round(weatherData.daily.temperature_2m_max[0]),
-            min: Math.round(weatherData.daily.temperature_2m_min[0]),
-            code: weatherData.current.weather_code,
-          }));
-        } catch {
-          setWeather((prev) => prev ?? FALLBACK_WEATHER);
-        }
-
-        try {
-          const geoRes = await fetch(`/api/reverse-geocode?latitude=${latitude}&longitude=${longitude}`);
-          const geoData = await geoRes.json();
-          if (geoData?.city) setWeather((prev) => ({ ...(prev ?? FALLBACK_WEATHER), city: geoData.city }));
-        } catch {
-          // keep whatever city we already have
-        }
-      },
-      () => setWeather(FALLBACK_WEATHER),
-      { timeout: 8000 }
-    );
+    const controller = new AbortController();
+    (async () => {
+      try {
+        const res = await fetch(
+          "https://api.open-meteo.com/v1/forecast?latitude=-12.0464&longitude=-77.0428&current=temperature_2m,weather_code&daily=temperature_2m_max,temperature_2m_min&timezone=auto",
+          { signal: controller.signal }
+        );
+        const data = await res.json();
+        setWeather({
+          city: "Lima",
+          temp: Math.round(data.current.temperature_2m),
+          max: Math.round(data.daily.temperature_2m_max[0]),
+          min: Math.round(data.daily.temperature_2m_min[0]),
+          code: data.current.weather_code,
+        });
+      } catch {
+        if (!controller.signal.aborted) setWeather(FALLBACK_WEATHER);
+      }
+    })();
+    return () => controller.abort();
   }, []);
 
   const openWhatsApp = (contact: WhatsAppContact) => {
