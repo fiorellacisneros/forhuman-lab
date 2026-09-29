@@ -3147,6 +3147,7 @@ const SESSION_PANELS: Record<
     lead: "Estamos armando un nuevo encuentro y hay mucho por ejecutar. Te contamos el plan y nos ayudas a sacarlo adelante.",
     asks: [
       { tag: "Speakers", text: "Traer o contactar a alguien con algo real que contar." },
+      { tag: "Local", text: "Conseguir el venue en Lima: si conoces un espacio o puedes prestarnos el tuyo, cuéntanos." },
       { tag: "Dinámicas", text: "Ayudar a diseñar qué pasa en el encuentro: cómo se conversa, cómo se siente la sala." },
       { tag: "Día del evento", text: "Recepción, acompañar el programa, que todo fluya cuando llegue la fecha." },
     ],
