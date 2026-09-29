@@ -3842,8 +3842,8 @@ function SessionsBody() {
             <span style={{ width: 7, height: 7, borderRadius: "50%", background: "var(--blue)" }} />
             Preguntas
           </span>
-          <h2 style={{ font: "700 clamp(32px, 6vw, 56px)/1 'Manrope',sans-serif", letterSpacing: "-0.04em", color: "var(--black)", margin: 0 }}>
-            Bueno saber
+          <h2 style={{ font: "400 clamp(30px, 5vw, 48px)/1.05 'Manrope',sans-serif", letterSpacing: "-0.03em", color: "var(--black)", margin: 0 }}>
+            Lo que quizá te preguntas
           </h2>
           <p style={{ font: "300 16px/1.45 'Work Sans',sans-serif", color: "var(--gray-600)", margin: 0 }}>
             Lo que sabemos hoy sobre forHuman Sessions. ¿Falta algo?{" "}
