@@ -3828,6 +3828,15 @@ function SessionsBody() {
               <span style={{ font: "600 12px/1 'Inconsolata',monospace", letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--yellow)" }}>Si eres sponsor</span>
               <span style={{ font: "700 clamp(28px, 3.4vw, 44px)/1.05 'Manrope',sans-serif", letterSpacing: "-0.04em" }}>Visibilidad en un evento en el marco de Perú Tech Week</span>
               <span style={{ font: "300 16px/1.45 'Work Sans',sans-serif", color: "rgba(247,247,247,0.85)" }}>Tu marca presente en un encuentro presencial, con gente real y sin slides de vendedor.</span>
+              <div style={{ display: "flex", flexDirection: "column", gap: 10, borderTop: "1px solid rgba(255,255,255,0.25)", paddingTop: 16 }}>
+                <span style={{ font: "600 12px/1 'Inconsolata',monospace", letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(247,247,247,0.7)" }}>Lo que necesitamos</span>
+                {["Catering", "Fotografía", "Merch"].map((item) => (
+                  <span key={item} style={{ display: "flex", alignItems: "center", gap: 10, font: "600 clamp(18px, 2vw, 22px)/1.1 'Manrope',sans-serif", letterSpacing: "-0.02em" }}>
+                    <span aria-hidden="true" style={{ color: "var(--yellow)" }}>+</span>
+                    {item}
+                  </span>
+                ))}
+              </div>
               <button
                 type="button"
                 onClick={() => openSessionsWhatsApp("Hola Fio, quiero ser sponsor")}
