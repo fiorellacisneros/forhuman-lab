@@ -894,6 +894,8 @@ function Marquee({ items, prefix }: { items: ReactNode[]; prefix?: string }) {
           display: "flex",
           width: "max-content",
           padding: "9px 0",
+          willChange: "transform",
+          backfaceVisibility: "hidden",
           animation: `shs-marquee ${track.length * 1.6}s linear infinite`,
         }}
       >
