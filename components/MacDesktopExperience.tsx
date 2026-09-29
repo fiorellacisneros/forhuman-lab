@@ -4020,6 +4020,10 @@ function SelectHighlight({
 
   useEffect(() => {
     let rafId = 0;
+    // The knobs live in a portal on <body>, so they would show up on their own
+    // while the text is still hidden by its reveal animation (the "lone blue dot"
+    // on first load). Keep them invisible until the text is actually visible.
+    let shown = false;
 
     // Mutate the dot nodes' inline styles directly instead of going through
     // React state: setState + re-render is a frame or more slower than the
@@ -4042,6 +4046,17 @@ function SelectHighlight({
         const size = fontSize * dotRatio;
         // iOS-style handles: start knob sits above the top of its line,
         // end knob sits below the bottom of its line.
+        if (!shown) {
+          let opacity = 1;
+          for (let el: HTMLElement | null = text; el && el !== document.body; el = el.parentElement) {
+            opacity *= parseFloat(getComputedStyle(el).opacity);
+          }
+          if (opacity >= 0.9) {
+            shown = true;
+            startDot.style.opacity = "1";
+            endDot.style.opacity = "1";
+          }
+        }
         startDot.style.display = "block";
         startDot.style.left = `${first.left}px`;
         startDot.style.top = `${first.top}px`;
@@ -4077,6 +4092,8 @@ function SelectHighlight({
     background: dotColor,
     pointerEvents: "none",
     zIndex: 9999,
+    opacity: 0,
+    transition: "opacity 0.35s ease",
   };
 
   return (
