@@ -595,6 +595,7 @@ const SESSIONS_SECTIONS = [
   { id: "sessions-que-es", label: "Qué es" },
   { id: "sessions-ediciones", label: "Lo que ya hicimos" },
   { id: "sessions-sumate", label: "Cómo sumarte" },
+  { id: "sessions-ofrecemos", label: "Qué ofrecemos" },
   { id: "sessions-estado", label: "Estado" },
   { id: "sessions-faq", label: "Preguntas" },
 ];
@@ -3791,6 +3792,48 @@ function SessionsBody() {
           {SESSION_ROLES.map((r) => (
             <SessionRoleCard key={r.id} role={r.id} />
           ))}
+        </RevealGroup>
+      </section>
+
+      <section id="sessions-ofrecemos" style={{ padding: "clamp(40px, 9vw, 96px) 64px", display: "flex", flexDirection: "column", gap: 32 }}>
+        <Reveal>
+          <Header
+            kicker="Qué ofrecemos"
+            kickerColor="var(--blue)"
+            title="Lo que te llevas y lo que ponemos nosotros"
+            subtitle="Si te sumas como sponsor, esto es lo que recibes. Y esto es lo que pone forHuman como organizador."
+            align="left"
+            style={{ gap: 16 }}
+          />
+        </Reveal>
+        <RevealGroup style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: 20, alignItems: "stretch" }}>
+          {[
+            <div key="sponsor" style={{ height: "100%", boxSizing: "border-box", background: "var(--blue)", color: "var(--white)", borderRadius: "var(--radius-md)", padding: "clamp(24px, 3vw, 36px)", display: "flex", flexDirection: "column", gap: 20 }}>
+              <span style={{ font: "600 12px/1 'Inconsolata',monospace", letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--yellow)" }}>Si eres sponsor</span>
+              <span style={{ font: "700 clamp(28px, 3.4vw, 44px)/1.05 'Manrope',sans-serif", letterSpacing: "-0.04em" }}>Visibilidad en un evento en el marco de Perú Tech Week</span>
+              <span style={{ font: "300 16px/1.45 'Work Sans',sans-serif", color: "rgba(247,247,247,0.85)" }}>Tu marca presente en un encuentro presencial, con gente real y sin slides de vendedor.</span>
+              <button
+                type="button"
+                onClick={() => window.open(whatsappUrl("936098806", "Hola Fio, quiero ser sponsor"), "_blank", "noopener,noreferrer")}
+                style={{ alignSelf: "flex-start", marginTop: "auto", background: "var(--pure-white)", color: "var(--black)", border: "none", borderRadius: "var(--radius-full)", padding: "12px 22px", font: "500 16px/1 'Work Sans',sans-serif", cursor: "pointer" }}
+              >
+                Quiero ser sponsor →
+              </button>
+            </div>,
+            <div key="forhuman" style={{ height: "100%", boxSizing: "border-box", background: "var(--pure-white)", borderRadius: "var(--radius-md)", padding: "clamp(24px, 3vw, 36px)", boxShadow: "inset 0 0 0 1px var(--border-subtle)", display: "flex", flexDirection: "column", gap: 20 }}>
+              <span style={{ font: "600 12px/1 'Inconsolata',monospace", letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--blue)" }}>Lo que pone forHuman</span>
+              {[
+                ["Producción", "Nos encargamos de armar el evento y de que salga bien."],
+                ["Difusión", "Lo damos a conocer en nuestros canales."],
+                ["Comunidad", "La gente que ya nos sigue y que se suma a cada encuentro."],
+              ].map(([title, body]) => (
+                <div key={title} style={{ borderTop: "1px solid var(--border-subtle)", paddingTop: 16, display: "flex", flexDirection: "column", gap: 6 }}>
+                  <span style={{ font: "600 clamp(20px, 2.2vw, 26px)/1.1 'Manrope',sans-serif", letterSpacing: "-0.03em" }}>{title}</span>
+                  <span style={{ font: "300 15px/1.45 'Work Sans',sans-serif", color: "var(--gray-600)" }}>{body}</span>
+                </div>
+              ))}
+            </div>,
+          ]}
         </RevealGroup>
       </section>
 
