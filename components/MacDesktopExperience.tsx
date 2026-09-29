@@ -3685,14 +3685,14 @@ function SessionsBody() {
           </div>
         </Reveal>
         <h1 className="shs-hero-h1" style={{ font: "700 clamp(38px, 9.5vw, 104px)/0.98 'Manrope',sans-serif", letterSpacing: "-0.04em", color: "var(--black)", margin: 0, maxWidth: "none" }}>
-          <RevealLine>Hablemos de lo que</RevealLine>
+          <RevealLine>¿Cansado de que cada día</RevealLine>
           <RevealLine delay={0.12} mask={false}>
-            <HeroHighlight>no contamos en LinkedIn.</HeroHighlight>
+            <HeroHighlight>salga una nueva IA?</HeroHighlight>
           </RevealLine>
         </h1>
         <Reveal delay={0.3}>
           <p style={{ font: "300 clamp(16px, 4vw, 22px)/1.4 'Work Sans',sans-serif", color: "var(--gray-600)", maxWidth: 620, margin: 0 }}>
-            La IA ya escribe, diseña y programa; lo que casi nadie cuenta es cómo nos sentimos en medio de todo eso. Estamos armando el espacio para decirlo en voz alta y necesitamos tu ayuda para ejecutarlo.
+            ¿Qué modelo usar? ¿Compararte con todos? ¿Sentir que hasta leer esto suena a spot publicitario? Hablemos de lo que no contamos en LinkedIn. Estamos armando el espacio para decirlo en voz alta y necesitamos tu ayuda para ejecutarlo.
           </p>
         </Reveal>
         <Reveal delay={0.4}>
