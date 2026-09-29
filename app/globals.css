@@ -217,13 +217,6 @@ body {
 .shs-board > :nth-child(3) {
   margin-top: 112px;
 }
-/* FAQ: while hovering the list, every row except the hovered one fades back */
-.shs-faq-row {
-  transition: opacity 0.1s ease-out;
-}
-.shs-faq-list:hover .shs-faq-row:not(:hover) {
-  opacity: 0.3;
-}
 .shs-stagger > :nth-child(2) {
   margin-top: 56px;
 }

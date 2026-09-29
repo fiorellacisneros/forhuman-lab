@@ -3469,6 +3469,8 @@ function SessionsFaq({ items }: { items: { q: string; a: ReactNode }[] }) {
   const seen = useInView(listRef, { once: true, margin: "-60px" });
   return (
     <div ref={listRef} className="shs-faq-list" style={{ borderBottom: "1px solid var(--border-subtle)" }}>
+      {/* Kept inline so the hover rule always ships with this component */}
+      <style>{`.shs-faq-row{transition:opacity .1s ease-out}.shs-faq-list:hover .shs-faq-row:not(:hover){opacity:.3}`}</style>
       {items.map((item, i) => {
         const isOpen = openIndex === i;
         return (
