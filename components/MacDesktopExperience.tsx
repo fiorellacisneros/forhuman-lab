@@ -140,7 +140,7 @@ function easeInOutQuad(t: number) {
 }
 
 function whatsappUrl(phone: string, message: string) {
-  return `https://api.whatsapp.com/send/?phone=%2B51${phone}&text=${encodeURIComponent(message)}&type=phone_number&app_absent=0`;
+  return `https://wa.me/51${phone}?text=${encodeURIComponent(message)}`;
 }
 
 function openMentorWhatsApp(phone: string, firstName: string) {
@@ -3178,7 +3178,7 @@ const SESSION_PANELS: Record<
   },
 };
 
-const SESSIONS_BOOKING_URL = "https://cal.com/forhuman-studio/sumate";
+const SESSIONS_WHATSAPP = "936098806";
 
 const SESSIONS_MARQUEE = ["forHuman Sessions", "Chimbote", "Trujillo", "Encuentros presenciales"];
 
@@ -3212,8 +3212,8 @@ function goToSubscribe(e: { preventDefault: () => void }) {
   window.setTimeout(() => document.getElementById("footer-email")?.focus({ preventScroll: true }), 650);
 }
 
-function openSessionsBooking() {
-  window.open(SESSIONS_BOOKING_URL, "_blank", "noopener,noreferrer");
+function openSessionsWhatsApp(message: string) {
+  window.open(whatsappUrl(SESSIONS_WHATSAPP, message), "_blank", "noopener,noreferrer");
 }
 
 function SessionRoleCard({ role }: { role: SessionRole }) {
@@ -3252,7 +3252,7 @@ function SessionRoleCard({ role }: { role: SessionRole }) {
             {panel.cta}
           </TextButton>
         ) : (
-          <TextButton href={whatsappUrl("936098806", panel.whatsapp ?? "")} target="_blank" rel="noopener noreferrer" style={{ fontSize: 16 }}>
+          <TextButton href={whatsappUrl(SESSIONS_WHATSAPP, panel.whatsapp ?? "")} target="_blank" rel="noopener noreferrer" style={{ fontSize: 16 }}>
             {panel.cta}
           </TextButton>
         )}
@@ -3582,7 +3582,7 @@ function SessionsProgress() {
             <span style={{ font: "300 16px/1.45 'Work Sans',sans-serif", color: "rgba(247,247,247,0.85)" }}>{now.body}</span>
             <button
               type="button"
-              onClick={openSessionsBooking}
+              onClick={() => openSessionsWhatsApp("Hola Fio, quiero sumarme a ¿IA fuimos?, te cuento cómo puedo ayudar...")}
               style={{ alignSelf: "flex-start", marginTop: 8, background: "var(--pure-white)", color: "var(--black)", border: "none", borderRadius: "var(--radius-full)", padding: "12px 22px", font: "500 16px/1 'Work Sans',sans-serif", cursor: "pointer" }}
             >
               Quiero sumarme →
@@ -3702,8 +3702,8 @@ function SessionsBody() {
         </Reveal>
         <Reveal delay={0.4}>
           <div style={{ display: "flex", gap: 20, alignItems: "center", flexWrap: "wrap" }}>
-            <PrincipalButton variant="primary" onClick={openSessionsBooking}>Quiero sumarme</PrincipalButton>
-            <TextButton href="#sessions-sumate" onClick={(e) => { e.preventDefault(); smoothScrollToId("sessions-sumate"); }}>Ver cómo sumarme</TextButton>
+            <PrincipalButton variant="primary" onClick={() => openSessionsWhatsApp("Hola Fio, quiero ser voluntario/a en ¿IA fuimos?, quiero ayudar en...")}>Ser voluntario</PrincipalButton>
+            <TextButton href={whatsappUrl("936098806", "Hola Fio, quiero ser sponsor")} target="_blank" rel="noopener noreferrer">Ser sponsor</TextButton>
           </div>
         </Reveal>
         <motion.div
@@ -3820,7 +3820,7 @@ function SessionsBody() {
               <span style={{ font: "300 16px/1.45 'Work Sans',sans-serif", color: "rgba(247,247,247,0.85)" }}>Tu marca presente en un encuentro presencial, con gente real y sin slides de vendedor.</span>
               <button
                 type="button"
-                onClick={() => window.open(whatsappUrl("936098806", "Hola Fio, quiero ser sponsor"), "_blank", "noopener,noreferrer")}
+                onClick={() => openSessionsWhatsApp("Hola Fio, quiero ser sponsor")}
                 style={{ alignSelf: "flex-start", marginTop: "auto", background: "var(--pure-white)", color: "var(--black)", border: "none", borderRadius: "var(--radius-full)", padding: "12px 22px", font: "500 16px/1 'Work Sans',sans-serif", cursor: "pointer" }}
               >
                 Quiero ser sponsor →
