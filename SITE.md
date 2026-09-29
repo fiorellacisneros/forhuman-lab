@@ -36,6 +36,22 @@ En pantallas de celular, todo el mismo contenido se muestra dentro de un marco d
 
 ## Recent Changes
 
+- 2026-09-29: En "Lo que ya estamos armando" (Sessions), la columna "Listo" ahora tiene una tercera tarjeta: **Comunidad** — "La gente que ya nos sigue y que se suma a cada encuentro." (coincide con lo que se dice en "Lo que pone forHuman").
+
+- 2026-09-29: Ajustes de copy y estilo en Sessions: (1) el bloque "Quiénes lo organizan" ya no dice "Escríbenos directo" y su título cambió de "forHuman pone el espacio, tú pones la historia" (todavía no hay local) a "forHuman lo organiza, tú pones la historia"; (2) el botón "Quiero ser sponsor" abre el WhatsApp de Fio con el mensaje "Hola Fio, quiero ser sponsor"; (3) el título de las preguntas frecuentes pasó de "Lo que quizá te preguntas" a "Antes de sumarte"; (4) el tag "¿IA fuimos?" del inicio dejó la letra manuscrita inclinada y ahora es texto limpio en azul (Manrope semi-negrita) con un resaltado amarillo detrás, como marcador.
+
+- 2026-09-29: Nueva sección "Qué ofrecemos" en la ventana Sessions (entre "Sumarte" y "Estado del proyecto"; también aparece en el sidebar). Dos tarjetas: una azul "Si eres sponsor" — "Visibilidad en un evento en el marco de Perú Tech Week", con botón blanco "Quiero ser sponsor →" que abre el WhatsApp de Fio con el mensaje ya escrito — y una blanca "Lo que pone forHuman" con tres puntos: Producción, Difusión y Comunidad. El texto descriptivo de cada punto es genérico y conviene ajustarlo con datos reales (por ejemplo cuántas personas hay en la comunidad). Ojo: esta sección menciona Perú Tech Week, que había quedado como "por confirmar".
+
+- 2026-09-29: La fecha tentativa ahora tiene dos opciones: **jueves 15 o viernes 16 de octubre, 6 pm** (todavía falta decidir el día). Se actualizó en todos los lugares donde aparece: etiqueta del inicio ("Tentativo: 15 o 16 oct · 6 pm"), preguntas frecuentes, tarjeta "Entérate primero", lista "Por definir" y widgets (escritorio y celular).
+
+- 2026-09-29: Se agregó la fecha tentativa: **jueves 15 de octubre, 6 pm** (Lima). Aparece en la etiqueta bajo el titular del inicio ("Tentativo: jue 15 oct · 6 pm"), en las preguntas frecuentes ("¿Cuándo y dónde es?"), en la tarjeta "Entérate primero", en la lista "Por definir" (ahora "Confirmar la fecha y la hora (tentativo…)") y en los widgets del escritorio y del celular. Siempre se dice "tentativo" porque todavía falta confirmarla. El lugar sigue por definir.
+
+- 2026-09-29: En la tarjeta "Ayúdanos a hacerlo realidad" (voluntariado, sección "Sumarte" de Sessions) se agregó una cuarta forma de ayudar: **Local** — "Conseguir el venue en Lima: si conoces un espacio o puedes prestarnos el tuyo, cuéntanos."
+
+- 2026-09-29: La tarjeta de incógnita (tercera tarjeta de "Lo que ya hicimos") ahora pregunta "¿Llegaremos a Perú Tech Week?" en lugar de "¿Qué sigue?", manteniendo "Es un secreto por ahora." y las líneas borrosas. Es solo una pregunta de intriga, no confirma nada; se había quitado antes toda mención a Perú Tech Week hasta que se confirme, así que si no se llega a confirmar conviene volver a cambiarla.
+
+- 2026-09-29: El tag "¿IA fuimos?" del inicio de Sessions ahora tiene más personalidad: está escrito a mano (fuente manuscrita Reenie Beanie, la misma de la firma "Dani y Fio"), en azul, un poco inclinado hacia arriba y con un subrayado amarillo ondulado que se dibuja solo al cargar la página. Sigue sin parecer botón (sin borde ni fondo).
+
 - 2026-09-29: Corregido: la ciudad SÍ está definida (Lima); lo que sigue por definir es la fecha, la hora y el lugar. La pregunta "¿Cuándo y dónde es?" ahora responde "Es en Lima. La fecha, la hora y el lugar todavía se están definiendo y se anuncian pronto.", y en la tarjeta de incógnita la línea borrosa "CIUDAD" pasó a "LUGAR".
 
 - 2026-09-29: Corregido el copy sobre los temas: la IA, los egos, el burnout y "lo que no contamos en LinkedIn" son el tema de ¿IA fuimos? (esta edición), no de todos los forHuman Sessions. Ahora el texto dice que cada Sessions tiene su propio tema y que en ¿IA fuimos? se habla de eso. Cambiado en las preguntas frecuentes, en la tarjeta "Entérate primero" y en la nota Eventos.txt. También: el sitio ya está en producción en Vercel (proyecto `forhuman-sessions`, cuenta fiorella-cisneros-projects).
