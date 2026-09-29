@@ -4731,7 +4731,7 @@ export function MacDesktopExperience() {
               <div style={{ width: 56, height: 56, borderRadius: 14, background: "url(/forhuman-lab/icon-webflow.svg) center / cover no-repeat" }} />
             </DockIcon>
             <DockIcon label="forHuman Sessions" hoverId="sessions" hovered={hoveredApp} onHover={setHoveredApp} onClick={() => openWindow("sessions")} open={openApp === "sessions"} mouseX={dockMouseX}>
-              <div style={{ width: 56, height: 56, borderRadius: 14, background: "url(/forhuman-lab/icon-sessions.svg) center / cover no-repeat" }} />
+              <div style={{ width: 56, height: 56, borderRadius: 14, background: "url(/forhuman-lab/icon-sessions-fh.svg) center / cover no-repeat" }} />
             </DockIcon>
             <DockIcon label="Fotos" hoverId="photos" hovered={hoveredApp} onHover={setHoveredApp} onClick={() => openWindow("photos")} open={openApp === "photos" || loadingApp === "photos"} mouseX={dockMouseX}>
               <div style={{ width: 56, height: 56, borderRadius: 14, background: "url(/forhuman-lab/icon-fotos.svg) center / cover no-repeat" }} />
@@ -5000,7 +5000,7 @@ export function MacDesktopExperience() {
                     <div style={{ width: 56, height: 56, borderRadius: 14, background: "url(/forhuman-lab/icon-webflow.svg) center / cover no-repeat" }} />
                   </div>
                   <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }} onClick={() => openWindow("sessions")}>
-                    <div style={{ width: 56, height: 56, borderRadius: 14, background: "url(/forhuman-lab/icon-sessions.svg) center / cover no-repeat", cursor: "pointer" }} />
+                    <div style={{ width: 56, height: 56, borderRadius: 14, background: "url(/forhuman-lab/icon-sessions-fh.svg) center / cover no-repeat", cursor: "pointer" }} />
                   </div>
                   <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }} onClick={() => openWindow("notas")}>
                     <div style={{ width: 56, height: 56, borderRadius: 14, background: "url(/forhuman-lab/icon-notas.svg) center / cover no-repeat", cursor: "pointer" }} />
