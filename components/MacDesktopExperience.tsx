@@ -3590,6 +3590,70 @@ function SessionsProgress() {
 /* Slice glitch on photos (inspired by native.agency). On hover, a few horizontal
    bands of the photo itself slide sideways for about a third of a second, then
    snap back. No zoom, no filter: at rest the photo is shown untouched. */
+type GlitchBand = { top: number; height: number; shift: number };
+
+function GlitchImage({ style, className, alt = "", src, ...rest }: ImgHTMLAttributes<HTMLImageElement>) {
+  const [bands, setBands] = useState<GlitchBand[]>([]);
+  const runningRef = useRef(false);
+  const timerRef = useRef(0);
+
+  useEffect(() => () => window.clearTimeout(timerRef.current), []);
+
+  const play = () => {
+    if (runningRef.current || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    runningRef.current = true;
+    const FRAMES = 6;
+    let frame = 0;
+    const tick = () => {
+      if (frame >= FRAMES) {
+        setBands([]);
+        runningRef.current = false;
+        return;
+      }
+      const strength = 1 - frame / FRAMES;
+      const count = 3 + Math.round(Math.random() * 3);
+      setBands(
+        Array.from({ length: count }, () => ({
+          top: Math.random() * 92,
+          height: 2 + Math.random() * 9,
+          shift: (Math.random() - 0.5) * 22 * strength,
+        })),
+      );
+      frame += 1;
+      timerRef.current = window.setTimeout(tick, 60);
+    };
+    tick();
+  };
+
+  return (
+    <span onMouseEnter={play} style={{ display: "block", position: "relative", overflow: "hidden", width: "100%", borderRadius: style?.borderRadius }}>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src={src} alt={alt} className={className} style={style} {...rest} />
+      {bands.map((band, i) => (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          key={i}
+          src={src}
+          alt=""
+          aria-hidden="true"
+          className={className}
+          style={{
+            ...style,
+            position: "absolute",
+            inset: 0,
+            width: "100%",
+            height: "100%",
+            aspectRatio: "auto",
+            pointerEvents: "none",
+            clipPath: `inset(${band.top}% 0 ${Math.max(0, 100 - band.top - band.height)}% 0)`,
+            transform: `translateX(${band.shift}%)`,
+          }}
+        />
+      ))}
+    </span>
+  );
+}
+
 function FotosSection({ id, title, count, photos = REAL_PHOTOS }: { id: string; title: string; count: number; photos?: string[] }) {
   return (
     <div id={id} style={{ padding: "16px 20px 28px" }}>
