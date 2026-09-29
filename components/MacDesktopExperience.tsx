@@ -3857,7 +3857,7 @@ function SessionsBody() {
         <Reveal style={{ flex: "1 1 320px", minWidth: 0 }}>
           <Header
             kicker="Quiénes lo organizan"
-            kickerColor="rgba(255,255,255,0.6)"
+            kickerColor="var(--yellow)"
             title="forHuman lo organiza, tú pones la historia"
             subtitle="Somos las mismas personas detrás de forHuman Studio y superHuman School."
             align="left"
