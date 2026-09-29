@@ -36,6 +36,10 @@ En pantallas de celular, todo el mismo contenido se muestra dentro de un marco d
 
 ## Recent Changes
 
+- 2026-09-29: Preguntas frecuentes: la regla del hover (todas las preguntas bajan a 30% de opacidad menos la que tienes debajo del mouse, en 0.1 s) ahora vive dentro del propio componente `SessionsFaq` (en `components/MacDesktopExperience.tsx`) en vez de en `app/globals.css`. Así siempre se actualiza junto con el componente. Antes, a veces la vista previa no recargaba el CSS nuevo y el efecto no aparecía.
+
+- 2026-09-29: El título de las preguntas frecuentes de Sessions cambió de "Bueno saber" (sonaba raro) a "Lo que quizá te preguntas". La etiqueta pequeña de arriba sigue diciendo "Preguntas". Además se quitó lo grueso: ahora está en peso normal (400) y un poco más chico, como los demás títulos de sección.
+
 - 2026-09-28: El botón de speaker en la sección "Sumarte" de Sessions ahora dice "Te cuento mi idea" (antes "Contarle mi idea a Fio"). Sigue abriendo el WhatsApp de Fio con el mensaje ya escrito.
 
 - 2026-09-28: Preguntas frecuentes: el efecto de hover ahora se hace solo con CSS (`.shs-faq-list` / `.shs-faq-row` en `app/globals.css`): al pasar el mouse por la lista, todas las preguntas menos la que tienes debajo del mouse bajan a 30% de opacidad casi al instante (0.12 s), y vuelven a 100% al salir. Más simple y sin depender del estado de React.
