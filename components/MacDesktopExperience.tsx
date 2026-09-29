@@ -3161,7 +3161,7 @@ const SESSION_PANELS: Record<
       { tag: "Duración", text: "Por definir, junto con el resto del programa." },
       { tag: "Qué hacer ahora", text: "Escríbele a Fio por WhatsApp y cuéntale tu idea en una línea." },
     ],
-    cta: "Contarle mi idea a Fio",
+    cta: "Te cuento mi idea",
     whatsapp: "Hola Fio, me interesa ser speaker, te cuento mi idea...",
   },
   publico: {
