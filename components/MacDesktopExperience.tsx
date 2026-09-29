@@ -3188,19 +3188,29 @@ const SESSIONS_EDITIONS = [
   {
     number: "01",
     title: "Trujillo",
-    body: "Otro forHuman Sessions, distinto al de Chimbote: otra ciudad, otro tema, otras historias.",
+    body: "Nos fuimos al norte a hablar de Webflow.",
     image: "/forhuman-lab/sessions-trujillo.jpg",
     imageAlt: "Asistentes al forHuman Sessions de Trujillo, sentados con sus laptops",
     imagePosition: "center 45%",
+    imageAspect: "5 / 4",
   },
   {
     number: "02",
     title: "Chimbote",
-    body: "Un forHuman Sessions con la gente de la ciudad, con su propio tema y sus propias historias.",
+    body: "Nos fuimos por un ceviche y a repensar los eventos tech en el norte del país.",
     image: "/forhuman-lab/sessions-chimbote.jpg",
     imageAlt: "Grupo de asistentes al forHuman Sessions de Chimbote, con el cartel de Sessions",
     imagePosition: "center",
-    imageAspect: "2 / 1",
+    imageAspect: "3 / 2",
+  },
+  {
+    number: "03",
+    title: "Lima",
+    body: "Workshops de IA, diseño y Webflow, y charlas de liderazgo. Menos teoría, más manos en la masa.",
+    image: "/forhuman-lab/sessions-lima.jpg",
+    imageAlt: "Dos expositoras dando un workshop de forHuman en Lima frente a una pantalla",
+    imagePosition: "center 45%",
+    imageAspect: "5 / 4",
   },
 ];
 
@@ -3679,6 +3689,54 @@ function GlitchImage({ style, className, alt = "", src, ...rest }: ImgHTMLAttrib
   );
 }
 
+/* Photo-first card for the past events: photo on top, then title and text. */
+function MemoryCard({
+  title,
+  body,
+  image,
+  alt,
+  position,
+  aspect,
+}: {
+  title: string;
+  body: string;
+  image: string;
+  alt: string;
+  position?: string;
+  aspect?: string;
+}) {
+  return (
+    <div style={{ boxSizing: "border-box", borderRadius: "var(--radius-md)", background: "var(--pure-white)", padding: 12, display: "flex", flexDirection: "column", gap: 20 }}>
+      <div style={{ position: "relative" }}>
+        <GlitchImage
+          src={image}
+          alt={alt}
+          loading="lazy"
+          style={{ width: "100%", aspectRatio: aspect ?? "4 / 3", objectFit: "cover", objectPosition: position, borderRadius: 12, display: "block" }}
+        />
+      </div>
+      <div style={{ display: "flex", flexDirection: "column", gap: 10, padding: "0 10px 12px" }}>
+        <div style={{ font: "400 clamp(26px, 2.8vw, 34px)/1.05 'Manrope',sans-serif", letterSpacing: "-0.03em", color: "var(--black)" }}>{title}</div>
+        <div style={{ font: "300 16px/1.4 'Work Sans',sans-serif", color: "var(--gray-600)" }}>{body}</div>
+      </div>
+    </div>
+  );
+}
+
+/* Two interlocking columns (01 + 03 on the left, 02 + 04 on the right) so the cards pack tightly with no white holes. */
+function HistGrid({ cards }: { cards: ReactNode[] }) {
+  return (
+    <div className="shs-hist">
+      <RevealGroup className="shs-hist-col" style={{ display: "flex", flexDirection: "column", gap: 20 }} itemStyle={{ minWidth: 0 }}>
+        {[cards[0], cards[2]]}
+      </RevealGroup>
+      <RevealGroup className="shs-hist-col shs-hist-col-b" style={{ display: "flex", flexDirection: "column", gap: 20 }} itemStyle={{ minWidth: 0 }}>
+        {[cards[1], cards[3]]}
+      </RevealGroup>
+    </div>
+  );
+}
+
 function SessionsBody() {
   return (
     <>
@@ -3760,35 +3818,20 @@ function SessionsBody() {
             align="left"
           />
         </Reveal>
-        <RevealGroup className="shs-hist" style={{ display: "grid" }} itemStyle={{ minWidth: 0 }}>
-          {[
+        <HistGrid cards={[
             ...SESSIONS_EDITIONS.map((e) => (
-              <CardAprendizaje key={e.number} number={e.number} label="" title={e.title} body={e.body} media={"image" in e ? (
-                <GlitchImage
-                  src={e.image}
-                  alt={e.imageAlt}
-                  loading="lazy"
-                  style={{ width: "100%", aspectRatio: e.imageAspect ?? "3 / 2", objectFit: "cover", objectPosition: e.imagePosition, borderRadius: 12, display: "block" }}
-                />
-              ) : undefined} style={{ width: "100%", height: "100%" }} />
+              <MemoryCard key={e.number} title={e.title} body={e.body} image={e.image} alt={e.imageAlt} position={e.imagePosition} aspect={e.imageAspect} />
             )),
-            <div
-              key="mystery"
-              style={{ width: "100%", height: "100%", boxSizing: "border-box", borderRadius: "var(--radius-md)", background: "var(--black)", color: "var(--white)", padding: 24, display: "flex", flexDirection: "column", gap: 24 }}
-            >
-              <span style={{ font: "400 88px/1 'Work Sans',sans-serif", color: "var(--yellow)", letterSpacing: "0.02em" }}>03</span>
-              <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-                <div style={{ font: "400 28px/1.05 'Manrope',sans-serif", letterSpacing: "-0.03em" }}>¿Llegaremos a Perú Tech Week?</div>
-                <div style={{ font: "300 16px/1.4 'Work Sans',sans-serif", color: "rgba(247,247,247,0.85)" }}>Está en suspenso por ahora.</div>
-                <div aria-hidden="true" style={{ display: "flex", flexDirection: "column", gap: 8, filter: "blur(5px)", userSelect: "none", opacity: 0.7 }}>
-                  <span style={{ font: "500 15px/1 'Inconsolata',monospace", letterSpacing: "0.08em" }}>LUGAR ▮▮▮▮▮▮▮▮</span>
-                  <span style={{ font: "500 15px/1 'Inconsolata',monospace", letterSpacing: "0.08em" }}>TEMA ▮▮▮▮▮▮▮▮▮▮▮▮</span>
-                  <span style={{ font: "500 15px/1 'Inconsolata',monospace", letterSpacing: "0.08em" }}>FECHA ▮▮▮▮▮▮</span>
-                </div>
+            <div key="mystery" style={{ boxSizing: "border-box", borderRadius: "var(--radius-md)", background: "var(--black)", color: "var(--white)", padding: 24, display: "flex", flexDirection: "column", gap: 20 }}>
+              <div style={{ font: "400 clamp(24px, 2.6vw, 32px)/1.05 'Manrope',sans-serif", letterSpacing: "-0.03em" }}>¿Llegaremos a Perú Tech Week?</div>
+              <div style={{ font: "300 16px/1.4 'Work Sans',sans-serif", color: "rgba(247,247,247,0.85)" }}>Lo averiguaremos…</div>
+              <div aria-hidden="true" style={{ display: "flex", flexDirection: "column", gap: 8, filter: "blur(5px)", userSelect: "none", opacity: 0.7 }}>
+                <span style={{ font: "500 15px/1 'Inconsolata',monospace", letterSpacing: "0.08em" }}>LUGAR ▮▮▮▮▮▮▮▮</span>
+                <span style={{ font: "500 15px/1 'Inconsolata',monospace", letterSpacing: "0.08em" }}>TEMA ▮▮▮▮▮▮▮▮▮▮▮▮</span>
+                <span style={{ font: "500 15px/1 'Inconsolata',monospace", letterSpacing: "0.08em" }}>FECHA ▮▮▮▮▮▮</span>
               </div>
             </div>,
-          ]}
-        </RevealGroup>
+          ]} />
       </section>
 
       <section id="sessions-sumate" style={{ background: "var(--black)", padding: "clamp(40px, 9vw, 80px) 64px", display: "flex", flexDirection: "column", gap: 32 }}>

@@ -235,59 +235,28 @@ body {
 .shs-board > :nth-child(3) {
   margin-top: 112px;
 }
-/* "Lo que ya hicimos": a broken grid. Big photo cards at different sizes,
-   offset and slightly tilted, with the mystery card overlapping the others. */
+/* "Lo que ya hicimos": two columns of different widths, the right one dropped lower.
+   Photo-first cards, no overlaps, so nothing hides anything else. */
 .shs-hist {
-  grid-template-columns: repeat(12, minmax(0, 1fr));
-  column-gap: clamp(12px, 2vw, 24px);
-  row-gap: 0;
-  padding-bottom: 24px;
+  display: grid;
+  grid-template-columns: 5fr 7fr;
+  column-gap: clamp(16px, 2.4vw, 32px);
+  align-items: start;
+  padding-bottom: 16px;
 }
-.shs-hist > * {
-  align-self: start;
+.shs-hist-col > * > * {
+  box-shadow: 0 14px 36px rgba(13, 13, 13, 0.1), 0 0 0 1px rgba(13, 13, 13, 0.06);
 }
-.shs-hist > * > * {
-  height: auto !important;
-}
-.shs-hist > :nth-child(1) {
-  grid-column: 1 / 6;
-  grid-row: 1;
-  z-index: 1;
-}
-.shs-hist > :nth-child(1) > * {
-  transform: rotate(-2deg);
-}
-.shs-hist > :nth-child(2) {
-  grid-column: 6 / 13;
-  grid-row: 1 / span 2;
-  margin-top: 88px;
-  z-index: 2;
-}
-.shs-hist > :nth-child(2) > * {
-  transform: rotate(1.5deg);
-}
-.shs-hist > :nth-child(3) {
-  grid-column: 2 / 6;
-  grid-row: 2;
-  margin-top: 56px;
-  z-index: 3;
-}
-.shs-hist > :nth-child(3) > * {
-  transform: rotate(2.5deg);
-  box-shadow: 0 24px 48px rgba(13, 13, 13, 0.25);
+.shs-hist-col-b {
+  margin-top: 72px;
 }
 @media (max-width: 859px) {
   .shs-hist {
     grid-template-columns: 1fr;
     row-gap: 20px;
   }
-  .shs-hist > * {
-    grid-column: 1 !important;
-    grid-row: auto !important;
+  .shs-hist-col-b {
     margin-top: 0 !important;
-  }
-  .shs-hist > * > * {
-    transform: none !important;
   }
 }
 .shs-stagger > :nth-child(2) {
@@ -417,6 +386,7 @@ body {
 }
 
 /* hero title: two lines, sized to the window */
+
 
 
 
