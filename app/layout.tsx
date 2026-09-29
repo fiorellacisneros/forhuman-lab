@@ -32,7 +32,8 @@ const reenieBeanie = Reenie_Beanie({
 });
 
 const siteTitle = "forHuman Sessions - ¿IA fuimos?";
-const siteDescription = "Experimentación de productos con IA.";
+const siteDescription =
+  "Encuentro presencial en Lima sobre salud mental en tiempos de IA: compararnos, burnout y lo que no contamos en LinkedIn. 15 o 16 de octubre, 6 pm (tentativo).";
 
 export const metadata: Metadata = {
   title: siteTitle,
@@ -40,7 +41,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: siteTitle,
     description: siteDescription,
-    siteName: siteTitle,
+    siteName: "forHuman Sessions",
     locale: "es",
     type: "website",
   },
