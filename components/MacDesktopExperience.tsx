@@ -3396,34 +3396,6 @@ function SessionsIndexLink({ n, label, target }: { n: string; label: string; tar
   );
 }
 
-/* Same look as the index links in "Qué es" (big Manrope label that slides right, yellow arrow on hover), fixed to white for dark sections. */
-function SessionsDarkLink({ label, target }: { label: string; target: string }) {
-  const [hover, setHover] = useState(false);
-  return (
-    <a
-      href={`#${target}`}
-      onClick={(e) => {
-        e.preventDefault();
-        smoothScrollToId(target);
-      }}
-      onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
-      style={{ display: "flex", alignItems: "baseline", gap: 14, textDecoration: "none", cursor: "pointer" }}
-    >
-      <motion.span
-        animate={{ x: hover ? 10 : 0 }}
-        transition={{ type: "spring", stiffness: 300, damping: 22 }}
-        style={{ font: "400 clamp(20px, 5vw, 28px)/1.2 'Manrope',sans-serif", letterSpacing: "-0.02em", color: "var(--white)" }}
-      >
-        {label}
-      </motion.span>
-      <motion.span animate={{ opacity: hover ? 1 : 0, x: hover ? 0 : -8 }} style={{ color: "var(--yellow)", font: "400 22px/1 'Work Sans',sans-serif" }}>
-        →
-      </motion.span>
-    </a>
-  );
-}
-
 function ShiftLabel() {
   const color = useShiftColor("rgba(13,13,13,0.6)", "rgba(255,255,255,0.55)");
   return (
@@ -3822,7 +3794,7 @@ function SessionsBody() {
         <Reveal>
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16, flexWrap: "wrap", borderTop: "1px solid var(--border-dark)", paddingTop: 24 }}>
             <span style={{ font: "300 clamp(16px, 2vw, 20px)/1.4 'Work Sans',sans-serif", color: "rgba(247,247,247,0.85)" }}>¿Tienes una marca? Mira qué te llevas siendo sponsor.</span>
-            <SessionsDarkLink label="Quiero ser sponsor" target="sessions-ofrecemos" />
+            <PrincipalButton variant="primary" onClick={() => smoothScrollToId("sessions-ofrecemos")} style={{ fontSize: 17 }}>Quiero ser sponsor</PrincipalButton>
           </div>
         </Reveal>
       </section>
