@@ -3749,20 +3749,26 @@ function SessionsBody() {
           />
         </Reveal>
         <RevealGroup className="shs-stagger" style={{ display: "flex", gap: 20, flexWrap: "wrap", alignItems: "flex-start" }} itemStyle={{ flex: "1 1 300px", minWidth: 0 }}>
-          {SESSIONS_EDITIONS.map((e) => (
-            <CardAprendizaje key={e.number} number={e.number} label="Edición" title={e.title} body={e.body} style={{ width: "100%", height: "100%" }} />
-          ))}
-        </RevealGroup>
-      </section>
-
-      <section id="sessions-numeros" style={{ background: "var(--gray-100)", padding: "clamp(32px, 8vw, 64px) 64px", display: "flex", flexDirection: "column", gap: 32 }}>
-        <Reveal>
-          <Header kicker="Lo que sabemos" kickerColor="var(--blue)" title="Lo único seguro hoy" subtitle="¿IA fuimos? todavía se está armando. Esto es lo que ya podemos decirte." align="left" style={{ gap: 16 }} />
-        </Reveal>
-        <RevealGroup className="shs-motivos-row" style={{ display: "flex", flexWrap: "wrap", gap: 20, justifyContent: "center", padding: "12px 0 24px" }} itemStyle={{ flex: "1 1 280px", minWidth: 0 }}>
-          <PromoCard variant="yellow" heading="Es la primera vez" note="*Nunca lo hemos hecho" body="¿IA fuimos? es nuevo. Chimbote y Trujillo fueron otras ediciones de forHuman Sessions." linkText="" style={{ width: "100%", height: "100%", transform: "rotate(-2deg)" }} />
-          <PromoCard variant="blue" heading="Nació de 20 mensajes" note="*Una historia de Instagram" body="Subimos una historia y 20 personas escribieron para sumarse. Ahí entendimos que había algo que contar." linkText="" style={{ width: "100%", height: "100%", transform: "rotate(1.5deg)" }} />
-          <PromoCard variant="dark" heading="Presencial y con gente real" note="*Formato en definición" body="Un encuentro en Lima. Duración, dinámicas y lugar todavía se están definiendo." linkText="" style={{ width: "100%", height: "100%", transform: "rotate(-1deg)" }} />
+          {[
+            ...SESSIONS_EDITIONS.map((e) => (
+              <CardAprendizaje key={e.number} number={e.number} label="" title={e.title} body={e.body} style={{ width: "100%", height: "100%" }} />
+            )),
+            <div
+              key="mystery"
+              style={{ width: "100%", height: "100%", boxSizing: "border-box", borderRadius: "var(--radius-md)", background: "var(--black)", color: "var(--white)", padding: 24, display: "flex", flexDirection: "column", gap: 24 }}
+            >
+              <span style={{ font: "400 88px/1 'Work Sans',sans-serif", color: "var(--yellow)", letterSpacing: "0.02em" }}>03</span>
+              <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+                <div style={{ font: "400 28px/1.05 'Manrope',sans-serif", letterSpacing: "-0.03em" }}>¿Qué sigue?</div>
+                <div style={{ font: "300 16px/1.4 'Work Sans',sans-serif", color: "rgba(247,247,247,0.85)" }}>Es un secreto por ahora.</div>
+                <div aria-hidden="true" style={{ display: "flex", flexDirection: "column", gap: 8, filter: "blur(5px)", userSelect: "none", opacity: 0.7 }}>
+                  <span style={{ font: "500 15px/1 'Inconsolata',monospace", letterSpacing: "0.08em" }}>CIUDAD ▮▮▮▮▮▮▮▮</span>
+                  <span style={{ font: "500 15px/1 'Inconsolata',monospace", letterSpacing: "0.08em" }}>TEMA ▮▮▮▮▮▮▮▮▮▮▮▮</span>
+                  <span style={{ font: "500 15px/1 'Inconsolata',monospace", letterSpacing: "0.08em" }}>FECHA ▮▮▮▮▮▮</span>
+                </div>
+              </div>
+            </div>,
+          ]}
         </RevealGroup>
       </section>
 
