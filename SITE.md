@@ -36,6 +36,10 @@ En pantallas de celular, todo el mismo contenido se muestra dentro de un marco d
 
 ## Recent Changes
 
+- 2026-09-29: En la tarjeta azul de sponsor ("Qué ofrecemos") se agregó lo que se necesita de los sponsors: bajo el texto, un bloque "Lo que necesitamos" con **Catering**, **Fotografía** y **Merch** (cada uno con un + amarillo), antes del botón "Quiero ser sponsor →".
+
+- 2026-09-29: El ícono de la app Sessions (en el dock del escritorio y en la pantalla de inicio del celular) ahora usa el logo de forHuman (el círculo con "fh") en blanco sobre fondo negro, en vez de las dos burbujas de conversación. Archivo: `public/forhuman-lab/icon-sessions-fh.svg`.
+
 - 2026-09-29: En la tarjeta de speaker ("Contar una historia"), "Qué hacer ahora" ya no limita a una línea: ahora dice "Escríbele a Fio por WhatsApp y cuéntale tu idea o lo que quieres compartir."
 
 - 2026-09-29: En "Ayúdanos a hacerlo realidad" (voluntarios) se agregó el punto **"Qué hacer ahora"**: "Escríbele a Fio por WhatsApp y cuéntale en qué quieres ayudar." Y los mensajes de WhatsApp de los botones de voluntario (inicio y tarjeta de "Sumarte") ahora terminan en "…quiero ayudar en..." (antes "puedo ayudar con..." y "puedo sumar como...").
