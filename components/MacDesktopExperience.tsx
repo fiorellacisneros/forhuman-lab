@@ -3200,7 +3200,7 @@ const SESSIONS_OPEN = [
 
 const SESSIONS_FAQ = [
   { q: "¿Qué es forHuman Sessions?", a: "Encuentros presenciales organizados por forHuman, en distintas ciudades. Ya lo hicimos en Chimbote y Trujillo, y cada uno fue distinto." },
-  { q: "¿Cuándo y dónde es?", a: "Es en Lima. La fecha tentativa es el jueves 15 o el viernes 16 de octubre a las 6 pm; falta confirmar el día, y el lugar todavía se está definiendo. Lo anunciamos pronto." },
+  { q: "¿Cuándo y dónde es?", a: "Es en Lima, en el marco de Perú Tech Week. La fecha tentativa es el jueves 15 o el viernes 16 de octubre a las 6 pm; falta confirmar el día, y el lugar todavía se está definiendo. Lo anunciamos pronto." },
   { q: "¿De qué se habla?", a: "Cada forHuman Sessions tiene su propio tema. En ¿IA fuimos? hablamos de cómo estamos frente a la IA, los egos, el burnout y lo que no contamos en LinkedIn." },
   { q: "¿Tengo que ser experto para hablar?", a: "No. Buscamos historias, no ponencias: algo que hayas vivido de verdad. Nada de 40 minutos de slides." },
   { q: "¿Cómo me inscribo?", a: "La inscripción todavía no abre. Deja tu correo en el formulario del final de la página y te escribimos apenas esté definida." },
