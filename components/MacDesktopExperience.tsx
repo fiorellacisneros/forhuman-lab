@@ -3352,6 +3352,7 @@ function PillButton({ children, onClick, dark = false }: { children: ReactNode; 
         border: `1px solid ${dark ? "rgba(255,255,255,0.4)" : "var(--black)"}`,
         color: dark ? "var(--white)" : "var(--black)",
         font: "500 13px/1 'Work Sans',sans-serif",
+        whiteSpace: "nowrap",
         cursor: onClick ? "pointer" : "default",
       }}
     >
@@ -3705,7 +3706,7 @@ function SessionsBody() {
           />
         </motion.div>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
             <PillButton>Tentativo: 15 o 16 oct · 6 pm</PillButton>
             <span style={{ font: "400 13px/1.3 'Work Sans',sans-serif", color: "var(--gray-500)" }}>Escríbenos y ayúdanos a ejecutarlo</span>
           </div>
@@ -3737,7 +3738,7 @@ function SessionsBody() {
       <section id="sessions-ediciones" className="shs-canon shs-canon-ediciones" style={{ padding: "clamp(40px, 9vw, 80px) 64px", display: "flex", flexDirection: "column", gap: 32 }}>
         <Reveal>
           <Header
-            kicker="Ediciones"
+            kicker="Lo que ya hicimos"
             kickerColor="var(--blue)"
             title="Ya lo hicimos en Chimbote y Trujillo."
             subtitle="Cada forHuman Sessions es distinto: cambian la ciudad, el tema y la gente que cuenta su historia."
