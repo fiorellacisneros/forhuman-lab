@@ -36,6 +36,16 @@ En pantallas de celular, todo el mismo contenido se muestra dentro de un marco d
 
 ## Recent Changes
 
+- 2026-09-29: Ajuste del haz de luz: en los botones negros de Sessions el haz es amarillo y en los botones blancos ("Quiero sumarme" y "Quiero ser sponsor →") el haz es **negro** (`#0D0D0D`, mezclado normal en vez de multiplicado, para que se vea limpio y no como una mancha gris). Antes los blancos tenían haz azul.
+
+- 2026-09-29: El haz de luz de los botones principales ahora puede cambiar de color (`PrincipalButton` acepta `glowColor` y `glowBlend`; si no se usan, todo queda como antes). En Sessions: los botones negros de las tarjetas de "Sumarte" (voluntario, speaker, enterarme) tienen el haz **amarillo**, porque el blanco casi no se veía sobre negro; los botones blancos ("Quiero sumarme" y "Quiero ser sponsor →") tienen el haz **azul de marca**, porque el negro se veía sucio sobre blanco. Los botones azules siguen con el haz blanco.
+
+- 2026-09-29: En "Quiénes lo organizan" (Sessions) solo la etiqueta pequeña "Quiénes lo organizan" es amarilla; el título y el subtítulo vuelven a ser blancos y el fondo sigue negro, como estaba antes.
+
+- 2026-09-29: Corrección: la sección "Quiénes lo organizan" (Sessions) vuelve a tener fondo negro; lo que se cambió a amarillo (`#FFBE00`) es el texto: la etiqueta y el título ("forHuman lo organiza, tú pones la historia"). El subtítulo queda en blanco.
+
+- 2026-09-29: La sección "Quiénes lo organizan" (Sessions) ahora tiene fondo amarillo de marca (`#FFBE00`) en vez de negro; el título, el subtítulo y la etiqueta pasaron a texto negro para que se lean.
+
 - 2026-09-29: Titular del inicio de Sessions sin "te cansa" (sonaba raro), ahora en formato de preguntas cortas como el meme original, sin género: "¿Cada día sale una nueva IA?" → "¿Sin saber cuál es el mejor modelo?" → "¿Viendo a todos presumir en LinkedIn?" → (resaltada) "¿Leyendo esto con voz de anuncio de televisión?".
 
 - 2026-09-29: La franja en movimiento (marquee) de Sessions ahora dice: forHuman Sessions · Chimbote · Trujillo · **Lima** · **Próximamente…** (antes terminaba en "Encuentros presenciales"). Se revisó que el sitio no diga en ningún lado "por primera vez en Lima": no aparece.
