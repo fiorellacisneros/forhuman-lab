@@ -36,6 +36,8 @@ En pantallas de celular, todo el mismo contenido se muestra dentro de un marco d
 
 ## Recent Changes
 
+- 2026-09-29: Arreglado en las fotos de Fio y Dani (Sessions) que la franja de desenfoque detrás del nombre se salía en forma de cuadrado por las esquinas de abajo: el desenfoque ahora tiene sus propias esquinas redondeadas iguales a las de la tarjeta.
+
 - 2026-09-29: En "Qué hacer ahora" de las tarjetas de voluntario y speaker ya no se nombra a Fio: ahora dice "Escríbenos por WhatsApp y cuéntanos en qué quieres ayudar." y "Escríbenos por WhatsApp y cuéntanos tu idea o lo que quieres compartir." (los botones siguen abriendo el WhatsApp de Fio).
 
 - 2026-09-29: Cargos en las fotos de "Quiénes lo organizan" (Sessions): Fio ahora es "Webflow & Builder Educator" (antes "Figma & Webflow Educator") y Dani es "Figma & Design AI Educator" (antes "Product Designer"). Solo se cambió en la ventana Sessions; en las secciones de Webflow Camp y Finder siguen sus cargos anteriores ("Webflow Educator" y "Webflow Designer", o "Product Designer" en la de Figma), porque ahí se habla de la certificación de Webflow.
