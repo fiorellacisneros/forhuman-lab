@@ -3465,24 +3465,22 @@ function EmailCopyCTA({ compact = false }: { compact?: boolean }) {
 
 function SessionsFaq({ items }: { items: { q: string; a: ReactNode }[] }) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
-  const [hoverIndex, setHoverIndex] = useState<number | null>(null);
+  const listRef = useRef<HTMLDivElement>(null);
+  const seen = useInView(listRef, { once: true, margin: "-60px" });
   return (
-    <div style={{ borderBottom: "1px solid var(--border-subtle)" }} onMouseLeave={() => setHoverIndex(null)}>
+    <div ref={listRef} className="shs-faq-list" style={{ borderBottom: "1px solid var(--border-subtle)" }}>
       {items.map((item, i) => {
         const isOpen = openIndex === i;
-        const dimmed = hoverIndex !== null && hoverIndex !== i;
         return (
-          <motion.div
-            key={item.q}
-            initial={{ opacity: 0, y: 28 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-40px" }}
-            transition={{ duration: 0.6, ease: EASE_OUT }}
-          >
           <div
-            onMouseEnter={() => setHoverIndex(i)}
-            style={{ borderTop: "1px solid var(--border-subtle)", opacity: dimmed ? 0.3 : 1, transition: "opacity 0.3s ease" }}
+            key={item.q}
+            style={{
+              opacity: seen ? 1 : 0,
+              transform: seen ? "none" : "translateY(28px)",
+              transition: `opacity 0.6s ease ${i * 0.14}s, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1) ${i * 0.14}s`,
+            }}
           >
+          <div className="shs-faq-row" style={{ borderTop: "1px solid var(--border-subtle)" }}>
             <button
               type="button"
               onClick={() => setOpenIndex(isOpen ? null : i)}
@@ -3520,7 +3518,7 @@ function SessionsFaq({ items }: { items: { q: string; a: ReactNode }[] }) {
               )}
             </AnimatePresence>
           </div>
-          </motion.div>
+          </div>
         );
       })}
     </div>
