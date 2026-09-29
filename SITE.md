@@ -36,6 +36,34 @@ En pantallas de celular, todo el mismo contenido se muestra dentro de un marco d
 
 ## Recent Changes
 
+- 2026-09-29: Arreglado que la tarjeta Chimbote se veía gigante, con un hueco blanco entre el texto y la foto: la tarjeta se estiraba a lo alto de las dos filas que ocupa en la grilla. Ahora cada tarjeta de "Lo que ya hicimos" mide solo lo que necesita su contenido.
+
+- 2026-09-29: La tarjeta Chimbote de "Lo que ya hicimos" era demasiado alta (al ser ancha, su foto en formato 3:2 quedaba muy grande); ahora la foto es más panorámica (2:1), lo que la baja de altura unos 100px. Trujillo mantiene 3:2.
+
+- 2026-09-29: Grilla disruptiva en "Lo que ya hicimos" (ahora que Trujillo y Chimbote tienen foto): las tres tarjetas ya no van en fila pareja; usan una grilla de 12 columnas con tamaños distintos — Trujillo a la izquierda (5 columnas) inclinada hacia un lado, Chimbote a la derecha (7 columnas) más ancha, más baja y con inclinación contraria, y la tarjeta de incógnita negra debajo a la izquierda, montada sobre las otras con sombra. En celular vuelve a una columna sin inclinaciones. Estilos en `app/globals.css` (`.shs-hist`).
+
+- 2026-09-29: La tarjeta 01 Trujillo ahora tiene su foto real del evento (`public/forhuman-lab/sessions-trujillo.jpg`, reducida a 1400px), a color y con el glitch al pasar el mouse, igual que la de Chimbote. Como la foto original es vertical y la tarjeta la muestra en formato ancho, se encuadró para que se vea a la gente sentada con sus laptops (se recorta el piso de abajo).
+
+- 2026-09-29: La tarjeta Chimbote vuelve a usar la foto a color del grupo con el cartel de Sessions (`public/forhuman-lab/sessions-chimbote.jpg`, reducida a 1400px de ancho), sin filtro azul y solo con el glitch al pasar el mouse. Se borró la versión punteada (`sessions-chimbote-stippling.png`).
+
+- 2026-09-29: Las tarjetas de "Lo que ya hicimos" ya no se estiran a la misma altura: cada una mide lo que necesita su contenido (la de Chimbote es más alta por la foto), alineadas por arriba y sin escalera.
+
+- 2026-09-29: La foto de la tarjeta Chimbote ahora es la versión punteada en azul que enviaste (`public/forhuman-lab/sessions-chimbote-stippling.png`, sin ningún retoque ni reducción) y ya no lleva el filtro azul automático; solo tiene el glitch al pasar el mouse. Se borró la foto a color anterior (`sessions-chimbote.jpg`).
+
+- 2026-09-29: Arreglada la grilla de "Lo que ya hicimos": las tres tarjetas ya no bajan en escalera desordenada (eso, sumado a que la de Chimbote es más alta por la foto, se veía raro). Ahora las tres van alineadas arriba y miden la misma altura; la foto de Chimbote queda pegada al fondo de su tarjeta.
+
+- 2026-09-29: En la tarjeta 02 Chimbote, el orden ahora es: número y título, el texto y después la foto (antes la foto iba arriba).
+
+- 2026-09-29: La foto de Chimbote (tarjeta "Chimbote" de "Lo que ya hicimos") ahora tiene los mismos efectos que las otras fotos de Sessions: duotono azul de marca con grano (`shs-duotone`) y el glitch de franjas al pasar el mouse (`GlitchImage`). `CardAprendizaje` ahora recibe la foto como elemento (`media`) para poder usar ese efecto.
+
+- 2026-09-29: En "Lo que ya hicimos" el orden de las tarjetas ahora es: 01 Trujillo, 02 Chimbote (la del medio, con la foto real del evento) y 03 la tarjeta de incógnita. Se quitó la foto suelta que estaba debajo. Para esto `CardAprendizaje` vuelve a aceptar una foto opcional (`image`).
+
+- 2026-09-29: La foto de Chimbote ya no va dentro de su tarjeta: ahora está debajo de las tres tarjetas de "Lo que ya hicimos", centrada y más grande (ancho máximo 820px), con el pie "forHuman Sessions · Chimbote", porque es la única foto que hay. La tarjeta de Chimbote vuelve a ser solo texto.
+
+- 2026-09-29: Foto real del forHuman Sessions de Chimbote (`public/forhuman-lab/sessions-chimbote.jpg`, reducida de 11 MB a ~300 KB) en la tarjeta "Chimbote" de "Lo que ya hicimos". La tarjeta de Trujillo sigue sin foto (pásame una y la agrego). Para esto, `CardAprendizaje` ahora acepta una foto opcional (`image`).
+
+- 2026-09-29: Titular del inicio de Sessions con preguntas completas: "¿Cada día sale una nueva IA?" → "¿No sabes cuál es el mejor modelo?" → "¿Ves a todos presumir en LinkedIn?" → (resaltada) "¿Leyendo esto con voz de anuncio de televisión?".
+
 - 2026-09-29: Revisión del responsive en celular (390px) de Sessions. Se corrigió que la píldora "Tentativo: 15 o 16 oct · 6 pm" se partía en dos líneas (ahora no se parte; si no cabe junto al texto de al lado, ese texto baja a otra línea), y la etiqueta de la sección "Lo que ya hicimos" ya no dice "Ediciones". El resto del inicio (titular, botones, imagen) se ve bien en celular.
 
 - 2026-09-29: Ajuste del haz de luz: en los botones negros de Sessions el haz es amarillo y en los botones blancos ("Quiero sumarme" y "Quiero ser sponsor →") el haz es **negro** (`#0D0D0D`, mezclado normal en vez de multiplicado, para que se vea limpio y no como una mancha gris). Antes los blancos tenían haz azul.
