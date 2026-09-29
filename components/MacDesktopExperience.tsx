@@ -3654,6 +3654,193 @@ function GlitchImage({ style, className, alt = "", src, ...rest }: ImgHTMLAttrib
   );
 }
 
+function SessionsBody() {
+  return (
+    <>
+      <section id="sessions-inicio" className="shs-canon shs-canon-hero" style={{ padding: "clamp(32px, 8vw, 64px) 64px clamp(24px, 6vw, 48px) 64px", display: "flex", flexDirection: "column", gap: "clamp(20px, 4vw, 32px)" }}>
+        <Reveal>
+          <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+            <PillButton>forHuman Sessions · ¿IA fuimos?</PillButton>
+          </div>
+        </Reveal>
+        <h1 className="shs-hero-h1" style={{ font: "700 clamp(38px, 9.5vw, 104px)/0.98 'Manrope',sans-serif", letterSpacing: "-0.04em", color: "var(--black)", margin: 0, maxWidth: "none" }}>
+          <RevealLine>Hablemos de lo que</RevealLine>
+          <RevealLine delay={0.12} mask={false}>
+            <HeroHighlight>no contamos en LinkedIn.</HeroHighlight>
+          </RevealLine>
+        </h1>
+        <Reveal delay={0.3}>
+          <p style={{ font: "300 clamp(16px, 4vw, 22px)/1.4 'Work Sans',sans-serif", color: "var(--gray-600)", maxWidth: 620, margin: 0 }}>
+            La IA ya escribe, diseña y programa; lo que casi nadie cuenta es cómo nos sentimos en medio de todo eso. Estamos armando el espacio para decirlo en voz alta y necesitamos tu ayuda para ejecutarlo.
+          </p>
+        </Reveal>
+        <Reveal delay={0.4}>
+          <div style={{ display: "flex", gap: 20, alignItems: "center", flexWrap: "wrap" }}>
+            <PrincipalButton variant="primary" onClick={openSessionsBooking}>Quiero sumarme</PrincipalButton>
+            <TextButton href="#sessions-sumate" onClick={(e) => { e.preventDefault(); smoothScrollToId("sessions-sumate"); }}>Ver cómo sumarme</TextButton>
+          </div>
+        </Reveal>
+        <motion.div
+          initial={{ clipPath: "inset(14% 14% 14% 14% round 24px)", scale: 1.08 }}
+          whileInView={{ clipPath: "inset(0% 0% 0% 0% round 16px)", scale: 1 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 1.1, ease: EASE_OUT }}
+        >
+          <GlitchImage
+            src="/forhuman-lab/hero-stippling.png"
+            alt="Textura de puntos azules"
+            style={{ width: "100%", height: "clamp(200px, 48vw, 440px)", objectFit: "cover", objectPosition: "center", display: "block" }}
+          />
+        </motion.div>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+            <PillButton>Fecha por confirmar</PillButton>
+            <span style={{ font: "400 13px/1.3 'Work Sans',sans-serif", color: "var(--gray-500)" }}>Escríbenos y ayúdanos a ejecutarlo</span>
+          </div>
+          <PillButton onClick={() => smoothScrollToId("sessions-que-es")}>Scroll ↓</PillButton>
+        </div>
+      </section>
+
+      <ShiftPanel
+        id="sessions-que-es"
+        style={{ borderRadius: "var(--radius-md)", margin: "0 clamp(12px, 2vw, 24px)", overflow: "hidden", display: "flex", flexDirection: "column" }}
+      >
+        <div style={{ padding: "clamp(40px, 9vw, 96px) 64px", display: "flex", gap: "clamp(24px, 6vw, 80px)", flexWrap: "wrap" }}>
+          <ShiftLabel />
+          <div style={{ flex: "1 1 420px", minWidth: 0, display: "flex", flexDirection: "column", gap: "clamp(28px, 5vw, 48px)" }}>
+            <ScrollWords
+              text="Encuentros presenciales en distintas ciudades para hablar de lo que pasa alrededor del trabajo. Ya pasamos por Chimbote y Trujillo. Ahora llegamos a Lima con ¿IA fuimos?: cómo estamos parados frente a la IA, el ego, el burnout y lo que no contamos en LinkedIn."
+              style={{ font: "500 clamp(24px, 4.6vw, 44px)/1.15 'Manrope',sans-serif", letterSpacing: "-0.03em", margin: 0 }}
+            />
+            <RevealGroup style={{ display: "flex", flexDirection: "column", gap: 18 }}>
+              {SESSIONS_INDEX.map((item) => (
+                <SessionsIndexLink key={item.n} {...item} />
+              ))}
+            </RevealGroup>
+          </div>
+        </div>
+        <Marquee items={SESSIONS_MARQUEE} />
+      </ShiftPanel>
+
+      <section id="sessions-ediciones" className="shs-canon shs-canon-ediciones" style={{ padding: "clamp(40px, 9vw, 80px) 64px", display: "flex", flexDirection: "column", gap: 32 }}>
+        <Reveal>
+          <Header
+            kicker="Ediciones"
+            kickerColor="var(--blue)"
+            title="Ya pasamos por Chimbote y Trujillo. Ahora, Lima."
+            subtitle="Cada edición de forHuman Sessions junta a la gente de una ciudad para conversar de lo que pasa alrededor del trabajo."
+            align="left"
+          />
+        </Reveal>
+        <RevealGroup className="shs-stagger" style={{ display: "flex", gap: 20, flexWrap: "wrap", alignItems: "flex-start" }} itemStyle={{ flex: "1 1 300px", minWidth: 0 }}>
+          {SESSIONS_EDITIONS.map((e) => (
+            <CardAprendizaje key={e.number} number={e.number} label="Edición" title={e.title} body={e.body} style={{ width: "100%", height: "100%" }} />
+          ))}
+        </RevealGroup>
+      </section>
+
+      <section id="sessions-numeros" style={{ background: "var(--gray-100)", padding: "clamp(32px, 8vw, 64px) 64px", display: "flex", flexDirection: "column", gap: 32 }}>
+        <Reveal>
+          <Header kicker="Lo que sabemos" kickerColor="var(--blue)" title="Lo único seguro hoy" subtitle="¿IA fuimos? todavía se está armando. Esto es lo que ya podemos decirte." align="left" style={{ gap: 16 }} />
+        </Reveal>
+        <RevealGroup className="shs-motivos-row" style={{ display: "flex", flexWrap: "wrap", gap: 20, justifyContent: "center", padding: "12px 0 24px" }} itemStyle={{ flex: "1 1 280px", minWidth: 0 }}>
+          <PromoCard variant="yellow" heading="Es la primera vez" note="*Nunca lo hemos hecho" body="¿IA fuimos? es nuevo. Chimbote y Trujillo fueron otras ediciones de forHuman Sessions." linkText="" style={{ width: "100%", height: "100%", transform: "rotate(-2deg)" }} />
+          <PromoCard variant="blue" heading="Nació de 20 mensajes" note="*Una historia de Instagram" body="Subimos una historia y 20 personas escribieron para sumarse. Ahí entendimos que había algo que contar." linkText="" style={{ width: "100%", height: "100%", transform: "rotate(1.5deg)" }} />
+          <PromoCard variant="dark" heading="Presencial y con gente real" note="*Formato en definición" body="Un encuentro en Lima. Duración, dinámicas y lugar todavía se están definiendo." linkText="" style={{ width: "100%", height: "100%", transform: "rotate(-1deg)" }} />
+        </RevealGroup>
+      </section>
+
+      <section id="sessions-sumate" style={{ background: "var(--black)", padding: "clamp(40px, 9vw, 80px) 64px", display: "flex", flexDirection: "column", gap: 32 }}>
+        <Reveal>
+          <Header
+            kicker="Sumarte"
+            kickerColor="var(--yellow)"
+            title="Si tienes ganas de ejecutar, con eso nos basta"
+            subtitle="No buscamos perfiles ni roles: necesitamos que las cosas pasen. Estamos tramando la edición de Lima; elige por dónde quieres entrar."
+            align="left"
+            color="var(--white)"
+            style={{ gap: 16 }}
+          />
+        </Reveal>
+        <RevealGroup className="shs-motivos-row" style={{ display: "flex", gap: 20, alignItems: "stretch" }} itemStyle={{ flex: "1 1 0", minWidth: 0 }}>
+          {SESSION_ROLES.map((r) => (
+            <SessionRoleCard key={r.id} role={r.id} />
+          ))}
+        </RevealGroup>
+      </section>
+
+      <section id="sessions-estado" className="shs-canon shs-canon-estado" style={{ padding: "clamp(40px, 9vw, 96px) 64px", display: "flex", flexDirection: "column", gap: 32 }}>
+        <Reveal style={{ position: "sticky", top: 24, alignSelf: "start" }}>
+          <Header
+            kicker="Estado del proyecto"
+            kickerColor="var(--blue)"
+            title="Lo que ya estamos armando"
+            subtitle="Nada de esto es definitivo. Esto es exactamente lo que sabemos hoy, para que veas a qué te sumas de verdad."
+            align="left"
+            style={{ gap: 16 }}
+          />
+        </Reveal>
+        <SessionsProgress />
+      </section>
+
+      <section id="sessions-organizan" className="shs-mentores-row" style={{ background: "var(--black)", padding: "clamp(40px, 9vw, 80px) 64px", display: "flex", gap: 48, flexWrap: "nowrap", alignItems: "center" }}>
+        <Reveal style={{ flex: "1 1 320px", minWidth: 0 }}>
+          <Header
+            kicker="Quiénes lo organizan"
+            kickerColor="rgba(255,255,255,0.6)"
+            title="forHuman pone el espacio, tú pones la historia"
+            subtitle="Somos las mismas personas detrás de forHuman Studio y superHuman School. Escríbenos directo."
+            align="left"
+            color="var(--white)"
+          />
+        </Reveal>
+        <RevealGroup style={{ display: "flex", gap: 24, flexWrap: "nowrap", flexShrink: 0, minWidth: 0 }}>
+          <MomentumCard style={{ width: 260, flexShrink: 0, borderRadius: "var(--radius-md)", overflow: "hidden", position: "relative" }} onClick={() => openMentorWhatsApp("936098806", "Fio")}>
+            <GlitchImage src="/forhuman-lab/fio-stippling.png" alt="Fiorella Cisneros" loading="lazy" style={{ width: "100%", aspectRatio: "4 / 5", objectFit: "cover", objectPosition: "center top", display: "block" }} />
+            <div style={{ position: "absolute", left: 0, right: 0, bottom: 0, padding: "24px 20px", background: "linear-gradient(0deg, rgba(0,0,0,0.75), transparent)" }}>
+              <div style={{ font: "500 20px/1 'Manrope',sans-serif", color: "var(--white)" }}>Fiorella Cisneros</div>
+              <div style={{ font: "300 13px/1 'Work Sans',sans-serif", color: "rgba(255,255,255,0.8)" }}>Figma & Webflow Educator</div>
+            </div>
+          </MomentumCard>
+          <MomentumCard style={{ width: 260, flexShrink: 0, borderRadius: "var(--radius-md)", overflow: "hidden", position: "relative" }} onClick={() => openMentorWhatsApp("937845233", "Dani")}>
+            <GlitchImage src="/forhuman-lab/dani-stippling.png" alt="Danitza Rosas" loading="lazy" style={{ width: "100%", aspectRatio: "4 / 5", objectFit: "cover", objectPosition: "center 50%", display: "block" }} />
+            <div style={{ position: "absolute", left: 0, right: 0, bottom: 0, padding: "24px 20px", background: "linear-gradient(0deg, rgba(0,0,0,0.75), transparent)" }}>
+              <div style={{ font: "500 20px/1 'Manrope',sans-serif", color: "var(--white)" }}>Danitza Rosas</div>
+              <div style={{ font: "300 13px/1 'Work Sans',sans-serif", color: "rgba(255,255,255,0.8)" }}>Product Designer</div>
+            </div>
+          </MomentumCard>
+        </RevealGroup>
+      </section>
+
+      <section id="sessions-faq" style={{ padding: "clamp(40px, 9vw, 96px) 64px", display: "flex", gap: "clamp(28px, 7vw, 80px)", flexWrap: "wrap" }}>
+        <Reveal style={{ flex: "0 1 360px" }}>
+          <div className="shs-faq-sticky" style={{ position: "sticky", top: 32, display: "flex", flexDirection: "column", gap: 16 }}>
+          <span style={{ display: "flex", alignItems: "center", gap: 8, font: "400 15px/1.3 'Work Sans',sans-serif", color: "var(--gray-500)" }}>
+            <span style={{ width: 7, height: 7, borderRadius: "50%", background: "var(--blue)" }} />
+            Preguntas
+          </span>
+          <h2 style={{ font: "700 clamp(32px, 6vw, 56px)/1 'Manrope',sans-serif", letterSpacing: "-0.04em", color: "var(--black)", margin: 0 }}>
+            Bueno saber
+          </h2>
+          <p style={{ font: "300 16px/1.45 'Work Sans',sans-serif", color: "var(--gray-600)", margin: 0 }}>
+            Lo que sabemos hoy sobre forHuman Sessions. ¿Falta algo?{" "}
+            <a href={whatsappUrl("936098806", "Hola Fio, tengo una pregunta sobre forHuman Sessions...")} target="_blank" rel="noopener noreferrer" style={{ color: "var(--black)", borderBottom: "1px solid var(--black)", textDecoration: "none" }}>
+              Escríbenos
+            </a>
+            .
+          </p>
+          </div>
+        </Reveal>
+        <Reveal delay={0.1} style={{ flex: "1 1 420px", minWidth: 0 }}>
+          <SessionsFaq items={SESSIONS_FAQ} />
+        </Reveal>
+      </section>
+
+      <SiteFooter />
+    </>
+  );
+}
+
 function FotosSection({ id, title, count, photos = REAL_PHOTOS }: { id: string; title: string; count: number; photos?: string[] }) {
   return (
     <div id={id} style={{ padding: "16px 20px 28px" }}>

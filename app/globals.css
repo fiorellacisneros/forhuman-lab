@@ -256,6 +256,9 @@ body {
 }
 
 @media (max-width: 859px) {
+  .shs-faq-sticky {
+    position: static !important;
+  }
   .shs-scroll > section,
   .shs-scroll > footer,
   .shs-scroll > div {
@@ -281,6 +284,10 @@ body {
     word-break: break-word !important;
   }
   .shs-motivos-row {
+    flex-direction: column !important;
+  }
+  .shs-sessions-roles,
+  .shs-sessions-ledger {
     flex-direction: column !important;
   }
   .shs-mentores-row {
@@ -323,3 +330,5 @@ body {
     animation-duration: 0.01ms !important;
   }
 }
+
+/* hero title: two lines, sized to the window */
