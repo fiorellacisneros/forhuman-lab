@@ -3121,6 +3121,81 @@ function FinderBody() {
   );
 }
 
+type SessionRole = "voluntario" | "speaker" | "publico";
+
+const SESSION_ROLES: { id: SessionRole; title: string; hint: string }[] = [
+  { id: "voluntario", title: "Ayudar a armarlo", hint: "Nos ayudas a ejecutarlo" },
+  { id: "speaker", title: "Contar una historia", hint: "Tienes algo real que contar" },
+  { id: "publico", title: "Estar ahí", hint: "Quieres venir ese día" },
+];
+
+const SESSION_PANELS: Record<
+  SessionRole,
+  { title: string; lead: string; asks: { tag: string; text: string }[]; cta: string; whatsapp?: string }
+> = {
+  voluntario: {
+    title: "Ayúdanos a hacerlo realidad",
+    lead: "Estamos tramando la edición de Lima y hay mucho por ejecutar. Te contamos el plan y nos ayudas a sacarlo adelante.",
+    asks: [
+      { tag: "Speakers", text: "Traer o contactar a alguien con algo real que contar." },
+      { tag: "Dinámicas", text: "Ayudar a diseñar qué pasa en el encuentro: cómo se conversa, cómo se siente la sala." },
+      { tag: "Día del evento", text: "Recepción, acompañar el programa, que todo fluya cuando llegue la fecha." },
+    ],
+    cta: "Quiero ayudar",
+    whatsapp: "Hola Fio, me interesa ser voluntario/a, puedo sumar como...",
+  },
+  speaker: {
+    title: "Cuéntanos qué quieres compartir",
+    lead: "Buscamos historias, no ponencias: algo que hayas vivido de verdad. Cuéntanos tu idea y la armamos juntos.",
+    asks: [
+      { tag: "Formato", text: "Todavía en definición — probablemente conversado, en vivo, no leído." },
+      { tag: "Duración", text: "Por definir, junto con el resto del programa." },
+      { tag: "Qué hacer ahora", text: "Escríbele a Fio por WhatsApp y cuéntale tu idea en una línea." },
+    ],
+    cta: "Contarle mi idea a Fio",
+    whatsapp: "Hola Fio, me interesa ser speaker, te cuento mi idea...",
+  },
+  publico: {
+    title: "Entérate primero",
+    lead: "Todavía estamos definiendo la fecha, el lugar y el programa. Deja tu correo y te contamos todos los detalles apenas estén definidos.",
+    asks: [
+      { tag: "Tema", text: "En Lima, ¿IA fuimos?: cómo estamos parados frente a la IA, los egos, el burnout, lo que no contamos en LinkedIn." },
+      { tag: "Inscripción", text: "Todavía no abre — se define junto con la fecha." },
+      { tag: "Qué hacer ahora", text: "Deja tu correo en el formulario del final de la página." },
+    ],
+    cta: "Dejar mi correo",
+  },
+};
+
+const SESSIONS_BOOKING_URL = "https://cal.com/forhuman-studio/sumate";
+
+const SESSIONS_MARQUEE = ["forHuman Sessions", "¿IA fuimos?", "Chimbote", "Trujillo", "Lima", "Próximamente"];
+
+const SESSIONS_EDITIONS = [
+  { number: "01", title: "Chimbote", body: "Una edición de forHuman Sessions en Chimbote, con la comunidad de la ciudad." },
+  { number: "02", title: "Trujillo", body: "Otra edición de forHuman Sessions, esta vez en Trujillo, con gente real." },
+  { number: "03", title: "Lima", body: "Por primera vez en Lima: ¿IA fuimos?, un encuentro presencial. La fecha se anuncia pronto." },
+];
+
+const SESSION_ROLE_ICONS: Record<SessionRole, MotivoIconKind> = { voluntario: "layers", speaker: "zap", publico: "globe" };
+
+const SESSIONS_OPEN = [
+  "La fecha y hora exactas.",
+  "Quiénes son los speakers.",
+  "El lugar.",
+  "Cuánto dura y qué dinámicas se hacen.",
+  "Quién modera.",
+  "Cómo y cuándo abre la inscripción.",
+];
+
+const SESSIONS_FAQ = [
+  { q: "¿Qué es forHuman Sessions?", a: "Encuentros presenciales organizados por forHuman, en distintas ciudades. Ya hubo ediciones en Chimbote y Trujillo, y ahora armamos la de Lima, que se llama ¿IA fuimos?" },
+  { q: "¿Cuándo y dónde es?", a: "Es en Lima. La fecha, la hora y el lugar exactos todavía se están definiendo." },
+  { q: "¿De qué se habla?", a: "Cada edición de forHuman Sessions tiene su propio tema. El de Lima, ¿IA fuimos?, habla de salud mental en tiempos de IA: egos, burnout, lo que no contamos en LinkedIn." },
+  { q: "¿Tengo que ser experto para hablar?", a: "No. Buscamos historias, no ponencias: algo que hayas vivido de verdad. Nada de 40 minutos de slides." },
+  { q: "¿Cómo me inscribo?", a: "La inscripción todavía no abre. Deja tu correo en el formulario del final de la página y te escribimos apenas esté definida." },
+];
+
 function FotosSection({ id, title, count, photos = REAL_PHOTOS }: { id: string; title: string; count: number; photos?: string[] }) {
   return (
     <div id={id} style={{ padding: "16px 20px 28px" }}>
