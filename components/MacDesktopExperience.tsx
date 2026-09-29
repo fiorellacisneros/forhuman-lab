@@ -4105,18 +4105,16 @@ function ManifiestoBody({ now, compact = false }: { now: Date | null; compact?: 
           margin: 0,
         }}
       >
-        Aprender se aprende haciendo.
+        Nos juntamos para construir, no para mirar.
       </h1>
       <p style={{ font: `300 ${compact ? 15 : 18}px/1.6 'Work Sans',sans-serif`, color: "rgba(247,247,247,0.9)", margin: 0 }}>
-        Creemos que el mejor diseño no se enseña con slides, se enseña construyendo. superHuman School nace de forHuman Studio: la misma agencia que factura, entrega y se equivoca en proyectos reales — ahora enseñando lo que de verdad usamos, no lo que se ve bien en un curso.
+        forHuman Studio no solo entrega proyectos: también junta gente. Hemos sido parte de hackathons, potenciamos los eventos de Webflow Perú y hemos sido sponsors de <ManifiestoHighlight>Colombia Tech Week, FOF Perú, IA Hackathon y Webflow Perú</ManifiestoHighlight>.
       </p>
       <p style={{ font: `300 ${compact ? 15 : 18}px/1.6 'Work Sans',sans-serif`, color: "rgba(247,247,247,0.9)", margin: 0 }}>
-        No queremos graduados con certificado. Queremos builders con criterio: personas que salgan de acá sabiendo defender una decisión de diseño, no solo ejecutarla. Por eso cada camp lo dan quienes hoy mismo siguen
-        <ManifiestoHighlight>trabajando con clientes reales, no solo enseñando teoría</ManifiestoHighlight>.
+        Ahora abrimos nuestro propio espacio: forHuman Sessions. Ya tuvo ediciones en Chimbote y Trujillo, y <ManifiestoHighlight>llega por primera vez a Lima con ¿IA fuimos?</ManifiestoHighlight>, un encuentro presencial.
       </p>
       <p style={{ font: `300 ${compact ? 15 : 18}px/1.6 'Work Sans',sans-serif`, color: "rgba(247,247,247,0.9)", margin: 0 }}>
-        En un mercado saturado de cursos grabados y certificados de fin de semana, el diferencial ya no es la herramienta, es el criterio. La IA acelera el build — la usamos todos los días en forHuman Studio — pero no reemplaza saber qué necesita un cliente, ni defender una decisión cuando algo no sale como el tutorial. Por eso no formamos gente que sepa apretar botones: formamos
-        <ManifiestoHighlight>gente menos reemplazable</ManifiestoHighlight>.
+        Nuestros eventos son con gente real y sin slides de vendedor. En forHuman Sessions cada edición tiene su propio tema; el de Lima habla de salud mental en tiempos de IA, de egos, de burnout y de <ManifiestoHighlight>lo que no contamos en LinkedIn</ManifiestoHighlight>. Si algo te movió, escríbenos y súmate.
       </p>
       <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", marginTop: compact ? 8 : 24 }}>
         <span style={{ font: `400 ${compact ? 30 : 38}px/1 'Reenie Beanie',cursive`, color: "#F7F7F7" }}>Dani y Fio</span>
