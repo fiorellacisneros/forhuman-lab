@@ -3167,7 +3167,7 @@ const SESSION_PANELS: Record<
   },
   publico: {
     title: "Entérate primero",
-    lead: "Todavía estamos definiendo la fecha, el lugar y el programa. Deja tu correo y te contamos todos los detalles apenas estén definidos.",
+    lead: "La fecha tentativa es el jueves 15 o el viernes 16 de octubre a las 6 pm; el lugar y el programa todavía se están definiendo. Deja tu correo y te contamos todos los detalles apenas estén definidos.",
     asks: [
       { tag: "Tema", text: "Cada forHuman Sessions tiene su propio tema. En ¿IA fuimos? hablamos de cómo estamos frente a la IA, los egos, el burnout y lo que no contamos en LinkedIn." },
       { tag: "Inscripción", text: "Todavía no abre — se define junto con la fecha." },
@@ -3189,7 +3189,7 @@ const SESSIONS_EDITIONS = [
 const SESSION_ROLE_ICONS: Record<SessionRole, MotivoIconKind> = { voluntario: "layers", speaker: "zap", publico: "globe" };
 
 const SESSIONS_OPEN = [
-  "La fecha y hora exactas.",
+  "Confirmar la fecha y la hora (tentativo: jueves 15 o viernes 16 de octubre, 6 pm).",
   "Quiénes son los speakers.",
   "El lugar.",
   "Cuánto dura y qué dinámicas se hacen.",
@@ -3199,7 +3199,7 @@ const SESSIONS_OPEN = [
 
 const SESSIONS_FAQ = [
   { q: "¿Qué es forHuman Sessions?", a: "Encuentros presenciales organizados por forHuman, en distintas ciudades. Ya lo hicimos en Chimbote y Trujillo, y cada uno fue distinto." },
-  { q: "¿Cuándo y dónde es?", a: "Es en Lima. La fecha, la hora y el lugar todavía se están definiendo y se anuncian pronto." },
+  { q: "¿Cuándo y dónde es?", a: "Es en Lima. La fecha tentativa es el jueves 15 o el viernes 16 de octubre a las 6 pm; falta confirmar el día, y el lugar todavía se está definiendo. Lo anunciamos pronto." },
   { q: "¿De qué se habla?", a: "Cada forHuman Sessions tiene su propio tema. En ¿IA fuimos? hablamos de cómo estamos frente a la IA, los egos, el burnout y lo que no contamos en LinkedIn." },
   { q: "¿Tengo que ser experto para hablar?", a: "No. Buscamos historias, no ponencias: algo que hayas vivido de verdad. Nada de 40 minutos de slides." },
   { q: "¿Cómo me inscribo?", a: "La inscripción todavía no abre. Deja tu correo en el formulario del final de la página y te escribimos apenas esté definida." },
@@ -3532,7 +3532,7 @@ const SESSIONS_TIMELINE: { state: "done" | "now" | "next"; title: string; body: 
   { state: "done", title: "Nace la idea", body: "Juntar a la gente de una ciudad a conversar de lo que pasa alrededor del trabajo." },
   { state: "done", title: "Cada Sessions, su tema", body: "Cada encuentro tiene su propio tema y sus propias historias." },
   { state: "now", title: "Buscamos manos", body: "Speakers y voluntarios con ganas de ejecutarlo. Estás aquí." },
-  { state: "next", title: "Fecha, lugar y programa", body: "Cuánto dura, qué dinámicas, quién modera." },
+  { state: "next", title: "Fecha, lugar y programa", body: "Fecha tentativa: jueves 15 o viernes 16 de octubre, 6 pm. Falta confirmar el día, el lugar y el programa." },
   { state: "next", title: "Se abre la inscripción", body: "Te avisamos primero si dejaste tu correo." },
 ];
 
@@ -3713,7 +3713,7 @@ function SessionsBody() {
         </motion.div>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-            <PillButton>Fecha por confirmar</PillButton>
+            <PillButton>Tentativo: 15 o 16 oct · 6 pm</PillButton>
             <span style={{ font: "400 13px/1.3 'Work Sans',sans-serif", color: "var(--gray-500)" }}>Escríbenos y ayúdanos a ejecutarlo</span>
           </div>
           <PillButton onClick={() => smoothScrollToId("sessions-que-es")}>Scroll ↓</PillButton>
@@ -4551,7 +4551,7 @@ export function MacDesktopExperience() {
                 <span style={{ font: "600 11px/1 'Inconsolata',monospace", letterSpacing: "0.08em", color: "rgba(247,247,247,0.5)", textTransform: "uppercase" }}>{now ? MENU_BAR_MONTHS[now.getMonth()] : ""}</span>
                 <div style={{ background: "rgba(255,255,255,0.1)", borderRadius: 12, padding: "8px 11px" }}>
                   <div style={{ font: "600 13px/1.3 'Work Sans',sans-serif", color: "#F7F7F7" }}>forHuman Sessions</div>
-                  <div style={{ font: "400 12px/1.3 'Inconsolata',monospace", color: "rgba(247,247,247,0.6)" }}>Fecha por confirmar</div>
+                  <div style={{ font: "400 12px/1.3 'Inconsolata',monospace", color: "rgba(247,247,247,0.6)" }}>15 o 16 oct · 6 pm (tentativo)</div>
                 </div>
                 <div style={{ background: "rgba(255,255,255,0.1)", borderRadius: 12, padding: "8px 11px" }}>
                   <div style={{ font: "600 13px/1.3 'Work Sans',sans-serif", color: "#F7F7F7" }}>Inscripciones</div>
@@ -4872,7 +4872,7 @@ export function MacDesktopExperience() {
                     </div>
                   </div>
                   {[
-                    ["forHuman Sessions", "Fecha por confirmar"],
+                    ["forHuman Sessions", "15 o 16 oct · 6 pm (tentativo)"],
                     ["Inscripciones", "Fecha por confirmar"],
                   ].map(([title, detail]) => (
                     <div key={title} style={{ background: "rgba(255,255,255,0.09)", borderRadius: 10, padding: "8px 10px" }}>
