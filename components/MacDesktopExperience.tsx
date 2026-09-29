@@ -4484,7 +4484,7 @@ export function MacDesktopExperience() {
           >
             <div style={{ display: "flex", alignItems: "center", gap: 18 }}>
               <div style={{ width: 14, height: 14, background: "url(/forhuman-lab/logo-forhuman-mark.svg) center / contain no-repeat" }} />
-              <span style={{ fontWeight: 700 }}>forHuman Lab</span>
+              <span style={{ fontWeight: 700 }}>forHuman Sessions</span>
               <span>Archivo</span>
               <span>Edición</span>
               <span>Ver</span>
@@ -4532,14 +4532,14 @@ export function MacDesktopExperience() {
                 <span style={{ font: "400 40px/1 'Manrope',sans-serif", color: "#F7F7F7", letterSpacing: "-0.03em" }}>{now ? now.getDate() : ""}</span>
               </div>
               <div style={{ display: "flex", flexDirection: "column", gap: 8, flex: 1, minWidth: 0 }}>
-                <span style={{ font: "600 11px/1 'Inconsolata',monospace", letterSpacing: "0.08em", color: "rgba(247,247,247,0.5)", textTransform: "uppercase" }}>Agosto</span>
+                <span style={{ font: "600 11px/1 'Inconsolata',monospace", letterSpacing: "0.08em", color: "rgba(247,247,247,0.5)", textTransform: "uppercase" }}>{now ? MENU_BAR_MONTHS[now.getMonth()] : ""}</span>
                 <div style={{ background: "rgba(255,255,255,0.1)", borderRadius: 12, padding: "8px 11px" }}>
-                  <div style={{ font: "600 13px/1.3 'Work Sans',sans-serif", color: "#F7F7F7" }}>Webflow IA Camp</div>
-                  <div style={{ font: "400 12px/1.3 'Inconsolata',monospace", color: "rgba(247,247,247,0.6)" }}>Mar y Jue · 7–9pm Perú</div>
+                  <div style={{ font: "600 13px/1.3 'Work Sans',sans-serif", color: "#F7F7F7" }}>¿IA fuimos?</div>
+                  <div style={{ font: "400 12px/1.3 'Inconsolata',monospace", color: "rgba(247,247,247,0.6)" }}>Fecha por confirmar</div>
                 </div>
                 <div style={{ background: "rgba(255,255,255,0.1)", borderRadius: 12, padding: "8px 11px" }}>
-                  <div style={{ font: "600 13px/1.3 'Work Sans',sans-serif", color: "#F7F7F7" }}>Figma Camp</div>
-                  <div style={{ font: "400 12px/1.3 'Inconsolata',monospace", color: "rgba(247,247,247,0.6)" }}>Mar y Jue · 7–9pm Perú</div>
+                  <div style={{ font: "600 13px/1.3 'Work Sans',sans-serif", color: "#F7F7F7" }}>Inscripciones</div>
+                  <div style={{ font: "400 12px/1.3 'Inconsolata',monospace", color: "rgba(247,247,247,0.6)" }}>Fecha por confirmar</div>
                 </div>
               </div>
             </div>
@@ -4561,10 +4561,10 @@ export function MacDesktopExperience() {
                 }}
               >
                 <div style={{ display: "flex", alignItems: "baseline", gap: 6 }}>
-                  <span style={{ font: "700 15px/1 'Work Sans',sans-serif", color: "#F7F7F7" }}>Hoy</span>
+                  <span style={{ font: "700 15px/1 'Work Sans',sans-serif", color: "#F7F7F7" }}>To-do list</span>
                   <span style={{ font: "500 12px/1 'Work Sans',sans-serif", color: "rgba(247,247,247,0.5)" }}>4</span>
                 </div>
-                {["Webflow IA Camp — Mar y Jue", "Figma Camp — Mar y Jue", "Cupos Early Bird", "Certificado final"].map((item) => (
+                {["Confirmar fecha y hora", "Definir speakers", "Elegir quién modera", "Abrir inscripción"].map((item) => (
                   <div key={item} style={{ display: "flex", alignItems: "center", gap: 8, minWidth: 0 }}>
                     <div style={{ width: 14, height: 14, borderRadius: "50%", boxShadow: "inset 0 0 0 1.5px rgba(247,247,247,0.5)", flexShrink: 0 }} />
                     <span
