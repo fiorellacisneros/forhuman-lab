@@ -3604,13 +3604,13 @@ function SessionsProgress() {
             <span style={{ alignSelf: "flex-start", font: "600 11px/1 'Inconsolata',monospace", letterSpacing: "0.1em", textTransform: "uppercase", padding: "6px 10px", borderRadius: "var(--radius-full)", background: "var(--yellow)", color: "var(--black)" }}>Estás aquí</span>
             <span style={{ font: "700 clamp(28px, 3.4vw, 44px)/1 'Manrope',sans-serif", letterSpacing: "-0.04em" }}>{now.title}</span>
             <span style={{ font: "300 16px/1.45 'Work Sans',sans-serif", color: "rgba(247,247,247,0.85)" }}>{now.body}</span>
-            <button
+            <motion.button whileHover={{ scale: 1.05, backgroundColor: "#FFBE00" }} whileTap={{ scale: 0.97 }} transition={{ duration: 0.15 }}
               type="button"
               onClick={() => openSessionsWhatsApp("Hola Fio, quiero sumarme a ¿IA fuimos?, te cuento cómo puedo ayudar...")}
               style={{ alignSelf: "flex-start", marginTop: 8, background: "var(--pure-white)", color: "var(--black)", border: "none", borderRadius: "var(--radius-full)", padding: "12px 22px", font: "500 16px/1 'Work Sans',sans-serif", cursor: "pointer" }}
             >
               Quiero sumarme →
-            </button>
+            </motion.button>
           </div>
         </Reveal>
       )}
@@ -3853,13 +3853,13 @@ function SessionsBody() {
                   </span>
                 ))}
               </div>
-              <button
+              <motion.button whileHover={{ scale: 1.05, backgroundColor: "#FFBE00" }} whileTap={{ scale: 0.97 }} transition={{ duration: 0.15 }}
                 type="button"
                 onClick={() => openSessionsWhatsApp("Hola Fio, quiero ser sponsor")}
                 style={{ alignSelf: "flex-start", marginTop: "auto", background: "var(--pure-white)", color: "var(--black)", border: "none", borderRadius: "var(--radius-full)", padding: "12px 22px", font: "500 16px/1 'Work Sans',sans-serif", cursor: "pointer" }}
               >
                 Quiero ser sponsor →
-              </button>
+              </motion.button>
             </div>,
             <div key="forhuman" style={{ height: "100%", boxSizing: "border-box", background: "var(--pure-white)", borderRadius: "var(--radius-md)", padding: "clamp(24px, 3vw, 36px)", boxShadow: "inset 0 0 0 1px var(--border-subtle)", display: "flex", flexDirection: "column", gap: 20 }}>
               <span style={{ font: "600 12px/1 'Inconsolata',monospace", letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--blue)" }}>Lo que aporta forHuman</span>
