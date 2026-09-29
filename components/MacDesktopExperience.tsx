@@ -1,8 +1,8 @@
 "use client";
 
-import { CSSProperties, FormEvent, ReactElement, ReactNode, useEffect, useRef, useState } from "react";
+import { createContext, CSSProperties, FormEvent, ImgHTMLAttributes, ReactElement, ReactNode, useContext, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { motion, AnimatePresence, useInView, useScroll, useTransform } from "framer-motion";
+import { motion, AnimatePresence, useInView, useMotionValue, useScroll, useTransform, type MotionValue } from "framer-motion";
 import { Tag } from "@/components/design-system/Tag";
 import { PrincipalButton } from "@/components/design-system/PrincipalButton";
 import { TextButton } from "@/components/design-system/TextButton";
@@ -3248,6 +3248,109 @@ function SessionRoleCard({ role }: { role: SessionRole }) {
         )}
       </div>
     </motion.div>
+  );
+}
+
+const EASE_OUT: [number, number, number, number] = [0.22, 1, 0.36, 1];
+
+/** One line of a headline that rises into view (masked), like the big titles on mammutstudios.com. */
+function RevealLine({ children, delay = 0, mask = true }: { children: ReactNode; delay?: number; mask?: boolean }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-40px" });
+  return (
+    <span ref={ref} style={{ display: "block", overflow: mask ? "hidden" : "visible", paddingBottom: mask ? "0.1em" : 0 }}>
+      <motion.span
+        style={{ display: "block" }}
+        initial={mask ? { y: "110%" } : { y: 40, opacity: 0 }}
+        animate={inView ? { y: 0, opacity: 1 } : {}}
+        transition={{ duration: 0.9, delay, ease: EASE_OUT }}
+      >
+        {children}
+      </motion.span>
+    </span>
+  );
+}
+
+/** 0 = light, 1 = dark. Lets text inside a ShiftPanel flip colour in sync with the panel's background. */
+const ShiftContext = createContext<MotionValue<number> | null>(null);
+
+/** A panel whose background shifts from light blue to black as it scrolls into view (like the "Over ons" block on mammutstudios.com). */
+function ShiftPanel({ id, children, style }: { id?: string; children: ReactNode; style?: CSSProperties }) {
+  const ref = useRef<HTMLElement>(null);
+  const [container, setContainer] = useState<HTMLElement | null>(null);
+  useEffect(() => {
+    setContainer(ref.current?.closest(".shs-scroll") as HTMLElement | null);
+  }, []);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    container: container ? { current: container } : undefined,
+    offset: ["start 0.95", "start 0.25"],
+  });
+  const backgroundColor = useTransform(scrollYProgress, [0, 0.5, 1], ["#DEE3FB", "#012EDC", "#0D0D0D"]);
+  return (
+    <ShiftContext.Provider value={scrollYProgress}>
+      <motion.section ref={ref} id={id} style={{ backgroundColor, ...style }}>
+        {children}
+      </motion.section>
+    </ShiftContext.Provider>
+  );
+}
+
+/** Colour that is dark on the light state of a ShiftPanel and light on the dark state. */
+function useShiftColor(light: string, dark: string) {
+  const shift = useContext(ShiftContext);
+  const fallback = useMotionValue(1);
+  return useTransform(shift ?? fallback, [0, 0.4, 1], [light, dark, dark]);
+}
+
+function ScrollWord({ word, progress, range }: { word: string; progress: MotionValue<number>; range: [number, number] }) {
+  const opacity = useTransform(progress, range, [0.2, 1]);
+  const color = useShiftColor("#0D0D0D", "#FFFFFF");
+  return <motion.span style={{ opacity, color, display: "inline-block", marginRight: "0.26em" }}>{word}</motion.span>;
+}
+
+/** A statement whose words light up one by one as you scroll past it. */
+function ScrollWords({ text, style }: { text: string; style?: CSSProperties }) {
+  const ref = useRef<HTMLParagraphElement>(null);
+  const [container, setContainer] = useState<HTMLElement | null>(null);
+  useEffect(() => {
+    setContainer(ref.current?.closest(".shs-scroll") as HTMLElement | null);
+  }, []);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    container: container ? { current: container } : undefined,
+    offset: ["start 0.9", "end 0.55"],
+  });
+  const words = text.split(" ");
+  return (
+    <p ref={ref} style={style}>
+      {words.map((w, i) => (
+        <ScrollWord key={i} word={w} progress={scrollYProgress} range={[(i / words.length) * 0.85, (i / words.length) * 0.85 + 0.15]} />
+      ))}
+    </p>
+  );
+}
+
+function PillButton({ children, onClick, dark = false }: { children: ReactNode; onClick?: () => void; dark?: boolean }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      style={{
+        display: "inline-flex",
+        alignItems: "center",
+        gap: 8,
+        padding: "8px 16px",
+        borderRadius: "var(--radius-full)",
+        background: "transparent",
+        border: `1px solid ${dark ? "rgba(255,255,255,0.4)" : "var(--black)"}`,
+        color: dark ? "var(--white)" : "var(--black)",
+        font: "500 13px/1 'Work Sans',sans-serif",
+        cursor: onClick ? "pointer" : "default",
+      }}
+    >
+      {children}
+    </button>
   );
 }
 
