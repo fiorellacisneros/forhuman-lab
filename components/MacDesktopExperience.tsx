@@ -3168,7 +3168,7 @@ const SESSION_PANELS: Record<
     title: "Entérate primero",
     lead: "Todavía estamos definiendo la fecha, el lugar y el programa. Deja tu correo y te contamos todos los detalles apenas estén definidos.",
     asks: [
-      { tag: "Tema", text: "Cada forHuman Sessions tiene su propio tema, siempre sobre lo que pasa alrededor del trabajo: la IA, los egos, el burnout, lo que no contamos en LinkedIn." },
+      { tag: "Tema", text: "Cada forHuman Sessions tiene su propio tema. En ¿IA fuimos? hablamos de cómo estamos frente a la IA, los egos, el burnout y lo que no contamos en LinkedIn." },
       { tag: "Inscripción", text: "Todavía no abre — se define junto con la fecha." },
       { tag: "Qué hacer ahora", text: "Deja tu correo en el formulario del final de la página." },
     ],
@@ -3199,7 +3199,7 @@ const SESSIONS_OPEN = [
 const SESSIONS_FAQ = [
   { q: "¿Qué es forHuman Sessions?", a: "Encuentros presenciales organizados por forHuman, en distintas ciudades. Ya lo hicimos en Chimbote y Trujillo, y cada uno fue distinto." },
   { q: "¿Cuándo y dónde es?", a: "Todavía se está definiendo: la ciudad, la fecha, la hora y el lugar se anuncian pronto." },
-  { q: "¿De qué se habla?", a: "Cada forHuman Sessions tiene su propio tema, siempre sobre lo que pasa alrededor del trabajo: cómo estamos frente a la IA, los egos, el burnout, lo que no contamos en LinkedIn." },
+  { q: "¿De qué se habla?", a: "Cada forHuman Sessions tiene su propio tema. En ¿IA fuimos? hablamos de cómo estamos frente a la IA, los egos, el burnout y lo que no contamos en LinkedIn." },
   { q: "¿Tengo que ser experto para hablar?", a: "No. Buscamos historias, no ponencias: algo que hayas vivido de verdad. Nada de 40 minutos de slides." },
   { q: "¿Cómo me inscribo?", a: "La inscripción todavía no abre. Deja tu correo en el formulario del final de la página y te escribimos apenas esté definida." },
 ];
@@ -4139,7 +4139,7 @@ function ManifiestoBody({ now, compact = false }: { now: Date | null; compact?: 
         Ahora abrimos nuestro propio espacio: forHuman Sessions. Ya lo hicimos en Chimbote y Trujillo, y <ManifiestoHighlight>seguimos armando más encuentros</ManifiestoHighlight>, siempre presenciales.
       </p>
       <p style={{ font: `300 ${compact ? 15 : 18}px/1.6 'Work Sans',sans-serif`, color: "rgba(247,247,247,0.9)", margin: 0 }}>
-        Nuestros eventos son con gente real y sin slides de vendedor. En forHuman Sessions cada encuentro tiene su propio tema; hablamos de la IA, de egos, de burnout y de <ManifiestoHighlight>lo que no contamos en LinkedIn</ManifiestoHighlight>. Si algo te movió, escríbenos y súmate.
+        Nuestros eventos son con gente real y sin slides de vendedor. En forHuman Sessions cada encuentro tiene su propio tema; en ¿IA fuimos? hablamos de la IA, de egos, de burnout y de <ManifiestoHighlight>lo que no contamos en LinkedIn</ManifiestoHighlight>. Si algo te movió, escríbenos y súmate.
       </p>
       <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", marginTop: compact ? 8 : 24 }}>
         <span style={{ font: `400 ${compact ? 30 : 38}px/1 'Reenie Beanie',cursive`, color: "#F7F7F7" }}>Dani y Fio</span>
