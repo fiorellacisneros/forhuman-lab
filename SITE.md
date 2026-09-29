@@ -36,6 +36,8 @@ En pantallas de celular, todo el mismo contenido se muestra dentro de un marco d
 
 ## Recent Changes
 
+- 2026-09-29: Corregido: la ciudad SÍ está definida (Lima); lo que sigue por definir es la fecha, la hora y el lugar. La pregunta "¿Cuándo y dónde es?" ahora responde "Es en Lima. La fecha, la hora y el lugar todavía se están definiendo y se anuncian pronto.", y en la tarjeta de incógnita la línea borrosa "CIUDAD" pasó a "LUGAR".
+
 - 2026-09-29: Corregido el copy sobre los temas: la IA, los egos, el burnout y "lo que no contamos en LinkedIn" son el tema de ¿IA fuimos? (esta edición), no de todos los forHuman Sessions. Ahora el texto dice que cada Sessions tiene su propio tema y que en ¿IA fuimos? se habla de eso. Cambiado en las preguntas frecuentes, en la tarjeta "Entérate primero" y en la nota Eventos.txt. También: el sitio ya está en producción en Vercel (proyecto `forhuman-sessions`, cuenta fiorella-cisneros-projects).
 
 - 2026-09-29: Preguntas frecuentes: la regla del hover (todas las preguntas bajan a 30% de opacidad menos la que tienes debajo del mouse, en 0.1 s) ahora vive dentro del propio componente `SessionsFaq` (en `components/MacDesktopExperience.tsx`) en vez de en `app/globals.css`. Así siempre se actualiza junto con el componente. Antes, a veces la vista previa no recargaba el CSS nuevo y el efecto no aparecía.
