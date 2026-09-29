@@ -3797,6 +3797,18 @@ function SessionsBody() {
             <SessionRoleCard key={r.id} role={r.id} />
           ))}
         </RevealGroup>
+        <Reveal>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16, flexWrap: "wrap", borderTop: "1px solid var(--border-dark)", paddingTop: 24 }}>
+            <span style={{ font: "300 clamp(16px, 2vw, 20px)/1.4 'Work Sans',sans-serif", color: "rgba(247,247,247,0.85)" }}>¿Tienes una marca? Mira qué te llevas siendo sponsor.</span>
+            <TextButton
+              href="#sessions-ofrecemos"
+              onClick={(e) => { e.preventDefault(); smoothScrollToId("sessions-ofrecemos"); }}
+              style={{ fontSize: 18, color: "var(--white)" }}
+            >
+              Quiero ser sponsor
+            </TextButton>
+          </div>
+        </Reveal>
       </section>
 
       <section id="sessions-ofrecemos" style={{ padding: "clamp(40px, 9vw, 96px) 64px", display: "flex", flexDirection: "column", gap: 32 }}>
@@ -3804,8 +3816,8 @@ function SessionsBody() {
           <Header
             kicker="Qué ofrecemos"
             kickerColor="var(--blue)"
-            title="Lo que te llevas y lo que ponemos nosotros"
-            subtitle="Si te sumas como sponsor, esto es lo que recibes. Y esto es lo que pone forHuman como organizador."
+            title="Lo que te llevas y lo que aportamos nosotros"
+            subtitle="Si te sumas como sponsor, esto es lo que recibes. Y esto es lo que aporta forHuman como organizador."
             align="left"
             style={{ gap: 16 }}
           />
@@ -3825,10 +3837,11 @@ function SessionsBody() {
               </button>
             </div>,
             <div key="forhuman" style={{ height: "100%", boxSizing: "border-box", background: "var(--pure-white)", borderRadius: "var(--radius-md)", padding: "clamp(24px, 3vw, 36px)", boxShadow: "inset 0 0 0 1px var(--border-subtle)", display: "flex", flexDirection: "column", gap: 20 }}>
-              <span style={{ font: "600 12px/1 'Inconsolata',monospace", letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--blue)" }}>Lo que pone forHuman</span>
+              <span style={{ font: "600 12px/1 'Inconsolata',monospace", letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--blue)" }}>Lo que aporta forHuman</span>
               {[
                 ["Producción", "Nos encargamos de armar el evento y de que salga bien."],
                 ["Difusión", "Lo damos a conocer en nuestros canales."],
+                ["Local", "Nos encargamos del espacio donde se hace el encuentro."],
                 ["Comunidad", "La gente que ya nos sigue y que se suma a cada encuentro."],
               ].map(([title, body]) => (
                 <div key={title} style={{ borderTop: "1px solid var(--border-subtle)", paddingTop: 16, display: "flex", flexDirection: "column", gap: 6 }}>
