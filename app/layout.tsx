@@ -33,7 +33,7 @@ const reenieBeanie = Reenie_Beanie({
 
 const siteTitle = "forHuman Sessions - ¿IA fuimos?";
 const siteDescription =
-  "Encuentro presencial en Lima sobre salud mental en tiempos de IA: compararnos, burnout y lo que no contamos en LinkedIn. 15 o 16 de octubre, 6 pm (tentativo).";
+  "Encuentro presencial en Lima sobre salud mental en tiempos de IA: compararnos, burnout y lo que no contamos en LinkedIn. Viernes 16 de octubre, 6:15 pm, en Naia Cowork (Miraflores).";
 
 export const metadata: Metadata = {
   title: siteTitle,
