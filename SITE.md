@@ -15,7 +15,7 @@
 ## Cómo funciona la experiencia principal
 
 Al entrar al sitio ves un escritorio con:
-- Un widget de calendario y uno de "To-do list" (arriba a la izquierda) con el evento ¿IA fuimos? (fecha por confirmar)
+- Un widget de calendario y uno de "To-do list" (arriba a la izquierda) con el evento ¿IA fuimos? (viernes 16 de octubre, 6:15 pm, Naia Cowork)
 - Un ícono de carpeta "forHuman" (arriba a la derecha) que abre la historia de la escuela
 - Un dock abajo con: Finder, Figma Camp, Webflow Camp, forHuman Sessions, Fotos, Notas (decorativo) y Spotify (decorativo)
 
@@ -35,6 +35,8 @@ En pantallas de celular, todo el mismo contenido se muestra dentro de un marco d
 - [x] Copy: contenido final, tomado directamente del diseño entregado
 
 ## Recent Changes
+
+- 2026-09-30: **Fecha y lugar confirmados** de ¿IA fuimos?: **viernes 16 de octubre, de 6:15 pm a 9:30 pm, en Naia Cowork (Miraflores)**. En "Estado del proyecto", la columna "Por definir" ahora marca con ✓ lo ya resuelto (fecha y hora, lugar, duración) con una anotación a mano (letra Reenie Beanie, en azul) al lado de cada uno; quedan pendientes speakers, dinámicas, quién modera e inscripciones. También se actualizó: la píldora del inicio ("Vie 16 oct · 6:15 pm · Naia Cowork"), los widgets del escritorio y del celular (el to-do ya no tiene "Confirmar fecha y hora"), el texto de "Entérate primero", la pregunta frecuente "¿Cuándo y dónde es?", el paso "Programa" de la línea de tiempo y la descripción de la página para Google (`app/layout.tsx`).
 
 - 2026-09-29: El widget de Clima del escritorio ya no pide la ubicación del visitante. Ahora muestra siempre el clima real de **Lima** (temperatura, condición, máx./mín.), tomado del servicio gratuito Open-Meteo con las coordenadas de Lima; si el servicio falla, muestra "Lima, 19°, Nublado". La ruta interna `app/api/reverse-geocode` ya no se usa (queda sin efecto; se puede borrar).
 
