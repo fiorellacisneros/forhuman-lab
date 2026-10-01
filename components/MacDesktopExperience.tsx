@@ -3170,7 +3170,7 @@ const SESSION_PANELS: Record<
   },
   publico: {
     title: "Entérate primero",
-    lead: "La fecha tentativa es el jueves 15 o el viernes 16 de octubre a las 6 pm; el lugar y el programa todavía se están definiendo. Deja tu correo y te contamos todos los detalles apenas estén definidos.",
+    lead: "Es el viernes 16 de octubre, de 6:15 pm a 9:30 pm, en Naia Cowork (Miraflores); el programa todavía se está definiendo. Deja tu correo y te contamos todos los detalles apenas estén definidos.",
     asks: [
       { tag: "Tema", text: "Cada forHuman Sessions tiene su propio tema. En ¿IA fuimos? hablamos de salud mental en tiempos de IA: compararnos todo el tiempo, la presión de estar al día, los egos y el burnout." },
       { tag: "Inscripción", text: "Pronto abrimos inscripciones." },
@@ -3216,18 +3216,19 @@ const SESSIONS_EDITIONS = [
 
 const SESSION_ROLE_ICONS: Record<SessionRole, MotivoIconKind> = { voluntario: "layers", speaker: "zap", publico: "globe" };
 
-const SESSIONS_OPEN = [
-  "Confirmar la fecha y la hora (tentativo: jueves 15 o viernes 16 de octubre, 6 pm).",
-  "Quiénes son los speakers.",
-  "El lugar.",
-  "Cuánto dura y qué dinámicas se hacen.",
-  "Quién modera.",
-  "Cuándo abrimos las inscripciones (pronto).",
+const SESSIONS_OPEN: { text: string; done?: boolean; note?: string }[] = [
+  { text: "Fecha y hora", done: true, note: "Viernes 16 de octubre, 6:15 pm a 9:30 pm" },
+  { text: "El lugar", done: true, note: "Naia Cowork, Miraflores" },
+  { text: "Cuánto dura", done: true, note: "3 h 15 min en total; charlas de 20 a 25 min" },
+  { text: "Quiénes son los speakers" },
+  { text: "Qué dinámicas se hacen" },
+  { text: "Quién modera" },
+  { text: "Cuándo abrimos las inscripciones (pronto)" },
 ];
 
 const SESSIONS_FAQ = [
   { q: "¿Qué es forHuman Sessions?", a: "Encuentros presenciales organizados por forHuman, en distintas ciudades. Ya lo hicimos en Chimbote, Trujillo y Lima, y cada uno fue distinto." },
-  { q: "¿Cuándo y dónde es?", a: "Es en Lima, en el marco de Perú Tech Week. La fecha tentativa es el jueves 15 o el viernes 16 de octubre a las 6 pm; falta confirmar el día, y el lugar todavía se está definiendo. Lo anunciamos pronto." },
+  { q: "¿Cuándo y dónde es?", a: "Es en Lima, en el marco de Perú Tech Week. Es el viernes 16 de octubre, de 6:15 pm a 9:30 pm, en Naia Cowork, Miraflores. El programa todavía se está definiendo y lo anunciamos pronto." },
   { q: "¿De qué se habla?", a: "Cada forHuman Sessions tiene su propio tema. En ¿IA fuimos? hablamos de salud mental en tiempos de IA: compararnos todo el tiempo con los demás, la presión de estar al día, los egos, el burnout y lo que no contamos en LinkedIn. La idea es tomar conciencia y sentirnos menos solos con esto." },
   { q: "¿Tengo que ser experto para hablar?", a: "No. Buscamos a quien haya pasado por burnout o presión y quiera compartir lo que le ha resultado, y también a psicólogas, psicólogos y coaches, o a quien haya creado una dinámica propia que le ayuda. Cada charla o dinámica dura entre 20 y 25 minutos: historias reales, nada de slides." },
   { q: "¿Cómo me inscribo?", a: "Pronto abrimos inscripciones. Deja tu correo en el formulario del final de la página y te avisamos primero." },
@@ -3556,7 +3557,7 @@ const SESSIONS_TIMELINE: { state: "done" | "now" | "next"; title: string; body: 
   { state: "done", title: "Cada Sessions, su tema", body: "Cada encuentro tiene su propio tema y sus propias historias." },
   { state: "done", title: "Comunidad", body: "La gente que ya nos sigue y que se suma a cada encuentro." },
   { state: "now", title: "Buscamos manos", body: "Speakers y voluntarios con ganas de ejecutarlo. Estás aquí." },
-  { state: "next", title: "Fecha, lugar y programa", body: "Fecha tentativa: jueves 15 o viernes 16 de octubre, 6 pm. Falta confirmar el día, el lugar y el programa." },
+  { state: "next", title: "Programa", body: "Ya tenemos fecha (viernes 16 de octubre, 6:15 pm a 9:30 pm) y lugar (Naia Cowork, Miraflores). Falta cerrar speakers, dinámicas y quién modera." },
   { state: "next", title: "Abrimos inscripciones", body: "Pronto. Te avisamos primero si dejaste tu correo." },
 ];
 
@@ -3609,11 +3610,22 @@ function SessionsProgress() {
 
       <RevealGroup style={{ display: "flex", flexDirection: "column", gap: 12 }}>
         {[
-          <BoardColumnTitle key="t" label="Por definir" count={SESSIONS_OPEN.length} />,
-          ...SESSIONS_OPEN.map((text) => (
-            <div key={text} style={{ borderRadius: 12, padding: "14px 16px", boxShadow: "inset 0 0 0 1.5px var(--border-subtle)", font: "400 15px/1.3 'Work Sans',sans-serif", color: "var(--gray-600)", display: "flex", alignItems: "center", gap: 12 }}>
-              <span style={{ width: 16, height: 16, borderRadius: 4, flexShrink: 0, boxShadow: "inset 0 0 0 1.5px var(--gray-300)" }} />
-              {text.replace(/\.$/, "")}
+          <BoardColumnTitle key="t" label="Por definir" count={SESSIONS_OPEN.filter((o) => !o.done).length} />,
+          ...SESSIONS_OPEN.map(({ text, done, note }) => (
+            <div key={text} style={{ borderRadius: 12, padding: "14px 16px", boxShadow: done ? "inset 0 0 0 1.5px var(--blue)" : "inset 0 0 0 1.5px var(--border-subtle)", background: done ? "var(--blue-light)" : "transparent", display: "flex", alignItems: "flex-start", gap: 12 }}>
+              {done ? (
+                <span style={{ width: 16, height: 16, borderRadius: 4, flexShrink: 0, marginTop: 2, background: "var(--blue)", color: "var(--white)", display: "inline-flex", alignItems: "center", justifyContent: "center" }}>
+                  <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M2.5 6.5 5 9l4.5-5.5" />
+                  </svg>
+                </span>
+              ) : (
+                <span style={{ width: 16, height: 16, borderRadius: 4, flexShrink: 0, marginTop: 2, boxShadow: "inset 0 0 0 1.5px var(--gray-300)" }} />
+              )}
+              <span style={{ display: "flex", flexDirection: "column", gap: 2, minWidth: 0 }}>
+                <span style={{ font: "400 15px/1.3 'Work Sans',sans-serif", color: done ? "var(--black)" : "var(--gray-600)", textDecoration: done ? "line-through" : "none", textDecorationColor: "var(--blue)" }}>{text}</span>
+                {note && <span style={{ font: "400 24px/1 'Reenie Beanie',cursive", color: "var(--blue)", transform: "rotate(-1.5deg)", transformOrigin: "left center" }}>{note}</span>}
+              </span>
             </div>
           )),
         ]}
@@ -3780,7 +3792,7 @@ function SessionsBody() {
         </motion.div>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
-            <PillButton>Tentativo: 15 o 16 oct · 6 pm</PillButton>
+            <PillButton>Vie 16 oct · 6:15 pm · Naia Cowork</PillButton>
             <span style={{ font: "400 13px/1.3 'Work Sans',sans-serif", color: "var(--gray-500)" }}>Escríbenos y ayúdanos a ejecutarlo</span>
           </div>
           <PillButton onClick={() => smoothScrollToId("sessions-que-es")}>Scroll ↓</PillButton>
@@ -4664,7 +4676,7 @@ export function MacDesktopExperience() {
                 <span style={{ font: "600 11px/1 'Inconsolata',monospace", letterSpacing: "0.08em", color: "rgba(247,247,247,0.5)", textTransform: "uppercase" }}>{now ? MENU_BAR_MONTHS[now.getMonth()] : ""}</span>
                 <div style={{ background: "rgba(255,255,255,0.1)", borderRadius: 12, padding: "8px 11px" }}>
                   <div style={{ font: "600 13px/1.3 'Work Sans',sans-serif", color: "#F7F7F7" }}>forHuman Sessions</div>
-                  <div style={{ font: "400 12px/1.3 'Inconsolata',monospace", color: "rgba(247,247,247,0.6)" }}>15 o 16 oct · 6 pm (tentativo)</div>
+                  <div style={{ font: "400 12px/1.3 'Inconsolata',monospace", color: "rgba(247,247,247,0.6)" }}>16 oct · 6:15 pm · Naia Cowork</div>
                 </div>
                 <div style={{ background: "rgba(255,255,255,0.1)", borderRadius: 12, padding: "8px 11px" }}>
                   <div style={{ font: "600 13px/1.3 'Work Sans',sans-serif", color: "#F7F7F7" }}>Inscripciones</div>
@@ -4691,9 +4703,9 @@ export function MacDesktopExperience() {
               >
                 <div style={{ display: "flex", alignItems: "baseline", gap: 6 }}>
                   <span style={{ font: "700 15px/1 'Work Sans',sans-serif", color: "#F7F7F7" }}>To-do list</span>
-                  <span style={{ font: "500 12px/1 'Work Sans',sans-serif", color: "rgba(247,247,247,0.5)" }}>4</span>
+                  <span style={{ font: "500 12px/1 'Work Sans',sans-serif", color: "rgba(247,247,247,0.5)" }}>3</span>
                 </div>
-                {["Confirmar fecha y hora", "Definir speakers", "Elegir quién modera", "Abrir inscripción"].map((item) => (
+                {["Definir speakers", "Elegir quién modera", "Abrir inscripción"].map((item) => (
                   <div key={item} style={{ display: "flex", alignItems: "center", gap: 8, minWidth: 0 }}>
                     <div style={{ width: 14, height: 14, borderRadius: "50%", boxShadow: "inset 0 0 0 1.5px rgba(247,247,247,0.5)", flexShrink: 0 }} />
                     <span
@@ -4985,7 +4997,7 @@ export function MacDesktopExperience() {
                     </div>
                   </div>
                   {[
-                    ["forHuman Sessions", "15 o 16 oct · 6 pm (tentativo)"],
+                    ["forHuman Sessions", "16 oct · 6:15 pm · Naia Cowork"],
                     ["Inscripciones", "Pronto"],
                   ].map(([title, detail]) => (
                     <div key={title} style={{ background: "rgba(255,255,255,0.09)", borderRadius: 10, padding: "8px 10px" }}>
@@ -4997,9 +5009,9 @@ export function MacDesktopExperience() {
                 <div style={{ borderRadius: 22, background: "rgba(13,13,13,0.4)", backdropFilter: "blur(24px)", padding: 16, display: "flex", flexDirection: "column", gap: 10, boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.08)" }}>
                   <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                     <span style={{ font: "500 13px/1 'Work Sans',sans-serif", color: "#F7F7F7" }}>To-do list</span>
-                    <span style={{ font: "600 11px/1 'Work Sans',sans-serif", color: "#F7F7F7", background: "rgba(255,255,255,0.15)", borderRadius: 999, padding: "3px 8px" }}>4</span>
+                    <span style={{ font: "600 11px/1 'Work Sans',sans-serif", color: "#F7F7F7", background: "rgba(255,255,255,0.15)", borderRadius: 999, padding: "3px 8px" }}>3</span>
                   </div>
-                  {["Confirmar fecha y hora", "Definir speakers", "Elegir quién modera", "Abrir inscripción"].map((item) => (
+                  {["Definir speakers", "Elegir quién modera", "Abrir inscripción"].map((item) => (
                     <div key={item} style={{ display: "flex", alignItems: "center", gap: 9 }}>
                       <div style={{ width: 15, height: 15, borderRadius: "50%", boxShadow: "inset 0 0 0 1.5px rgba(247,247,247,0.55)", flexShrink: 0 }} />
                       <span style={{ font: "300 12px/1.3 'Work Sans',sans-serif", color: "rgba(247,247,247,0.92)" }}>{item}</span>
