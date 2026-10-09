@@ -123,10 +123,10 @@ body {
 
 @keyframes shs-marquee {
   from {
-    transform: translate3d(0, 0, 0);
+    transform: translateX(0);
   }
   to {
-    transform: translate3d(-50%, 0, 0);
+    transform: translateX(-50%);
   }
 }
 
@@ -163,137 +163,6 @@ body {
 }
 
 
-/* Blue duotone + film grain on photos (filter lives in app/layout.tsx) */
-.shs-duotone {
-  filter: url(#shs-duotone);
-}
-
-/* Golden-canon-style layout: sections sit on a 9-column grid and some
-   elements are deliberately pushed off the usual left edge (hero, ediciones, estado). */
-.shs-canon {
-  display: grid !important;
-  grid-template-columns: repeat(9, minmax(0, 1fr));
-  column-gap: clamp(8px, 1.6vw, 20px);
-  row-gap: clamp(20px, 4vw, 32px) !important;
-}
-.shs-canon > * {
-  grid-column: 1 / -1;
-  min-width: 0;
-}
-.shs-canon-hero {
-  container-type: inline-size;
-}
-.shs-hero-h1 {
-  font-size: clamp(32px, 7.4cqi, 120px) !important;
-}
-.shs-hero-h1 span {
-  white-space: nowrap;
-}
-.shs-canon-hero > :nth-child(2),
-.shs-canon-hero > :nth-child(3) {
-  grid-column: 1 / 5;
-}
-.shs-canon-hero > :nth-child(2) {
-  grid-row: 2;
-}
-.shs-canon-hero > :nth-child(3) {
-  grid-row: 3;
-}
-.shs-canon-hero > :nth-child(4) {
-  grid-column: 5 / 10; /* hero image: beside the text, not below it */
-  grid-row: 2 / span 2;
-  align-self: start;
-  margin-top: 8px;
-}
-.shs-canon-hero > :nth-child(5) {
-  grid-column: 3 / 8;
-  grid-row: 4;
-}
-.shs-hero-h1 {
-  position: relative;
-}
-.shs-hero-tag {
-  position: absolute;
-  right: 1%;
-  top: 1.05em;
-}
-.shs-canon-ediciones > :nth-child(1) {
-  grid-column: 1 / 6;
-}
-.shs-canon-estado > :nth-child(1) {
-  grid-column: 1 / 7;
-}
-.shs-board {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(16px, 2vw, 28px);
-  align-items: start;
-}
-.shs-board > :nth-child(2) {
-  margin-top: 56px;
-}
-.shs-board > :nth-child(3) {
-  margin-top: 112px;
-}
-/* "Lo que ya hicimos": two columns of different widths, the right one dropped lower.
-   Photo-first cards, no overlaps, so nothing hides anything else. */
-.shs-hist {
-  display: grid;
-  grid-template-columns: 5fr 7fr;
-  column-gap: clamp(16px, 2.4vw, 32px);
-  align-items: start;
-  padding-bottom: 16px;
-}
-.shs-hist-col > * > * {
-  box-shadow: 0 14px 36px rgba(13, 13, 13, 0.1), 0 0 0 1px rgba(13, 13, 13, 0.06);
-}
-.shs-hist-col-b {
-  margin-top: 72px;
-}
-@media (max-width: 859px) {
-  .shs-hist {
-    grid-template-columns: 1fr;
-    row-gap: 20px;
-  }
-  .shs-hist-col-b {
-    margin-top: 0 !important;
-  }
-}
-.shs-stagger > :nth-child(2) {
-  margin-top: 56px;
-}
-.shs-stagger > :nth-child(3) {
-  margin-top: 112px;
-}
-@media (max-width: 859px) {
-  .shs-canon > * {
-    grid-column: 1 / -1 !important;
-    grid-row: auto !important;
-  }
-  .shs-hero-tag {
-    position: static !important;
-    margin-top: 0.1em;
-  }
-  .shs-stagger > * {
-    margin-top: 0 !important;
-  }
-  .shs-hero-h1 {
-    font-size: clamp(38px, 9.5vw, 104px) !important;
-  }
-  .shs-hero-h1 span {
-    white-space: normal;
-  }
-  .shs-hero-h1 .shs-ios-select-blue {
-    margin: 0 !important;
-  }
-  .shs-board {
-    grid-template-columns: 1fr;
-  }
-  .shs-board > * {
-    margin-top: 0 !important;
-  }
-}
-
 .shs-scroll {
   overflow-x: hidden;
 }
@@ -310,9 +179,6 @@ body {
 }
 
 @media (max-width: 859px) {
-  .shs-faq-sticky {
-    position: static !important;
-  }
   .shs-scroll > section,
   .shs-scroll > footer,
   .shs-scroll > div {
@@ -338,10 +204,6 @@ body {
     word-break: break-word !important;
   }
   .shs-motivos-row {
-    flex-direction: column !important;
-  }
-  .shs-sessions-roles,
-  .shs-sessions-ledger {
     flex-direction: column !important;
   }
   .shs-mentores-row {
@@ -384,12 +246,3 @@ body {
     animation-duration: 0.01ms !important;
   }
 }
-
-/* hero title: two lines, sized to the window */
-
-
-
-
-
-
-

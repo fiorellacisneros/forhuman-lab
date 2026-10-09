@@ -18,8 +18,6 @@ export function PrincipalButton({
   children,
   style,
   withArrow = true,
-  glowColor,
-  glowBlend,
   ...rest
 }: {
   variant?: "primary" | "dark" | "light" | "outline";
@@ -28,17 +26,13 @@ export function PrincipalButton({
   children?: React.ReactNode;
   style?: CSSProperties;
   withArrow?: boolean;
-  /** Beam colour as "r,g,b". Defaults to white (black on the light variant). */
-  glowColor?: string;
-  /** How the beam mixes with the button. Defaults to screen (multiply on the light variant). */
-  glowBlend?: "screen" | "multiply" | "normal";
 } & ButtonHTMLAttributes<HTMLButtonElement>) {
   const ref = useRef<HTMLButtonElement>(null);
   const [hover, setHover] = useState(false);
-  const haloColor = glowColor ?? (variant === "light" ? "0,0,0" : "255,255,255");
+  const haloColor = variant === "light" ? "0,0,0" : "255,255,255";
   // Screen blend only ever lightens, so a black glow (on the light/white
   // variant) needs multiply instead, or it would be invisible.
-  const blendMode = glowBlend ?? (variant === "light" ? "multiply" : "screen");
+  const blendMode = variant === "light" ? "multiply" : "screen";
   const { haloRef, ringRef } = useGlowHover(ref, haloColor, loopAnimation);
   const base: CSSProperties = {
     position: "relative",

@@ -206,7 +206,7 @@ export function GlowLayer({
   haloRef: React.RefObject<HTMLSpanElement | null>;
   ringRef: React.RefObject<HTMLSpanElement | null>;
   haloColor: string;
-  blendMode?: "screen" | "multiply" | "normal";
+  blendMode?: "screen" | "multiply";
   borderRadius?: number | string;
 }) {
   return (

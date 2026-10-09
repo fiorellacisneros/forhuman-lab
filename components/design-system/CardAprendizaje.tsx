@@ -1,19 +1,16 @@
-import { CSSProperties, ReactNode } from "react";
+import { CSSProperties } from "react";
 
 export function CardAprendizaje({
   number = "01",
   label = "Módulo",
   title = "Comprender el valor de Webflow",
   body = "Qué es Webflow y cómo utilizarlo para crear sitios web sin código.",
-  media,
   style,
 }: {
   number?: string;
   label?: string;
   title?: string;
   body?: string;
-  /** Optional photo (or any element) shown at the bottom of the card, after the text. */
-  media?: ReactNode;
   style?: CSSProperties;
 }) {
   return (
@@ -40,7 +37,6 @@ export function CardAprendizaje({
         </div>
         <div style={{ font: "300 16px/1.4 'Work Sans',sans-serif", color: "var(--black)" }}>{body}</div>
       </div>
-      {media && <div style={{ marginTop: "auto" }}>{media}</div>}
     </div>
   );
 }

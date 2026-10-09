@@ -1,8 +1,8 @@
 "use client";
 
-import { createContext, CSSProperties, FormEvent, ImgHTMLAttributes, ReactElement, ReactNode, useContext, useEffect, useRef, useState } from "react";
+import { CSSProperties, FormEvent, ReactElement, ReactNode, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { motion, AnimatePresence, useInView, useMotionValue, useScroll, useTransform, type MotionValue } from "framer-motion";
+import { motion, AnimatePresence, useInView, useScroll, useTransform } from "framer-motion";
 import { Tag } from "@/components/design-system/Tag";
 import { PrincipalButton } from "@/components/design-system/PrincipalButton";
 import { TextButton } from "@/components/design-system/TextButton";
@@ -13,8 +13,8 @@ import { PromoCard } from "@/components/design-system/PromoCard";
 import { Loader } from "@/components/design-system/Loader";
 import { useGlowHover } from "@/components/design-system/useGlowHover";
 
-type AppId = "figma" | "webflow" | "flowmcp" | "sessions" | "finder" | "photos" | "notas" | "spotify" | null;
-type HoverId = "figma" | "webflow" | "flowmcp" | "sessions" | "photos" | "finder" | "notas" | "spotify" | null;
+type AppId = "figma" | "webflow" | "flowmcp" | "finder" | "photos" | "notas" | "spotify" | null;
+type HoverId = "figma" | "webflow" | "flowmcp" | "photos" | "finder" | "notas" | "spotify" | null;
 
 type WhatsAppContact = { name: string; firstName: string; phone: string; photo: string };
 
@@ -139,12 +139,9 @@ function easeInOutQuad(t: number) {
   return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
 }
 
-function whatsappUrl(phone: string, message: string) {
-  return `https://wa.me/51${phone}?text=${encodeURIComponent(message)}`;
-}
-
 function openMentorWhatsApp(phone: string, firstName: string) {
-  window.open(whatsappUrl(phone, `Hola ${firstName}, quiero información sobre los cursos`), "_blank", "noopener,noreferrer");
+  const text = encodeURIComponent(`Hola ${firstName}, quiero información sobre los cursos`);
+  window.open(`https://api.whatsapp.com/send/?phone=%2B51${phone}&text=${text}&type=phone_number&app_absent=0`, "_blank", "noopener,noreferrer");
 }
 
 function smoothScrollToId(id: string, duration = 500) {
@@ -590,16 +587,6 @@ const FLOWMCP_SECTIONS = [
   { id: "flowmcp-agencias", label: "Agencias" },
 ];
 
-const SESSIONS_SECTIONS = [
-  { id: "sessions-inicio", label: "Inicio" },
-  { id: "sessions-que-es", label: "Qué es" },
-  { id: "sessions-ediciones", label: "Lo que ya hicimos" },
-  { id: "sessions-sumate", label: "Cómo sumarte" },
-  { id: "sessions-ofrecemos", label: "Qué ofrecemos" },
-  { id: "sessions-estado", label: "Estado" },
-  { id: "sessions-faq", label: "Preguntas" },
-];
-
 const WEBFLOW_TESTIMONIALS = [
   {
     quote: "Disfruté mucho las energías de quienes dictaron las clases, y los espacios 1:1 para resolver dudas de nuestros proyectos.",
@@ -907,8 +894,6 @@ function Marquee({ items, prefix }: { items: ReactNode[]; prefix?: string }) {
           display: "flex",
           width: "max-content",
           padding: "9px 0",
-          willChange: "transform",
-          backfaceVisibility: "hidden",
           animation: `shs-marquee ${track.length * 1.6}s linear infinite`,
         }}
       >
@@ -1447,7 +1432,7 @@ function SiteFooter() {
               <FooterLink href="https://www.instagram.com/superhuman.school/">Instagram</FooterLink>
             </FooterLinkCol>
             <FooterLinkCol eyebrow="Contacto" width={300}>
-              <EmailCopyCTA compact />
+              <FooterLink href="mailto:hola@forhuman.studio">hola@forhuman.studio</FooterLink>
               <FooterLink href="https://api.whatsapp.com/send/?phone=%2B51936098806&text=Hola%2C+quisiera+informaci%C3%B3n+sobre...&type=phone_number&app_absent=0">
                 +51 936 098 806
               </FooterLink>
@@ -1527,7 +1512,7 @@ function SiteFooter() {
         </div>
         <div style={{ marginTop: "auto", paddingTop: "clamp(32px, 9vw, 120px)" }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/forhuman-lab/logo-forhuman-footer.svg" alt="forHuman" width={2275} height={371} loading="lazy" style={{ width: "100%", height: "auto", aspectRatio: "2275 / 371", display: "block" }} />
+          <img src="/forhuman-lab/logo-forhuman-footer.svg" alt="forHuman" loading="lazy" style={{ width: "100%", display: "block" }} />
         </div>
       </motion.div>
     </footer>
@@ -3131,864 +3116,6 @@ function FinderBody() {
   );
 }
 
-type SessionRole = "voluntario" | "speaker" | "publico";
-
-const SESSION_ROLES: { id: SessionRole; title: string; hint: string }[] = [
-  { id: "voluntario", title: "Ayudar a armarlo", hint: "Nos ayudas a ejecutarlo" },
-  { id: "speaker", title: "Contar una historia", hint: "Tienes algo real que contar" },
-  { id: "publico", title: "Estar ahí", hint: "Quieres venir ese día" },
-];
-
-const SESSION_PANELS: Record<
-  SessionRole,
-  { title: string; lead: string; asks: { tag: string; text: string }[]; cta: string; whatsapp?: string }
-> = {
-  voluntario: {
-    title: "Ayúdanos a hacerlo realidad",
-    lead: "Estamos armando un nuevo encuentro y hay mucho por ejecutar. Te contamos el plan y nos ayudas a sacarlo adelante.",
-    asks: [
-      { tag: "Speakers", text: "Traer o contactar a alguien con algo real que contar." },
-      { tag: "Dinámicas", text: "Ayudar a diseñar qué pasa en el encuentro: cómo se conversa, cómo se siente la sala." },
-      { tag: "Día del evento", text: "Recepción, acompañar el programa, que todo fluya cuando llegue la fecha." },
-      { tag: "Lo que te llevas", text: "Experiencia armando un evento de verdad, con gente real y desde adentro, y visibilidad como parte del equipo." },
-      { tag: "Qué hacer ahora", text: "Escríbenos por WhatsApp y cuéntanos en qué quieres ayudar." },
-    ],
-    cta: "Quiero ser voluntario",
-    whatsapp: "Hola Fio, quiero ser voluntario/a en ¿IA fuimos?, quiero ayudar en...",
-  },
-  speaker: {
-    title: "Cuéntanos qué te ha resultado",
-    lead: "Buscamos gente que quiera compartir lo que le ha funcionado frente al burnout, la comparación y la presión de la IA. Historias reales, no ponencias.",
-    asks: [
-      { tag: "Quiénes", text: "Personas que han pasado por burnout o mucha presión y quieren contar cómo lo manejan. También psicólogas, psicólogos y coaches, o quien haya creado una dinámica propia que le ayuda." },
-      { tag: "Qué compartes", text: "Lo que te ha resultado de verdad: hábitos, límites, decisiones, hasta lo que no funcionó. Sin teoría ni slides." },
-      { tag: "Duración", text: "Cada charla o dinámica dura entre 20 y 25 minutos, conversada y en vivo." },
-      { tag: "Qué hacer ahora", text: "Escríbenos por WhatsApp y cuéntanos tu idea o lo que quieres compartir." },
-    ],
-    cta: "Quiero ser speaker",
-    whatsapp: "Hola Fio, quiero ser speaker en ¿IA fuimos?, te cuento lo que me ha resultado...",
-  },
-  publico: {
-    title: "Entérate primero",
-    lead: "Es el viernes 16 de octubre, de 6:15 pm a 9:30 pm, en Naia Cowork (Miraflores); el programa todavía se está definiendo. Deja tu correo y te contamos todos los detalles apenas estén definidos.",
-    asks: [
-      { tag: "Tema", text: "Cada forHuman Sessions tiene su propio tema. En ¿IA fuimos? hablamos de salud mental en tiempos de IA: compararnos todo el tiempo, la presión de estar al día, los egos y el burnout." },
-      { tag: "Inscripción", text: "Pronto abrimos inscripciones." },
-      { tag: "Qué hacer ahora", text: "Deja tu correo en el formulario del final de la página." },
-    ],
-    cta: "Quiero enterarme",
-  },
-};
-
-const SESSIONS_WHATSAPP = "936098806";
-
-const SESSIONS_MARQUEE = ["forHuman Sessions", "Chimbote", "Trujillo", "Lima", "Próximamente…"];
-
-const SESSIONS_EDITIONS = [
-  {
-    number: "01",
-    title: "Trujillo",
-    body: "Nos fuimos al norte a hablar de Webflow.",
-    image: "/forhuman-lab/sessions-trujillo.jpg",
-    imageAlt: "Asistentes al forHuman Sessions de Trujillo, sentados con sus laptops",
-    imagePosition: "center 45%",
-    imageAspect: "5 / 4",
-  },
-  {
-    number: "02",
-    title: "Chimbote",
-    body: "Nos fuimos por un ceviche y a repensar los eventos tech en el norte del país.",
-    image: "/forhuman-lab/sessions-chimbote.jpg",
-    imageAlt: "Grupo de asistentes al forHuman Sessions de Chimbote, con el cartel de Sessions",
-    imagePosition: "center",
-    imageAspect: "3 / 2",
-  },
-  {
-    number: "03",
-    title: "Lima",
-    body: "Workshops de IA, diseño y Webflow, y charlas de liderazgo. Menos teoría, más manos en la masa.",
-    image: "/forhuman-lab/sessions-lima.jpg",
-    imageAlt: "Dos expositoras dando un workshop de forHuman en Lima frente a una pantalla",
-    imagePosition: "center 45%",
-    imageAspect: "5 / 4",
-  },
-];
-
-const SESSION_ROLE_ICONS: Record<SessionRole, MotivoIconKind> = { voluntario: "layers", speaker: "zap", publico: "globe" };
-
-const SESSIONS_OPEN: { text: string; done?: boolean; note?: string }[] = [
-  { text: "Fecha y hora", done: true, note: "Viernes 16 de octubre, 6:15 pm a 9:30 pm" },
-  { text: "El lugar", done: true, note: "Naia Cowork, Miraflores" },
-  { text: "Cuánto dura", done: true, note: "3 h 15 min en total; charlas de 20 a 25 min" },
-  { text: "Quiénes son los speakers" },
-  { text: "Qué dinámicas se hacen" },
-  { text: "Quién modera" },
-  { text: "Cuándo abrimos las inscripciones (pronto)" },
-];
-
-const SESSIONS_FAQ = [
-  { q: "¿Qué es forHuman Sessions?", a: "Encuentros presenciales organizados por forHuman, en distintas ciudades. Ya lo hicimos en Chimbote, Trujillo y Lima, y cada uno fue distinto." },
-  { q: "¿Cuándo y dónde es?", a: "Es en Lima, en el marco de Perú Tech Week. Es el viernes 16 de octubre, de 6:15 pm a 9:30 pm, en Naia Cowork, Miraflores. El programa todavía se está definiendo y lo anunciamos pronto." },
-  { q: "¿De qué se habla?", a: "Cada forHuman Sessions tiene su propio tema. En ¿IA fuimos? hablamos de salud mental en tiempos de IA: compararnos todo el tiempo con los demás, la presión de estar al día, los egos, el burnout y lo que no contamos en LinkedIn. La idea es tomar conciencia y sentirnos menos solos con esto." },
-  { q: "¿Tengo que ser experto para hablar?", a: "No. Buscamos a quien haya pasado por burnout o presión y quiera compartir lo que le ha resultado, y también a psicólogas, psicólogos y coaches, o a quien haya creado una dinámica propia que le ayuda. Cada charla o dinámica dura entre 20 y 25 minutos: historias reales, nada de slides." },
-  { q: "¿Cómo me inscribo?", a: "Pronto abrimos inscripciones. Deja tu correo en el formulario del final de la página y te avisamos primero." },
-];
-
-function goToSubscribe(e: { preventDefault: () => void }) {
-  e.preventDefault();
-  smoothScrollToId("footer-email");
-  window.setTimeout(() => document.getElementById("footer-email")?.focus({ preventScroll: true }), 650);
-}
-
-function openSessionsWhatsApp(message: string) {
-  window.open(whatsappUrl(SESSIONS_WHATSAPP, message), "_blank", "noopener,noreferrer");
-}
-
-function SessionRoleCard({ role }: { role: SessionRole }) {
-  const meta = SESSION_ROLES.find((r) => r.id === role)!;
-  const panel = SESSION_PANELS[role];
-  return (
-    <motion.div
-      whileHover={{ y: -8 }}
-      transition={{ type: "spring", stiffness: 260, damping: 20 }}
-      style={{
-        height: "100%",
-        background: "var(--pure-white)",
-        borderRadius: "var(--radius-md)",
-        padding: 28,
-        display: "flex",
-        flexDirection: "column",
-        gap: 16,
-        boxSizing: "border-box",
-      }}
-    >
-      <MotivoIcon kind={SESSION_ROLE_ICONS[role]} />
-      <span style={{ font: "600 12px/1 'Inconsolata',monospace", letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--blue)" }}>{meta.title}</span>
-      <div style={{ font: "400 24px/1.15 'Manrope',sans-serif", letterSpacing: "-0.03em", color: "var(--black)" }}>{panel.title}</div>
-      <div style={{ font: "300 15px/1.4 'Work Sans',sans-serif", color: "var(--gray-500)" }}>{panel.lead}</div>
-      <div style={{ display: "flex", flexDirection: "column", gap: 12, marginTop: 4 }}>
-        {panel.asks.map((ask) => (
-          <div key={ask.tag} style={{ display: "flex", flexDirection: "column", gap: 4, paddingTop: 12, borderTop: "1px solid var(--border-subtle)" }}>
-            <span style={{ font: "600 11px/1.3 'Inconsolata',monospace", letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--blue)" }}>{ask.tag}</span>
-            <span style={{ font: "300 14px/1.4 'Work Sans',sans-serif", color: "var(--black)" }}>{ask.text}</span>
-          </div>
-        ))}
-      </div>
-      <div style={{ marginTop: "auto", paddingTop: 12 }}>
-        <PrincipalButton variant="dark" glowColor="255,190,0" onClick={role === "publico" ? goToSubscribe : () => openSessionsWhatsApp(panel.whatsapp ?? "")} style={{ fontSize: 17 }}>
-          {panel.cta}
-        </PrincipalButton>
-      </div>
-    </motion.div>
-  );
-}
-
-const EASE_OUT: [number, number, number, number] = [0.22, 1, 0.36, 1];
-
-/** One line of a headline that rises into view (masked), like the big titles on mammutstudios.com. */
-function RevealLine({ children, delay = 0, mask = true }: { children: ReactNode; delay?: number; mask?: boolean }) {
-  const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-40px" });
-  return (
-    <span ref={ref} style={{ display: "block", overflow: mask ? "hidden" : "visible", paddingBottom: mask ? "0.22em" : 0, marginBottom: mask ? "-0.12em" : 0 }}>
-      <motion.span
-        style={{ display: "block" }}
-        initial={mask ? { y: "110%" } : { y: 40, opacity: 0 }}
-        animate={inView ? { y: 0, opacity: 1 } : {}}
-        transition={{ duration: 0.9, delay, ease: EASE_OUT }}
-      >
-        {children}
-      </motion.span>
-    </span>
-  );
-}
-
-/** 0 = light, 1 = dark. Lets text inside a ShiftPanel flip colour in sync with the panel's background. */
-const ShiftContext = createContext<MotionValue<number> | null>(null);
-
-/** A panel whose background shifts from light blue to black as it scrolls into view (like the "Over ons" block on mammutstudios.com). */
-function ShiftPanel({ id, children, style }: { id?: string; children: ReactNode; style?: CSSProperties }) {
-  const ref = useRef<HTMLElement>(null);
-  const [container, setContainer] = useState<HTMLElement | null>(null);
-  useEffect(() => {
-    setContainer(ref.current?.closest(".shs-scroll") as HTMLElement | null);
-  }, []);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    container: container ? { current: container } : undefined,
-    offset: ["start 0.95", "start 0.25"],
-  });
-  const backgroundColor = useTransform(scrollYProgress, [0, 0.5, 1], ["#DEE3FB", "#012EDC", "#0D0D0D"]);
-  return (
-    <ShiftContext.Provider value={scrollYProgress}>
-      <motion.section ref={ref} id={id} style={{ backgroundColor, ...style }}>
-        {children}
-      </motion.section>
-    </ShiftContext.Provider>
-  );
-}
-
-/** Colour that is dark on the light state of a ShiftPanel and light on the dark state. */
-function useShiftColor(light: string, dark: string) {
-  const shift = useContext(ShiftContext);
-  const fallback = useMotionValue(1);
-  return useTransform(shift ?? fallback, [0, 0.4, 1], [light, dark, dark]);
-}
-
-function ScrollWord({ word, progress, range }: { word: string; progress: MotionValue<number>; range: [number, number] }) {
-  const opacity = useTransform(progress, range, [0.2, 1]);
-  const color = useShiftColor("#0D0D0D", "#FFFFFF");
-  return <motion.span style={{ opacity, color, display: "inline-block", marginRight: "0.26em" }}>{word}</motion.span>;
-}
-
-/** A statement whose words light up one by one as you scroll past it. */
-function ScrollWords({ text, style }: { text: string; style?: CSSProperties }) {
-  const ref = useRef<HTMLParagraphElement>(null);
-  const [container, setContainer] = useState<HTMLElement | null>(null);
-  useEffect(() => {
-    setContainer(ref.current?.closest(".shs-scroll") as HTMLElement | null);
-  }, []);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    container: container ? { current: container } : undefined,
-    offset: ["start 0.9", "end 0.55"],
-  });
-  const words = text.split(" ");
-  return (
-    <p ref={ref} style={style}>
-      {words.map((w, i) => (
-        <ScrollWord key={i} word={w} progress={scrollYProgress} range={[(i / words.length) * 0.85, (i / words.length) * 0.85 + 0.15]} />
-      ))}
-    </p>
-  );
-}
-
-function PillButton({ children, onClick, dark = false }: { children: ReactNode; onClick?: () => void; dark?: boolean }) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      style={{
-        display: "inline-flex",
-        alignItems: "center",
-        gap: 8,
-        padding: "8px 16px",
-        borderRadius: "var(--radius-full)",
-        background: "transparent",
-        border: `1px solid ${dark ? "rgba(255,255,255,0.4)" : "var(--black)"}`,
-        color: dark ? "var(--white)" : "var(--black)",
-        font: "500 13px/1 'Work Sans',sans-serif",
-        whiteSpace: "nowrap",
-        cursor: onClick ? "pointer" : "default",
-      }}
-    >
-      {children}
-    </button>
-  );
-}
-
-const SESSIONS_INDEX = [
-  { n: "01", label: "Ver lo que ya hicimos", target: "sessions-ediciones" },
-  { n: "02", label: "Sumarme", target: "sessions-sumate" },
-  { n: "03", label: "Ver cómo vamos", target: "sessions-estado" },
-];
-
-function SessionsIndexLink({ n, label, target }: { n: string; label: string; target: string }) {
-  const [hover, setHover] = useState(false);
-  const color = useShiftColor("#0D0D0D", "#FFFFFF");
-  const dim = useShiftColor("rgba(13,13,13,0.5)", "rgba(255,255,255,0.5)");
-  return (
-    <a
-      href={`#${target}`}
-      onClick={(e) => {
-        e.preventDefault();
-        smoothScrollToId(target);
-      }}
-      onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
-      style={{ display: "flex", alignItems: "baseline", gap: 14, textDecoration: "none", cursor: "pointer" }}
-    >
-      <motion.span style={{ font: "400 clamp(16px, 4vw, 20px)/1 'Work Sans',sans-serif", color: dim }}>({n})</motion.span>
-      <motion.span
-        animate={{ x: hover ? 10 : 0 }}
-        transition={{ type: "spring", stiffness: 300, damping: 22 }}
-        style={{ font: "400 clamp(20px, 5vw, 28px)/1.2 'Manrope',sans-serif", letterSpacing: "-0.02em", color }}
-      >
-        {label}
-      </motion.span>
-      <motion.span animate={{ opacity: hover ? 1 : 0, x: hover ? 0 : -8 }} style={{ color: "var(--yellow)", font: "400 22px/1 'Work Sans',sans-serif" }}>
-        →
-      </motion.span>
-    </a>
-  );
-}
-
-function ShiftLabel() {
-  const color = useShiftColor("rgba(13,13,13,0.6)", "rgba(255,255,255,0.55)");
-  return (
-    <motion.span style={{ flex: "0 0 180px", font: "400 15px/1.3 'Work Sans',sans-serif", color, display: "flex", alignItems: "center", gap: 8, height: "fit-content" }}>
-      <span style={{ width: 7, height: 7, borderRadius: "50%", background: "var(--blue)", flexShrink: 0 }} />
-      Qué es forHuman Sessions
-    </motion.span>
-  );
-}
-
-const SESSIONS_EMAIL = "hola@forhuman.studio";
-
-/** Big email: an envelope slides in on hover and the address rolls to "Copiado" on click (like mammutstudios.com's footer). */
-function EmailCopyCTA({ compact = false }: { compact?: boolean }) {
-  const [hover, setHover] = useState(false);
-  const [copied, setCopied] = useState(false);
-  const copy = async () => {
-    try {
-      await navigator.clipboard.writeText(SESSIONS_EMAIL);
-    } catch {
-      window.location.href = `mailto:${SESSIONS_EMAIL}`;
-    }
-    setCopied(true);
-    window.setTimeout(() => setCopied(false), 2000);
-  };
-  return (
-    <button
-      type="button"
-      onClick={copy}
-      onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
-      aria-label={`Copiar ${SESSIONS_EMAIL}`}
-      style={{ background: "none", border: "none", padding: 0, cursor: "pointer", display: "inline-flex", alignItems: "center", gap: 0, color: "var(--white)", textAlign: "left" }}
-    >
-      <motion.span
-        animate={{ width: hover || copied ? (compact ? 22 : 36) : 0, marginRight: hover || copied ? (compact ? 10 : 16) : 0, opacity: hover || copied ? 1 : 0, x: hover || copied ? 0 : -12 }}
-        transition={{ duration: 0.35, ease: EASE_OUT }}
-        style={{ display: "inline-flex", overflow: "hidden", flexShrink: 0 }}
-      >
-        <svg width={compact ? 22 : 36} height={compact ? 22 : 36} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-          {copied ? <path d="M5 12.5 10 17.5 19 7" /> : (
-            <>
-              <rect x="3" y="5" width="18" height="14" rx="2" />
-              <path d="m3.5 7 8.5 6 8.5-6" />
-            </>
-          )}
-        </svg>
-      </motion.span>
-      <span style={{ position: "relative", display: "inline-block", overflow: "hidden", height: "1.25em", font: compact ? "400 22px/1.25 'Manrope',sans-serif" : "400 clamp(22px, 5.4vw, 48px)/1.25 'Manrope',sans-serif", letterSpacing: compact ? "0" : "-0.03em" }}>
-        <motion.span animate={{ y: copied ? "-110%" : "0%", opacity: compact || hover || copied ? 1 : 0.75 }} transition={{ duration: 0.45, ease: EASE_OUT }} style={{ display: "block" }}>
-          {SESSIONS_EMAIL}
-        </motion.span>
-        <motion.span
-          initial={false}
-          animate={{ y: copied ? "0%" : "110%" }}
-          transition={{ duration: 0.45, ease: EASE_OUT }}
-          style={{ position: "absolute", left: 0, top: 0, display: "block", color: "var(--yellow)" }}
-        >
-          ¡Copiado!
-        </motion.span>
-      </span>
-    </button>
-  );
-}
-
-function SessionsFaq({ items }: { items: { q: string; a: ReactNode }[] }) {
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
-  const listRef = useRef<HTMLDivElement>(null);
-  const seen = useInView(listRef, { once: true, margin: "-60px" });
-  return (
-    <div ref={listRef} className="shs-faq-list" style={{ borderBottom: "1px solid var(--border-subtle)" }}>
-      {/* Kept inline so the hover rule always ships with this component */}
-      <style>{`.shs-faq-row{transition:opacity .1s ease-out}.shs-faq-list:hover .shs-faq-row:not(:hover){opacity:.3}`}</style>
-      {items.map((item, i) => {
-        const isOpen = openIndex === i;
-        return (
-          <div
-            key={item.q}
-            style={{
-              opacity: seen ? 1 : 0,
-              transform: seen ? "none" : "translateY(28px)",
-              transition: `opacity 0.6s ease ${i * 0.14}s, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1) ${i * 0.14}s`,
-            }}
-          >
-          <div className="shs-faq-row" style={{ borderTop: "1px solid var(--border-subtle)" }}>
-            <button
-              type="button"
-              onClick={() => setOpenIndex(isOpen ? null : i)}
-              aria-expanded={isOpen}
-              style={{ width: "100%", background: "none", border: "none", cursor: "pointer", padding: "clamp(20px, 3vw, 30px) 0", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 24, textAlign: "left" }}
-            >
-              <motion.span
-                animate={{ x: isOpen ? 10 : 0 }}
-                transition={{ type: "spring", stiffness: 300, damping: 24 }}
-                style={{ font: "400 clamp(20px, 3.4vw, 30px)/1.2 'Manrope',sans-serif", letterSpacing: "-0.02em", color: "var(--black)" }}
-              >
-                {item.q}
-              </motion.span>
-              <motion.span
-                animate={{ rotate: isOpen ? 135 : 0, background: isOpen ? "#0D0D0D" : "rgba(13,13,13,0)", color: isOpen ? "#FFFFFF" : "#0D0D0D" }}
-                transition={{ duration: 0.35, ease: EASE_OUT }}
-                style={{ width: 40, height: 40, borderRadius: "50%", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "inset 0 0 0 1px rgba(13,13,13,0.25)" }}
-              >
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" aria-hidden="true">
-                  <path d="M8 1v14M1 8h14" />
-                </svg>
-              </motion.span>
-            </button>
-            <AnimatePresence initial={false}>
-              {isOpen && (
-                <motion.div
-                  initial={{ height: 0, opacity: 0 }}
-                  animate={{ height: "auto", opacity: 1 }}
-                  exit={{ height: 0, opacity: 0 }}
-                  transition={{ duration: 0.4, ease: EASE_OUT }}
-                  style={{ overflow: "hidden" }}
-                >
-                  <p style={{ font: "300 clamp(16px, 2.4vw, 19px)/1.55 'Work Sans',sans-serif", color: "var(--gray-600)", margin: "0 0 28px", maxWidth: 620 }}>{item.a}</p>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-          </div>
-        );
-      })}
-    </div>
-  );
-}
-
-const SESSIONS_TIMELINE: { state: "done" | "now" | "next"; title: string; body: string }[] = [
-  { state: "done", title: "Nace la idea", body: "Juntar a la gente de una ciudad a conversar de lo que pasa alrededor del trabajo." },
-  { state: "done", title: "Cada Sessions, su tema", body: "Cada encuentro tiene su propio tema y sus propias historias." },
-  { state: "done", title: "Comunidad", body: "La gente que ya nos sigue y que se suma a cada encuentro." },
-  { state: "now", title: "Buscamos manos", body: "Speakers y voluntarios con ganas de ejecutarlo. Estás aquí." },
-  { state: "next", title: "Programa", body: "Ya tenemos fecha (viernes 16 de octubre, 6:15 pm a 9:30 pm) y lugar (Naia Cowork, Miraflores). Falta cerrar speakers, dinámicas y quién modera." },
-  { state: "next", title: "Abrimos inscripciones", body: "Pronto. Te avisamos primero si dejaste tu correo." },
-];
-
-function BoardColumnTitle({ label, count, light = false }: { label: string; count?: number; light?: boolean }) {
-  return (
-    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12 }}>
-      <span style={{ font: "600 12px/1 'Inconsolata',monospace", letterSpacing: "0.1em", textTransform: "uppercase", color: light ? "var(--yellow)" : "var(--blue)" }}>{label}</span>
-      {count !== undefined && (
-        <span style={{ font: "500 12px/1 'Inconsolata',monospace", color: light ? "rgba(247,247,247,0.7)" : "var(--gray-500)" }}>{String(count).padStart(2, "0")}</span>
-      )}
-    </div>
-  );
-}
-
-/* "Estado del proyecto": three columns, each a step lower than the last.
-   Listo (done cards) -> En marcha (what we need now) -> Por definir (open questions). */
-function SessionsProgress() {
-  const done = SESSIONS_TIMELINE.filter((t) => t.state === "done");
-  const now = SESSIONS_TIMELINE.find((t) => t.state === "now");
-  return (
-    <div className="shs-board">
-      <RevealGroup style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-        {[
-          <BoardColumnTitle key="t" label="Listo" count={done.length} />,
-          ...done.map((step) => (
-            <div key={step.title} style={{ background: "var(--pure-white)", borderRadius: "var(--radius-md)", padding: "24px 22px", boxShadow: "inset 0 0 0 1px var(--border-subtle)", display: "flex", flexDirection: "column", gap: 10 }}>
-              <span style={{ width: 24, height: 24, borderRadius: "50%", background: "var(--blue-light)", color: "var(--blue)", display: "inline-flex", alignItems: "center", justifyContent: "center" }}>
-                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <path d="M2.5 6.5 5 9l4.5-5.5" />
-                </svg>
-              </span>
-              <span style={{ font: "600 clamp(20px, 2.2vw, 26px)/1.1 'Manrope',sans-serif", letterSpacing: "-0.03em" }}>{step.title}</span>
-              <span style={{ font: "300 15px/1.45 'Work Sans',sans-serif", color: "var(--gray-600)" }}>{step.body}</span>
-            </div>
-          )),
-        ]}
-      </RevealGroup>
-
-      {now && (
-        <Reveal style={{ display: "flex", flexDirection: "column", gap: 16 }} delay={0.1}>
-          <BoardColumnTitle label="En marcha" />
-          <div style={{ background: "var(--blue)", color: "var(--white)", borderRadius: "var(--radius-md)", padding: "clamp(24px, 3vw, 36px) 26px", display: "flex", flexDirection: "column", gap: 16, transform: "rotate(-1.5deg)" }}>
-            <span style={{ alignSelf: "flex-start", font: "600 11px/1 'Inconsolata',monospace", letterSpacing: "0.1em", textTransform: "uppercase", padding: "6px 10px", borderRadius: "var(--radius-full)", background: "var(--yellow)", color: "var(--black)" }}>Estás aquí</span>
-            <span style={{ font: "700 clamp(28px, 3.4vw, 44px)/1 'Manrope',sans-serif", letterSpacing: "-0.04em" }}>{now.title}</span>
-            <span style={{ font: "300 16px/1.45 'Work Sans',sans-serif", color: "rgba(247,247,247,0.85)" }}>{now.body}</span>
-            <PrincipalButton variant="light" glowColor="13,13,13" glowBlend="normal" onClick={() => openSessionsWhatsApp("Hola Fio, quiero sumarme a ¿IA fuimos?, te cuento cómo puedo ayudar...")} style={{ alignSelf: "flex-start", marginTop: 8, fontSize: 17 }}>Quiero sumarme</PrincipalButton>
-          </div>
-        </Reveal>
-      )}
-
-      <RevealGroup style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-        {[
-          <BoardColumnTitle key="t" label="Por definir" count={SESSIONS_OPEN.filter((o) => !o.done).length} />,
-          ...SESSIONS_OPEN.map(({ text, done, note }) => (
-            <div key={text} style={{ borderRadius: 12, padding: "14px 16px", boxShadow: done ? "inset 0 0 0 1.5px var(--blue)" : "inset 0 0 0 1.5px var(--border-subtle)", background: done ? "var(--blue-light)" : "transparent", display: "flex", alignItems: "flex-start", gap: 12 }}>
-              {done ? (
-                <span style={{ width: 16, height: 16, borderRadius: 4, flexShrink: 0, marginTop: 2, background: "var(--blue)", color: "var(--white)", display: "inline-flex", alignItems: "center", justifyContent: "center" }}>
-                  <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    <path d="M2.5 6.5 5 9l4.5-5.5" />
-                  </svg>
-                </span>
-              ) : (
-                <span style={{ width: 16, height: 16, borderRadius: 4, flexShrink: 0, marginTop: 2, boxShadow: "inset 0 0 0 1.5px var(--gray-300)" }} />
-              )}
-              <span style={{ display: "flex", flexDirection: "column", gap: 2, minWidth: 0 }}>
-                <span style={{ font: "400 15px/1.3 'Work Sans',sans-serif", color: done ? "var(--black)" : "var(--gray-600)", textDecoration: done ? "line-through" : "none", textDecorationColor: "var(--blue)" }}>{text}</span>
-                {note && <span style={{ font: "400 24px/1 'Reenie Beanie',cursive", color: "var(--blue)", transform: "rotate(-1.5deg)", transformOrigin: "left center" }}>{note}</span>}
-              </span>
-            </div>
-          )),
-        ]}
-      </RevealGroup>
-    </div>
-  );
-}
-
-/* Slice glitch on photos (inspired by native.agency). On hover, a few horizontal
-   bands of the photo itself slide sideways for about a third of a second, then
-   snap back. No zoom, no filter: at rest the photo is shown untouched. */
-type GlitchBand = { top: number; height: number; shift: number };
-
-function GlitchImage({ style, className, alt = "", src, ...rest }: ImgHTMLAttributes<HTMLImageElement>) {
-  const [bands, setBands] = useState<GlitchBand[]>([]);
-  const runningRef = useRef(false);
-  const timerRef = useRef(0);
-
-  useEffect(() => () => window.clearTimeout(timerRef.current), []);
-
-  const play = () => {
-    if (runningRef.current || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    runningRef.current = true;
-    const FRAMES = 6;
-    let frame = 0;
-    const tick = () => {
-      if (frame >= FRAMES) {
-        setBands([]);
-        runningRef.current = false;
-        return;
-      }
-      const strength = 1 - frame / FRAMES;
-      const count = 3 + Math.round(Math.random() * 3);
-      setBands(
-        Array.from({ length: count }, () => ({
-          top: Math.random() * 92,
-          height: 2 + Math.random() * 9,
-          shift: (Math.random() - 0.5) * 22 * strength,
-        })),
-      );
-      frame += 1;
-      timerRef.current = window.setTimeout(tick, 60);
-    };
-    tick();
-  };
-
-  return (
-    <span onMouseEnter={play} style={{ display: "block", position: "relative", overflow: "hidden", width: "100%", borderRadius: style?.borderRadius }}>
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={src} alt={alt} className={className} style={style} {...rest} />
-      {bands.map((band, i) => (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img
-          key={i}
-          src={src}
-          alt=""
-          aria-hidden="true"
-          className={className}
-          style={{
-            ...style,
-            position: "absolute",
-            inset: 0,
-            width: "100%",
-            height: "100%",
-            aspectRatio: "auto",
-            pointerEvents: "none",
-            clipPath: `inset(${band.top}% 0 ${Math.max(0, 100 - band.top - band.height)}% 0)`,
-            transform: `translateX(${band.shift}%)`,
-          }}
-        />
-      ))}
-    </span>
-  );
-}
-
-/* Photo-first card for the past events: photo on top, then title and text. */
-function MemoryCard({
-  title,
-  body,
-  image,
-  alt,
-  position,
-  aspect,
-}: {
-  title: string;
-  body: string;
-  image: string;
-  alt: string;
-  position?: string;
-  aspect?: string;
-}) {
-  return (
-    <div style={{ boxSizing: "border-box", borderRadius: "var(--radius-md)", background: "var(--pure-white)", padding: 12, display: "flex", flexDirection: "column", gap: 20 }}>
-      <div style={{ position: "relative" }}>
-        <GlitchImage
-          src={image}
-          alt={alt}
-          loading="lazy"
-          style={{ width: "100%", aspectRatio: aspect ?? "4 / 3", objectFit: "cover", objectPosition: position, borderRadius: 12, display: "block" }}
-        />
-      </div>
-      <div style={{ display: "flex", flexDirection: "column", gap: 10, padding: "0 10px 12px" }}>
-        <div style={{ font: "400 clamp(26px, 2.8vw, 34px)/1.05 'Manrope',sans-serif", letterSpacing: "-0.03em", color: "var(--black)" }}>{title}</div>
-        <div style={{ font: "300 16px/1.4 'Work Sans',sans-serif", color: "var(--gray-600)" }}>{body}</div>
-      </div>
-    </div>
-  );
-}
-
-/* Two interlocking columns (01 + 03 on the left, 02 + 04 on the right) so the cards pack tightly with no white holes. */
-function HistGrid({ cards }: { cards: ReactNode[] }) {
-  return (
-    <div className="shs-hist">
-      <RevealGroup className="shs-hist-col" style={{ display: "flex", flexDirection: "column", gap: 20 }} itemStyle={{ minWidth: 0 }}>
-        {[cards[0], cards[2]]}
-      </RevealGroup>
-      <RevealGroup className="shs-hist-col shs-hist-col-b" style={{ display: "flex", flexDirection: "column", gap: 20 }} itemStyle={{ minWidth: 0 }}>
-        {[cards[1], cards[3]]}
-      </RevealGroup>
-    </div>
-  );
-}
-
-function SessionsBody() {
-  return (
-    <>
-      <section id="sessions-inicio" className="shs-canon shs-canon-hero" style={{ padding: "clamp(32px, 8vw, 64px) 64px clamp(24px, 6vw, 48px) 64px", display: "flex", flexDirection: "column", gap: "clamp(20px, 4vw, 32px)" }}>
-        <h1 className="shs-hero-h1" style={{ font: "700 clamp(38px, 9.5vw, 104px)/0.98 'Manrope',sans-serif", letterSpacing: "-0.04em", color: "var(--black)", margin: 0, maxWidth: "none" }}>
-          <RevealLine>¿Cada día sale</RevealLine>
-          <RevealLine delay={0.1}>una nueva IA?</RevealLine>
-          <span style={{ display: "block", marginTop: "0.42em", fontSize: "0.46em", lineHeight: 1.15, fontWeight: 600, letterSpacing: "-0.03em" }}>
-            <RevealLine delay={0.2}>¿No sabes cuál es el mejor modelo?</RevealLine>
-            <RevealLine delay={0.28}>¿Ves a todos presumir en LinkedIn?</RevealLine>
-            <RevealLine delay={0.36} mask={false}>
-              <HeroHighlight>¿Leyendo esto con voz de anuncio de televisión?</HeroHighlight>
-            </RevealLine>
-          </span>
-          <span className="shs-hero-tag" style={{ display: "block", fontFamily: "'Reenie Beanie',cursive", fontWeight: 400, fontSize: "0.85em", letterSpacing: 0, lineHeight: 1, color: "var(--blue)", transform: "rotate(-7deg)", transformOrigin: "center" }}>
-            <RevealLine delay={0.5} mask={false}>¿IA fuimos?</RevealLine>
-          </span>
-        </h1>
-        <Reveal delay={0.3}>
-          <p style={{ font: "300 clamp(16px, 4vw, 22px)/1.4 'Work Sans',sans-serif", color: "var(--gray-600)", maxWidth: 620, margin: 0 }}>
-            Respira, a nosotros también nos pasa. Hablemos de salud mental en tiempos de IA y de lo que no contamos en LinkedIn. Estamos armando el espacio para decirlo en voz alta y necesitamos tu ayuda para ejecutarlo.
-          </p>
-        </Reveal>
-        <Reveal delay={0.4}>
-          <div style={{ display: "flex", gap: 20, alignItems: "center", flexWrap: "wrap" }}>
-            <PrincipalButton variant="primary" onClick={() => smoothScrollToId("sessions-sumate")}>Ser voluntario</PrincipalButton>
-            <TextButton href="#sessions-ofrecemos" onClick={(e) => { e.preventDefault(); smoothScrollToId("sessions-ofrecemos"); }}>Ser sponsor</TextButton>
-          </div>
-        </Reveal>
-        <motion.div
-          initial={{ clipPath: "inset(14% 14% 14% 14% round 24px)", scale: 1.08 }}
-          whileInView={{ clipPath: "inset(0% 0% 0% 0% round 16px)", scale: 1 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 1.1, ease: EASE_OUT }}
-        >
-          <GlitchImage
-            src="/forhuman-lab/hero-stippling.png"
-            alt="Textura de puntos azules"
-            style={{ width: "100%", height: "clamp(200px, 30vw, 330px)", objectFit: "cover", objectPosition: "center", display: "block" }}
-          />
-        </motion.div>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
-            <PillButton>Vie 16 oct · 6:15 pm · Naia Cowork</PillButton>
-            <span style={{ font: "400 13px/1.3 'Work Sans',sans-serif", color: "var(--gray-500)" }}>Escríbenos y ayúdanos a ejecutarlo</span>
-          </div>
-          <PillButton onClick={() => smoothScrollToId("sessions-que-es")}>Scroll ↓</PillButton>
-        </div>
-      </section>
-
-      <ShiftPanel
-        id="sessions-que-es"
-        style={{ borderRadius: "var(--radius-md)", margin: "0 clamp(12px, 2vw, 24px)", overflow: "hidden", display: "flex", flexDirection: "column" }}
-      >
-        <div className="shs-inner-pad" style={{ padding: "clamp(40px, 9vw, 96px) 64px", display: "flex", gap: "clamp(24px, 6vw, 80px)", flexWrap: "wrap" }}>
-          <ShiftLabel />
-          <div style={{ flex: "1 1 420px", minWidth: 0, display: "flex", flexDirection: "column", gap: "clamp(28px, 5vw, 48px)" }}>
-            <ScrollWords
-              text="Encuentros presenciales en distintas ciudades para hablar de lo que pasa alrededor del trabajo. Ya pasamos por Chimbote, Trujillo y Lima, y estamos armando un nuevo encuentro para hablar de salud mental en tiempos de IA: compararnos todo el tiempo, el ego, el burnout y lo que no contamos en LinkedIn."
-              style={{ font: "500 clamp(24px, 4.6vw, 44px)/1.15 'Manrope',sans-serif", letterSpacing: "-0.03em", margin: 0 }}
-            />
-            <RevealGroup style={{ display: "flex", flexDirection: "column", gap: 18 }}>
-              {SESSIONS_INDEX.map((item) => (
-                <SessionsIndexLink key={item.n} {...item} />
-              ))}
-            </RevealGroup>
-          </div>
-        </div>
-        <Marquee items={SESSIONS_MARQUEE} />
-      </ShiftPanel>
-
-      <section id="sessions-ediciones" className="shs-canon shs-canon-ediciones" style={{ padding: "clamp(40px, 9vw, 80px) 64px", display: "flex", flexDirection: "column", gap: 32 }}>
-        <Reveal>
-          <Header
-            kicker="Lo que ya hicimos"
-            kickerColor="var(--blue)"
-            title={<>Ya lo hicimos en<br />Chimbote, Trujillo y Lima.</>}
-            subtitle="Cada forHuman Sessions es distinto: cambian la ciudad, el tema y la gente que cuenta su historia."
-            align="left"
-          />
-        </Reveal>
-        <HistGrid cards={[
-            ...SESSIONS_EDITIONS.map((e) => (
-              <MemoryCard key={e.number} title={e.title} body={e.body} image={e.image} alt={e.imageAlt} position={e.imagePosition} aspect={e.imageAspect} />
-            )),
-            <div key="mystery" style={{ boxSizing: "border-box", borderRadius: "var(--radius-md)", background: "var(--black)", color: "var(--white)", padding: 24, display: "flex", flexDirection: "column", gap: 20 }}>
-              <div style={{ font: "400 clamp(24px, 2.6vw, 32px)/1.05 'Manrope',sans-serif", letterSpacing: "-0.03em" }}>¿Llegaremos a Perú Tech Week?</div>
-              <div style={{ font: "300 16px/1.4 'Work Sans',sans-serif", color: "rgba(247,247,247,0.85)" }}>Lo averiguaremos…</div>
-              <div aria-hidden="true" style={{ display: "flex", flexDirection: "column", gap: 8, filter: "blur(5px)", userSelect: "none", opacity: 0.7 }}>
-                <span style={{ font: "500 15px/1 'Inconsolata',monospace", letterSpacing: "0.08em" }}>LUGAR ▮▮▮▮▮▮▮▮</span>
-                <span style={{ font: "500 15px/1 'Inconsolata',monospace", letterSpacing: "0.08em" }}>TEMA ▮▮▮▮▮▮▮▮▮▮▮▮</span>
-                <span style={{ font: "500 15px/1 'Inconsolata',monospace", letterSpacing: "0.08em" }}>FECHA ▮▮▮▮▮▮</span>
-              </div>
-            </div>,
-          ]} />
-      </section>
-
-      <section id="sessions-sumate" style={{ background: "var(--black)", padding: "clamp(40px, 9vw, 80px) 64px", display: "flex", flexDirection: "column", gap: 32 }}>
-        <Reveal>
-          <Header
-            kicker="Sumarte"
-            kickerColor="var(--yellow)"
-            title={<>Si tienes ganas de ejecutar,<br />con eso nos basta</>}
-            subtitle="No buscamos perfiles ni roles: necesitamos que las cosas pasen. Estamos armando un nuevo encuentro; elige por dónde quieres entrar."
-            align="left"
-            color="var(--white)"
-            style={{ gap: 16 }}
-          />
-        </Reveal>
-        <RevealGroup className="shs-motivos-row" style={{ display: "flex", gap: 20, alignItems: "stretch" }} itemStyle={{ flex: "1 1 0", minWidth: 0 }}>
-          {SESSION_ROLES.map((r) => (
-            <SessionRoleCard key={r.id} role={r.id} />
-          ))}
-        </RevealGroup>
-        <Reveal>
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16, flexWrap: "wrap", borderTop: "1px solid var(--border-dark)", paddingTop: 24 }}>
-            <span style={{ font: "300 clamp(16px, 2vw, 20px)/1.4 'Work Sans',sans-serif", color: "rgba(247,247,247,0.85)" }}>¿Tienes una marca? Mira qué te llevas siendo sponsor.</span>
-            <PrincipalButton variant="primary" onClick={() => smoothScrollToId("sessions-ofrecemos")} style={{ fontSize: 17 }}>Quiero ser sponsor</PrincipalButton>
-          </div>
-        </Reveal>
-      </section>
-
-      <section id="sessions-ofrecemos" style={{ padding: "clamp(40px, 9vw, 96px) 64px", display: "flex", flexDirection: "column", gap: 32 }}>
-        <Reveal>
-          <Header
-            kicker="Qué ofrecemos"
-            kickerColor="var(--blue)"
-            title="Lo que te llevas y lo que aportamos nosotros"
-            subtitle="Si te sumas como sponsor, esto es lo que recibes. Y esto es lo que aporta forHuman como organizador."
-            align="left"
-            style={{ gap: 16 }}
-          />
-        </Reveal>
-        <RevealGroup style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: 20, alignItems: "stretch" }}>
-          {[
-            <div key="sponsor" style={{ height: "100%", boxSizing: "border-box", background: "var(--blue)", color: "var(--white)", borderRadius: "var(--radius-md)", padding: "clamp(24px, 3vw, 36px)", display: "flex", flexDirection: "column", gap: 20 }}>
-              <span style={{ font: "600 12px/1 'Inconsolata',monospace", letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--yellow)" }}>Si eres sponsor</span>
-              <span style={{ font: "700 clamp(28px, 3.4vw, 44px)/1.05 'Manrope',sans-serif", letterSpacing: "-0.04em" }}>Visibilidad en un evento en el marco de Perú Tech Week</span>
-              <span style={{ font: "300 16px/1.45 'Work Sans',sans-serif", color: "rgba(247,247,247,0.85)" }}>Tu marca presente en un encuentro presencial, con gente real y sin slides de vendedor.</span>
-              <div style={{ display: "flex", flexDirection: "column", gap: 10, borderTop: "1px solid rgba(255,255,255,0.25)", paddingTop: 16 }}>
-                <span style={{ font: "600 12px/1 'Inconsolata',monospace", letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(247,247,247,0.7)" }}>Lo que necesitamos</span>
-                {["Catering", "Fotografía", "Merch"].map((item) => (
-                  <span key={item} style={{ display: "flex", alignItems: "center", gap: 10, font: "600 clamp(18px, 2vw, 22px)/1.1 'Manrope',sans-serif", letterSpacing: "-0.02em" }}>
-                    <span aria-hidden="true" style={{ color: "var(--yellow)" }}>+</span>
-                    {item}
-                  </span>
-                ))}
-              </div>
-              <PrincipalButton variant="light" glowColor="13,13,13" glowBlend="normal" onClick={() => openSessionsWhatsApp("Hola Fio, quiero ser sponsor")} style={{ alignSelf: "flex-start", marginTop: "auto", fontSize: 17 }}>Quiero ser sponsor</PrincipalButton>
-            </div>,
-            <div key="forhuman" style={{ height: "100%", boxSizing: "border-box", background: "var(--pure-white)", borderRadius: "var(--radius-md)", padding: "clamp(24px, 3vw, 36px)", boxShadow: "inset 0 0 0 1px var(--border-subtle)", display: "flex", flexDirection: "column", gap: 20 }}>
-              <span style={{ font: "600 12px/1 'Inconsolata',monospace", letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--blue)" }}>Lo que aporta forHuman</span>
-              {[
-                ["Producción", "Nos encargamos de armar el evento y de que salga bien."],
-                ["Difusión", "Lo damos a conocer en nuestros canales."],
-                ["Local", "Nos encargamos del espacio donde se hace el encuentro."],
-                ["Comunidad", "La gente que ya nos sigue y que se suma a cada encuentro."],
-              ].map(([title, body]) => (
-                <div key={title} style={{ borderTop: "1px solid var(--border-subtle)", paddingTop: 16, display: "flex", flexDirection: "column", gap: 6 }}>
-                  <span style={{ font: "600 clamp(20px, 2.2vw, 26px)/1.1 'Manrope',sans-serif", letterSpacing: "-0.03em" }}>{title}</span>
-                  <span style={{ font: "300 15px/1.45 'Work Sans',sans-serif", color: "var(--gray-600)" }}>{body}</span>
-                </div>
-              ))}
-            </div>,
-          ]}
-        </RevealGroup>
-      </section>
-
-      <section id="sessions-estado" className="shs-canon shs-canon-estado" style={{ padding: "clamp(40px, 9vw, 96px) 64px", display: "flex", flexDirection: "column", gap: 32 }}>
-        <Reveal>
-          <Header
-            kicker="Estado del proyecto"
-            kickerColor="var(--blue)"
-            title="Lo que ya estamos armando"
-            subtitle="Nada de esto es definitivo. Esto es exactamente lo que sabemos hoy, para que veas a qué te sumas de verdad."
-            align="left"
-            style={{ gap: 16 }}
-          />
-        </Reveal>
-        <SessionsProgress />
-      </section>
-
-      <section id="sessions-organizan" className="shs-mentores-row" style={{ background: "var(--black)", padding: "clamp(40px, 9vw, 80px) 64px", display: "flex", gap: 48, flexWrap: "nowrap", alignItems: "center" }}>
-        <Reveal style={{ flex: "1 1 320px", minWidth: 0 }}>
-          <Header
-            kicker="Quiénes lo organizan"
-            kickerColor="var(--yellow)"
-            title="forHuman lo organiza, tú pones la historia"
-            subtitle="Somos las mismas personas detrás de forHuman Studio y superHuman School."
-            align="left"
-            color="var(--white)"
-          />
-        </Reveal>
-        <RevealGroup style={{ display: "flex", gap: 24, flexWrap: "nowrap", flexShrink: 0, minWidth: 0 }}>
-          <MomentumCard style={{ width: 260, flexShrink: 0, borderRadius: "var(--radius-md)", overflow: "hidden", position: "relative" }} onClick={() => openMentorWhatsApp("936098806", "Fio")}>
-            <GlitchImage src="/forhuman-lab/fio-stippling.png" alt="Fiorella Cisneros" loading="lazy" style={{ width: "100%", aspectRatio: "4 / 5", objectFit: "cover", objectPosition: "center top", display: "block" }} />
-            <div style={{ position: "absolute", left: 0, right: 0, bottom: 0, padding: "28px 20px 18px", background: "linear-gradient(0deg, rgba(13,13,13,0.4), rgba(13,13,13,0))", backdropFilter: "blur(5px)", WebkitBackdropFilter: "blur(5px)", borderRadius: "0 0 var(--radius-md) var(--radius-md)", maskImage: "linear-gradient(0deg, #000 55%, transparent)", WebkitMaskImage: "linear-gradient(0deg, #000 55%, transparent)" }}>
-              <div style={{ font: "500 20px/1 'Manrope',sans-serif", color: "var(--white)" }}>Fiorella Cisneros</div>
-              <div style={{ font: "300 13px/1 'Work Sans',sans-serif", color: "rgba(255,255,255,0.8)" }}>Webflow &amp; Builder Educator</div>
-            </div>
-          </MomentumCard>
-          <MomentumCard style={{ width: 260, flexShrink: 0, borderRadius: "var(--radius-md)", overflow: "hidden", position: "relative" }} onClick={() => openMentorWhatsApp("937845233", "Dani")}>
-            <GlitchImage src="/forhuman-lab/dani-stippling.png" alt="Danitza Rosas" loading="lazy" style={{ width: "100%", aspectRatio: "4 / 5", objectFit: "cover", objectPosition: "center 50%", display: "block" }} />
-            <div style={{ position: "absolute", left: 0, right: 0, bottom: 0, padding: "28px 20px 18px", background: "linear-gradient(0deg, rgba(13,13,13,0.4), rgba(13,13,13,0))", backdropFilter: "blur(5px)", WebkitBackdropFilter: "blur(5px)", borderRadius: "0 0 var(--radius-md) var(--radius-md)", maskImage: "linear-gradient(0deg, #000 55%, transparent)", WebkitMaskImage: "linear-gradient(0deg, #000 55%, transparent)" }}>
-              <div style={{ font: "500 20px/1 'Manrope',sans-serif", color: "var(--white)" }}>Danitza Rosas</div>
-              <div style={{ font: "300 13px/1 'Work Sans',sans-serif", color: "rgba(255,255,255,0.8)" }}>Figma &amp; Design AI Educator</div>
-            </div>
-          </MomentumCard>
-        </RevealGroup>
-      </section>
-
-      <section id="sessions-faq" style={{ padding: "clamp(40px, 9vw, 96px) 64px", display: "flex", gap: "clamp(28px, 7vw, 80px)", flexWrap: "wrap" }}>
-        <Reveal style={{ flex: "0 1 360px" }}>
-          <div className="shs-faq-sticky" style={{ position: "sticky", top: 32, display: "flex", flexDirection: "column", gap: 16 }}>
-          <span style={{ display: "flex", alignItems: "center", gap: 8, font: "400 15px/1.3 'Work Sans',sans-serif", color: "var(--gray-500)" }}>
-            <span style={{ width: 7, height: 7, borderRadius: "50%", background: "var(--blue)" }} />
-            Preguntas
-          </span>
-          <h2 style={{ font: "400 clamp(30px, 5vw, 48px)/1.05 'Manrope',sans-serif", letterSpacing: "-0.03em", color: "var(--black)", margin: 0 }}>
-            Antes de sumarte
-          </h2>
-          <p style={{ font: "300 16px/1.45 'Work Sans',sans-serif", color: "var(--gray-600)", margin: 0 }}>
-            Lo que sabemos hoy sobre forHuman Sessions. ¿Falta algo?{" "}
-            <a href={whatsappUrl("936098806", "Hola Fio, tengo una pregunta sobre forHuman Sessions...")} target="_blank" rel="noopener noreferrer" style={{ color: "var(--black)", borderBottom: "1px solid var(--black)", textDecoration: "none" }}>
-              Escríbenos
-            </a>
-            .
-          </p>
-          </div>
-        </Reveal>
-        <Reveal delay={0.1} style={{ flex: "1 1 420px", minWidth: 0 }}>
-          <SessionsFaq items={SESSIONS_FAQ} />
-        </Reveal>
-      </section>
-
-      <SiteFooter />
-    </>
-  );
-}
-
 function FotosSection({ id, title, count, photos = REAL_PHOTOS }: { id: string; title: string; count: number; photos?: string[] }) {
   return (
     <div id={id} style={{ padding: "16px 20px 28px" }}>
@@ -4074,10 +3201,6 @@ function SelectHighlight({
 
   useEffect(() => {
     let rafId = 0;
-    // The knobs live in a portal on <body>, so they would show up on their own
-    // while the text is still hidden by its reveal animation (the "lone blue dot"
-    // on first load). Keep them invisible until the text is actually visible.
-    let shown = false;
 
     // Mutate the dot nodes' inline styles directly instead of going through
     // React state: setState + re-render is a frame or more slower than the
@@ -4100,17 +3223,6 @@ function SelectHighlight({
         const size = fontSize * dotRatio;
         // iOS-style handles: start knob sits above the top of its line,
         // end knob sits below the bottom of its line.
-        if (!shown) {
-          let opacity = 1;
-          for (let el: HTMLElement | null = text; el && el !== document.body; el = el.parentElement) {
-            opacity *= parseFloat(getComputedStyle(el).opacity);
-          }
-          if (opacity >= 0.9) {
-            shown = true;
-            startDot.style.opacity = "1";
-            endDot.style.opacity = "1";
-          }
-        }
         startDot.style.display = "block";
         startDot.style.left = `${first.left}px`;
         startDot.style.top = `${first.top}px`;
@@ -4146,8 +3258,6 @@ function SelectHighlight({
     background: dotColor,
     pointerEvents: "none",
     zIndex: 9999,
-    opacity: 0,
-    transition: "opacity 0.35s ease",
   };
 
   return (
@@ -4242,8 +3352,9 @@ function HeroPunchBlock({ kicker, headline }: { kicker: ReactNode; headline: Rea
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
       <HeroKicker>{kicker}</HeroKicker>
-      <GlitchImage
-        className="shs-duotone" src="/forhuman-lab/hero-ai-detection.png"
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="/forhuman-lab/hero-ai-detection.png"
         alt="Detección de personas con IA, superpuesta sobre una foto de un cruce peatonal"
         style={{ width: "100%", height: "clamp(200px, 55vw, 480px)", objectFit: "cover", objectPosition: "top", borderRadius: "var(--radius-md)" }}
       />
@@ -4270,16 +3381,18 @@ function ManifiestoBody({ now, compact = false }: { now: Date | null; compact?: 
           margin: 0,
         }}
       >
-        Nos juntamos para construir, no para mirar.
+        Aprender se aprende haciendo.
       </h1>
       <p style={{ font: `300 ${compact ? 15 : 18}px/1.6 'Work Sans',sans-serif`, color: "rgba(247,247,247,0.9)", margin: 0 }}>
-        forHuman Studio no solo entrega proyectos: también junta gente. Hemos sido parte de hackathons, potenciamos los eventos de Webflow Perú y hemos sido sponsors de <ManifiestoHighlight>Colombia Tech Week, FOF Perú, IA Hackathon y Webflow Perú</ManifiestoHighlight>.
+        Creemos que el mejor diseño no se enseña con slides, se enseña construyendo. superHuman School nace de forHuman Studio: la misma agencia que factura, entrega y se equivoca en proyectos reales — ahora enseñando lo que de verdad usamos, no lo que se ve bien en un curso.
       </p>
       <p style={{ font: `300 ${compact ? 15 : 18}px/1.6 'Work Sans',sans-serif`, color: "rgba(247,247,247,0.9)", margin: 0 }}>
-        Ahora abrimos nuestro propio espacio: forHuman Sessions. Ya lo hicimos en Chimbote, Trujillo y Lima, y <ManifiestoHighlight>seguimos armando más encuentros</ManifiestoHighlight>, siempre presenciales.
+        No queremos graduados con certificado. Queremos builders con criterio: personas que salgan de acá sabiendo defender una decisión de diseño, no solo ejecutarla. Por eso cada camp lo dan quienes hoy mismo siguen
+        <ManifiestoHighlight>trabajando con clientes reales, no solo enseñando teoría</ManifiestoHighlight>.
       </p>
       <p style={{ font: `300 ${compact ? 15 : 18}px/1.6 'Work Sans',sans-serif`, color: "rgba(247,247,247,0.9)", margin: 0 }}>
-        Nuestros eventos son con gente real y sin slides de vendedor. En forHuman Sessions cada encuentro tiene su propio tema; en ¿IA fuimos? hablamos de la IA, de egos, de burnout y de <ManifiestoHighlight>lo que no contamos en LinkedIn</ManifiestoHighlight>. Si algo te movió, escríbenos y súmate.
+        En un mercado saturado de cursos grabados y certificados de fin de semana, el diferencial ya no es la herramienta, es el criterio. La IA acelera el build — la usamos todos los días en forHuman Studio — pero no reemplaza saber qué necesita un cliente, ni defender una decisión cuando algo no sale como el tutorial. Por eso no formamos gente que sepa apretar botones: formamos
+        <ManifiestoHighlight>gente menos reemplazable</ManifiestoHighlight>.
       </p>
       <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", marginTop: compact ? 8 : 24 }}>
         <span style={{ font: `400 ${compact ? 30 : 38}px/1 'Reenie Beanie',cursive`, color: "#F7F7F7" }}>Dani y Fio</span>
@@ -4465,7 +3578,7 @@ function formatMenuBarDateTime(date: Date) {
 
 export function MacDesktopExperience() {
   const [isMobile, setIsMobile] = useState(false);
-  const [openApp, setOpenApp] = useState<AppId>("sessions");
+  const [openApp, setOpenApp] = useState<AppId>("flowmcp");
   const [loadingApp, setLoadingApp] = useState<AppId>(null);
   const [closingApp, setClosingApp] = useState<AppId>(null);
   const [hoveredApp, setHoveredApp] = useState<HoverId>(null);
@@ -4484,8 +3597,6 @@ export function MacDesktopExperience() {
   const [webflowSection, setWebflowSection] = useState("webflow-inicio");
   const [flowmcpSidebarOpen, setFlowmcpSidebarOpen] = useState(false);
   const [flowmcpSection, setFlowmcpSection] = useState("flowmcp-inicio");
-  const [sessionsSidebarOpen, setSessionsSidebarOpen] = useState(false);
-  const [sessionsSection, setSessionsSection] = useState("sessions-inicio");
   const [fotosSidebarOpen, setFotosSidebarOpen] = useState(false);
   const [fotosSection, setFotosSection] = useState("favoritos");
 
@@ -4533,28 +3644,43 @@ export function MacDesktopExperience() {
     return () => clearInterval(tick);
   }, []);
 
-  // Weather for Lima, always. No location prompt: the event is in Lima, so we don't ask the visitor for anything.
   useEffect(() => {
-    const controller = new AbortController();
-    (async () => {
-      try {
-        const res = await fetch(
-          "https://api.open-meteo.com/v1/forecast?latitude=-12.0464&longitude=-77.0428&current=temperature_2m,weather_code&daily=temperature_2m_max,temperature_2m_min&timezone=auto",
-          { signal: controller.signal }
-        );
-        const data = await res.json();
-        setWeather({
-          city: "Lima",
-          temp: Math.round(data.current.temperature_2m),
-          max: Math.round(data.daily.temperature_2m_max[0]),
-          min: Math.round(data.daily.temperature_2m_min[0]),
-          code: data.current.weather_code,
-        });
-      } catch {
-        if (!controller.signal.aborted) setWeather(FALLBACK_WEATHER);
-      }
-    })();
-    return () => controller.abort();
+    if (!navigator.geolocation) {
+      const applyFallbackWeather = () => setWeather(FALLBACK_WEATHER);
+      applyFallbackWeather();
+      return;
+    }
+    navigator.geolocation.getCurrentPosition(
+      async (pos) => {
+        const { latitude, longitude } = pos.coords;
+
+        try {
+          const weatherRes = await fetch(
+            `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,weather_code&daily=temperature_2m_max,temperature_2m_min&timezone=auto`
+          );
+          const weatherData = await weatherRes.json();
+          setWeather((prev) => ({
+            ...(prev ?? FALLBACK_WEATHER),
+            temp: Math.round(weatherData.current.temperature_2m),
+            max: Math.round(weatherData.daily.temperature_2m_max[0]),
+            min: Math.round(weatherData.daily.temperature_2m_min[0]),
+            code: weatherData.current.weather_code,
+          }));
+        } catch {
+          setWeather((prev) => prev ?? FALLBACK_WEATHER);
+        }
+
+        try {
+          const geoRes = await fetch(`/api/reverse-geocode?latitude=${latitude}&longitude=${longitude}`);
+          const geoData = await geoRes.json();
+          if (geoData?.city) setWeather((prev) => ({ ...(prev ?? FALLBACK_WEATHER), city: geoData.city }));
+        } catch {
+          // keep whatever city we already have
+        }
+      },
+      () => setWeather(FALLBACK_WEATHER),
+      { timeout: 8000 }
+    );
   }, []);
 
   const openWhatsApp = (contact: WhatsAppContact) => {
@@ -4587,10 +3713,9 @@ export function MacDesktopExperience() {
     figma: "superHuman — Figma Camp",
     webflow: "superHuman — Webflow Camp",
     flowmcp: "flowmcp",
-    sessions: "forHuman Sessions - ¿IA fuimos?",
     finder: "Finder — forHuman",
     photos: "Fotos",
-    notas: "Eventos.txt",
+    notas: "Manifiesto.txt",
     spotify: "Spotify — Playlist",
   };
 
@@ -4625,7 +3750,7 @@ export function MacDesktopExperience() {
           >
             <div style={{ display: "flex", alignItems: "center", gap: 18 }}>
               <div style={{ width: 14, height: 14, background: "url(/forhuman-lab/logo-forhuman-mark.svg) center / contain no-repeat" }} />
-              <span style={{ fontWeight: 700 }}>forHuman Sessions</span>
+              <span style={{ fontWeight: 700 }}>forHuman Lab</span>
               <span>Archivo</span>
               <span>Edición</span>
               <span>Ver</span>
@@ -4673,14 +3798,14 @@ export function MacDesktopExperience() {
                 <span style={{ font: "400 40px/1 'Manrope',sans-serif", color: "#F7F7F7", letterSpacing: "-0.03em" }}>{now ? now.getDate() : ""}</span>
               </div>
               <div style={{ display: "flex", flexDirection: "column", gap: 8, flex: 1, minWidth: 0 }}>
-                <span style={{ font: "600 11px/1 'Inconsolata',monospace", letterSpacing: "0.08em", color: "rgba(247,247,247,0.5)", textTransform: "uppercase" }}>{now ? MENU_BAR_MONTHS[now.getMonth()] : ""}</span>
+                <span style={{ font: "600 11px/1 'Inconsolata',monospace", letterSpacing: "0.08em", color: "rgba(247,247,247,0.5)", textTransform: "uppercase" }}>Agosto</span>
                 <div style={{ background: "rgba(255,255,255,0.1)", borderRadius: 12, padding: "8px 11px" }}>
-                  <div style={{ font: "600 13px/1.3 'Work Sans',sans-serif", color: "#F7F7F7" }}>forHuman Sessions</div>
-                  <div style={{ font: "400 12px/1.3 'Inconsolata',monospace", color: "rgba(247,247,247,0.6)" }}>16 oct · 6:15 pm · Naia Cowork</div>
+                  <div style={{ font: "600 13px/1.3 'Work Sans',sans-serif", color: "#F7F7F7" }}>Webflow IA Camp</div>
+                  <div style={{ font: "400 12px/1.3 'Inconsolata',monospace", color: "rgba(247,247,247,0.6)" }}>Mar y Jue · 7–9pm Perú</div>
                 </div>
                 <div style={{ background: "rgba(255,255,255,0.1)", borderRadius: 12, padding: "8px 11px" }}>
-                  <div style={{ font: "600 13px/1.3 'Work Sans',sans-serif", color: "#F7F7F7" }}>Inscripciones</div>
-                  <div style={{ font: "400 12px/1.3 'Inconsolata',monospace", color: "rgba(247,247,247,0.6)" }}>Pronto</div>
+                  <div style={{ font: "600 13px/1.3 'Work Sans',sans-serif", color: "#F7F7F7" }}>Figma Camp</div>
+                  <div style={{ font: "400 12px/1.3 'Inconsolata',monospace", color: "rgba(247,247,247,0.6)" }}>Mar y Jue · 7–9pm Perú</div>
                 </div>
               </div>
             </div>
@@ -4702,10 +3827,10 @@ export function MacDesktopExperience() {
                 }}
               >
                 <div style={{ display: "flex", alignItems: "baseline", gap: 6 }}>
-                  <span style={{ font: "700 15px/1 'Work Sans',sans-serif", color: "#F7F7F7" }}>To-do list</span>
-                  <span style={{ font: "500 12px/1 'Work Sans',sans-serif", color: "rgba(247,247,247,0.5)" }}>3</span>
+                  <span style={{ font: "700 15px/1 'Work Sans',sans-serif", color: "#F7F7F7" }}>Hoy</span>
+                  <span style={{ font: "500 12px/1 'Work Sans',sans-serif", color: "rgba(247,247,247,0.5)" }}>4</span>
                 </div>
-                {["Definir speakers", "Elegir quién modera", "Abrir inscripción"].map((item) => (
+                {["Webflow IA Camp — Mar y Jue", "Figma Camp — Mar y Jue", "Cupos Early Bird", "Certificado final"].map((item) => (
                   <div key={item} style={{ display: "flex", alignItems: "center", gap: 8, minWidth: 0 }}>
                     <div style={{ width: 14, height: 14, borderRadius: "50%", boxShadow: "inset 0 0 0 1.5px rgba(247,247,247,0.5)", flexShrink: 0 }} />
                     <span
@@ -4795,8 +3920,8 @@ export function MacDesktopExperience() {
             <DockIcon label="Webflow Camp — Coming soon" hoverId="webflow" hovered={hoveredApp} onHover={setHoveredApp} open={false} mouseX={dockMouseX}>
               <div style={{ width: 56, height: 56, borderRadius: 14, background: "url(/forhuman-lab/icon-webflow.svg) center / cover no-repeat" }} />
             </DockIcon>
-            <DockIcon label="forHuman Sessions" hoverId="sessions" hovered={hoveredApp} onHover={setHoveredApp} onClick={() => openWindow("sessions")} open={openApp === "sessions"} mouseX={dockMouseX}>
-              <div style={{ width: 56, height: 56, borderRadius: 14, background: "url(/forhuman-lab/icon-sessions-fh.svg) center / cover no-repeat" }} />
+            <DockIcon label="flowmcp" hoverId="flowmcp" hovered={hoveredApp} onHover={setHoveredApp} onClick={() => openWindow("flowmcp")} open={openApp === "flowmcp"} mouseX={dockMouseX}>
+              <div style={{ width: 56, height: 56, borderRadius: 14, background: "url(/forhuman-lab/icon-flowmcp.svg) center / cover no-repeat" }} />
             </DockIcon>
             <DockIcon label="Fotos" hoverId="photos" hovered={hoveredApp} onHover={setHoveredApp} onClick={() => openWindow("photos")} open={openApp === "photos" || loadingApp === "photos"} mouseX={dockMouseX}>
               <div style={{ width: 56, height: 56, borderRadius: 14, background: "url(/forhuman-lab/icon-fotos.svg) center / cover no-repeat" }} />
@@ -4849,18 +3974,6 @@ export function MacDesktopExperience() {
               floatingAction={<WhatsNewButton />}
             >
               <FlowmcpBody />
-            </WindowChrome>
-          )}
-          {(openApp === "sessions" || closingApp === "sessions") && (
-            <WindowChrome
-              title={windowTitles.sessions}
-              onClose={closeApp}
-              closing={closingApp === "sessions"}
-              sidebarOpen={sessionsSidebarOpen}
-              onToggleSidebar={() => setSessionsSidebarOpen((v) => !v)}
-              sidebar={<AppSidebar sections={SESSIONS_SECTIONS} active={sessionsSection} onSelect={(id) => goToSection(setSessionsSection, id)} open={sessionsSidebarOpen} />}
-            >
-              <SessionsBody />
             </WindowChrome>
           )}
           {(openApp === "finder" || closingApp === "finder") && (
@@ -4970,7 +4083,7 @@ export function MacDesktopExperience() {
               >
                 <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
                   <div style={{ width: 13, height: 13, background: "url(/forhuman-lab/logo-forhuman-mark.svg) center / contain no-repeat" }} />
-                  <span style={{ font: "700 12px/1 'Work Sans',sans-serif" }}>forHuman Sessions</span>
+                  <span style={{ font: "700 12px/1 'Work Sans',sans-serif" }}>forHuman Lab</span>
                 </div>
                 <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
                   <svg width="14" height="10.5" viewBox="0 0 19 12">
@@ -4997,8 +4110,8 @@ export function MacDesktopExperience() {
                     </div>
                   </div>
                   {[
-                    ["forHuman Sessions", "16 oct · 6:15 pm · Naia Cowork"],
-                    ["Inscripciones", "Pronto"],
+                    ["Webflow IA Camp", "Mar y Jue · 7–9pm Perú"],
+                    ["Figma Camp", "Mar y Jue · 7–9pm Perú"],
                   ].map(([title, detail]) => (
                     <div key={title} style={{ background: "rgba(255,255,255,0.09)", borderRadius: 10, padding: "8px 10px" }}>
                       <div style={{ font: "500 13px/1.3 'Work Sans',sans-serif", color: "#F7F7F7" }}>{title}</div>
@@ -5008,10 +4121,10 @@ export function MacDesktopExperience() {
                 </div>
                 <div style={{ borderRadius: 22, background: "rgba(13,13,13,0.4)", backdropFilter: "blur(24px)", padding: 16, display: "flex", flexDirection: "column", gap: 10, boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.08)" }}>
                   <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                    <span style={{ font: "500 13px/1 'Work Sans',sans-serif", color: "#F7F7F7" }}>To-do list</span>
-                    <span style={{ font: "600 11px/1 'Work Sans',sans-serif", color: "#F7F7F7", background: "rgba(255,255,255,0.15)", borderRadius: 999, padding: "3px 8px" }}>3</span>
+                    <span style={{ font: "500 13px/1 'Work Sans',sans-serif", color: "#F7F7F7" }}>Próximos lanzamientos</span>
+                    <span style={{ font: "600 11px/1 'Work Sans',sans-serif", color: "#F7F7F7", background: "rgba(255,255,255,0.15)", borderRadius: 999, padding: "3px 8px" }}>4</span>
                   </div>
-                  {["Definir speakers", "Elegir quién modera", "Abrir inscripción"].map((item) => (
+                  {["Webflow IA Camp — Mar y Jue", "Figma Camp — Mar y Jue", "Cupos Early Bird limitados", "Certificado al completar"].map((item) => (
                     <div key={item} style={{ display: "flex", alignItems: "center", gap: 9 }}>
                       <div style={{ width: 15, height: 15, borderRadius: "50%", boxShadow: "inset 0 0 0 1.5px rgba(247,247,247,0.55)", flexShrink: 0 }} />
                       <span style={{ font: "300 12px/1.3 'Work Sans',sans-serif", color: "rgba(247,247,247,0.92)" }}>{item}</span>
@@ -5064,8 +4177,8 @@ export function MacDesktopExperience() {
                     {hoveredApp === "webflow" && <DockTooltip label="Webflow Camp — Coming soon" />}
                     <div style={{ width: 56, height: 56, borderRadius: 14, background: "url(/forhuman-lab/icon-webflow.svg) center / cover no-repeat" }} />
                   </div>
-                  <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }} onClick={() => openWindow("sessions")}>
-                    <div style={{ width: 56, height: 56, borderRadius: 14, background: "url(/forhuman-lab/icon-sessions-fh.svg) center / cover no-repeat", cursor: "pointer" }} />
+                  <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }} onClick={() => openWindow("flowmcp")}>
+                    <div style={{ width: 56, height: 56, borderRadius: 14, background: "url(/forhuman-lab/icon-flowmcp.svg) center / cover no-repeat", cursor: "pointer" }} />
                   </div>
                   <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }} onClick={() => openWindow("notas")}>
                     <div style={{ width: 56, height: 56, borderRadius: 14, background: "url(/forhuman-lab/icon-notas.svg) center / cover no-repeat", cursor: "pointer" }} />
@@ -5090,12 +4203,6 @@ export function MacDesktopExperience() {
           {(openApp === "flowmcp" || closingApp === "flowmcp") && (
             <MobileScreen title={windowTitles.flowmcp} bg="var(--white)" onClose={closeApp} closing={closingApp === "flowmcp"} floatingAction={<WhatsNewButton />}>
               <FlowmcpBody />
-            </MobileScreen>
-          )}
-
-          {(openApp === "sessions" || closingApp === "sessions") && (
-            <MobileScreen title={windowTitles.sessions} bg="var(--white)" onClose={closeApp} closing={closingApp === "sessions"}>
-              <SessionsBody />
             </MobileScreen>
           )}
 
