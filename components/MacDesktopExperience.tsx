@@ -3190,30 +3190,37 @@ function SelectHighlight({
   /** Dot diameter as a fraction of the highlighted text's own font-size (not the page's). */
   dotRatio?: number;
 }) {
+  const wrapRef = useRef<HTMLSpanElement>(null);
   const textRef = useRef<HTMLSpanElement>(null);
   const dotRefs = useRef<(HTMLSpanElement | null)[]>([]);
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    const markMounted = () => setMounted(true);
-    markMounted();
-  }, []);
 
   useEffect(() => {
     let rafId = 0;
 
-    // Mutate the dot nodes' inline styles directly instead of going through
-    // React state: setState + re-render is a frame or more slower than the
-    // browser's own scroll compositing, which is what made the dots visibly
-    // lag/detach from the text while scrolling. Writing style.left/top here
-    // keeps them locked to the text on every single rAF tick.
+    // The dots are absolutely positioned inside `wrapRef` (a normal, in-flow
+    // element) instead of fixed + portaled to document.body. That means
+    // scrolling moves them via the browser's own compositor, in the exact
+    // same step as the text — no per-frame JS repositioning to keep in sync,
+    // so there's no possible lag/glitch during scroll. The rAF loop below
+    // still runs, but only to catch real layout changes (line-wrap, resize,
+    // reveal animations); since it computes the dots' position *relative to
+    // wrapRef* (not the viewport), a stale read during fast scroll still
+    // lands in the right place — the scroll offset cancels out on both sides
+    // of the subtraction.
     const measure = () => {
+      const wrap = wrapRef.current;
       const text = textRef.current;
       const [startDot, endDot] = dotRefs.current;
-      if (!text || !startDot || !endDot) {
+      if (!wrap || !text || !startDot || !endDot) {
         rafId = requestAnimationFrame(measure);
         return;
       }
+      // Browsers position absolute children of an inline element that wraps
+      // across multiple lines relative to its *first* line fragment — not
+      // the union bounding box getBoundingClientRect() would return. Reading
+      // getClientRects()[0] matches that same reference point, so the dots
+      // land correctly even when the highlighted phrase spans two lines.
+      const wrapRect = wrap.getClientRects()[0] ?? wrap.getBoundingClientRect();
       // Ignore degenerate/zero-size fragments some browsers emit at wrap points.
       const rects = Array.from(text.getClientRects()).filter((r) => r.width > 0.5 && r.height > 0.5);
       if (rects.length) {
@@ -3224,13 +3231,13 @@ function SelectHighlight({
         // iOS-style handles: start knob sits above the top of its line,
         // end knob sits below the bottom of its line.
         startDot.style.display = "block";
-        startDot.style.left = `${first.left}px`;
-        startDot.style.top = `${first.top}px`;
+        startDot.style.left = `${first.left - wrapRect.left}px`;
+        startDot.style.top = `${first.top - wrapRect.top}px`;
         startDot.style.width = `${size}px`;
         startDot.style.height = `${size}px`;
         endDot.style.display = "block";
-        endDot.style.left = `${last.right}px`;
-        endDot.style.top = `${last.bottom}px`;
+        endDot.style.left = `${last.right - wrapRect.left}px`;
+        endDot.style.top = `${last.bottom - wrapRect.top}px`;
         endDot.style.width = `${size}px`;
         endDot.style.height = `${size}px`;
       } else {
@@ -3251,29 +3258,23 @@ function SelectHighlight({
   }, [children, dotRatio]);
 
   const dotStyle: CSSProperties = {
-    position: "fixed",
+    position: "absolute",
     display: "none",
     transform: "translate(-50%, -50%)",
     borderRadius: "50%",
     background: dotColor,
     pointerEvents: "none",
-    zIndex: 9999,
+    zIndex: 5,
   };
 
   return (
-    <>
+    <span ref={wrapRef} style={{ position: "relative", display: "inline" }}>
       <span ref={textRef} className={className}>
         {children}
       </span>
-      {mounted &&
-        createPortal(
-          <>
-            <span ref={(el) => { dotRefs.current[0] = el; }} style={dotStyle} />
-            <span ref={(el) => { dotRefs.current[1] = el; }} style={dotStyle} />
-          </>,
-          document.body
-        )}
-    </>
+      <span ref={(el) => { dotRefs.current[0] = el; }} style={dotStyle} />
+      <span ref={(el) => { dotRefs.current[1] = el; }} style={dotStyle} />
+    </span>
   );
 }
 
